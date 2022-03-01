@@ -1,0 +1,250 @@
+
+/* --------------header------------------ */
+header,
+footer{
+    /*background: linear-gradient(#6c7175, #2D343D, #1f252d);*/
+    background: linear-gradient(#6c7175, #525250, #41403C);
+    border-radius: 5px;
+    padding-left: 5%;
+    padding-bottom: 5px;
+    padding-top: 1px;
+    color: #d08856;
+    text-shadow: #AA210F 2px 1px;
+    font-weight: bold;
+    /*
+    color: #679436;
+    text-shadow: #ec9b50 1px 1px;
+    */
+
+    font-size: 1.5em;
+}
+
+#containerTitle{
+
+}
+
+#icone{
+    max-width: 100px;
+    align-self: flex-start;
+}
+
+
+#slogan{
+    font-size: 0.7em;
+    margin-top: 0;
+    padding-left: 10%;
+}
+#titleSite{
+    margin-bottom: 0;
+    justify-items: center;
+}
+
+
+/* --------------navbar------------------ */
+.nav-link{
+    margin-right: 5%;
+    color: #679436;
+    text-shadow: #ec9b50 1px 1px;
+}
+
+.nav-link:hover{
+    color: deepskyblue;
+    text-shadow: white 1px 1px;
+}
+
+.sousMenu{
+    color: #679436;
+    font-size: large;
+    text-shadow: none;
+}
+
+/* --------------body------------------ */
+body{
+    background: linear-gradient(#EFEFEF, #EDEFEE);
+    font-family: 'Shadows Into Light', cursive;
+}
+
+main{
+    margin-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+form{
+    display: grid;
+    max-width: 100px;
+    box-sizing: border-box;
+}
+input,
+select{
+    margin-bottom: 1em;
+}
+
+.button,
+.button[value="modify"]{
+    color: #A4BD01;
+    text-shadow: #264653 2px 2px;
+    background: linear-gradient(#06668C, #427AA1);
+    box-shadow: #593918 2px 2px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.lienFiche{
+    color: black;
+}
+
+.pseudoFiche{
+    font-weight: bold;
+    color: #427AA1;
+    text-shadow: #17c2e0 2px 2px;
+}
+
+#formAddChamps{
+    display: flex;
+    flex-direction: row;
+}
+#choixType {
+}
+
+#btnFiche{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+.boutonFiche{
+    color: white;
+    text-shadow: #f1f2f3 1px 1px;
+
+}
+.button[value="update"]{
+    background: linear-gradient(#9beec8,#3abb81, #226b4a);
+    color: white;
+    text-shadow: black 2px 1px;
+    border: black 1px solid;
+}
+.button[value="valider"]{
+    background: linear-gradient(rgb(189, 208, 243),rgb(126, 165, 238), rgb(89, 117, 168));
+    color: white;
+    text-shadow: black 2px 1px;
+    border: black 1px solid;
+ }
+.button[value="retour"]{
+    background: linear-gradient(rgba(239, 179, 179, 0.61),rgba(238, 75, 75, 0.61), rgba(112, 36, 36, 0.61));
+    color: white;
+    text-shadow: black 2px 1px;
+    border: black 1px solid;
+}
+
+.newFiche{
+    margin-top: 50px;
+}
+
+.cardFiche{
+    background: linear-gradient(#dee1e5, #b5cee3);
+    border: 4px rgba(16, 15, 15, 0.35) solid;
+    border-radius: 20px;
+    box-shadow: 5px 5px #343642;
+
+}
+.cardTitle{
+    background: linear-gradient(#6c7175, #525250, #41403C);
+    border-radius: 10px;
+    border: 3px rgba(16, 15, 15, 0.35) solid;
+    box-shadow: 4px 4px #343642;
+    color: #d08856;
+    text-shadow: #AA210F 2px 1px;
+    font-weight: bold;
+}
+.cardTypeInfo{
+    background: linear-gradient(#EFEFEF, #EDEFEE, #EDEFEE, #8c8d8d);
+    border-radius: 10px;
+    border: 3px rgba(16, 15, 15, 0.35) solid;
+    box-shadow: 4px 4px #343642;
+}
+.cardChamp{
+    background: linear-gradient(#eaedef, #F4EAC7);
+    border-radius: 20px;
+    border: 2px rgba(16, 15, 15, 0.35) solid;
+    box-shadow: 3px 3px #343642;
+}
+
+/* card champ fiche detail*/
+.champFiche{
+    display: flex;
+    justify-content: center;
+}
+.labelChamps{
+    font-weight: bold;
+    color: #B0413E;
+    text-shadow: #e78f54 1px 1px;
+    flex-wrap: nowrap;
+}
+.buttonPrevious{
+    align-self: flex-start;
+    justify-content: flex-start;
+    font-weight: bold;
+}
+.champZoneInfo{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* --------------message flash------------------ */
+.flash{
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    width: 50%;
+}
+.flash-success{
+    background-color: #7eeeaf;
+}
+.flash-warning{
+    background-color: #f39190;
+}
+.flash-info{
+    background-color: #5eb5e0;
+}
+
+/* --------------liste fiche perso------------------ */
+.carousel .carousel-item {
+    height: 50vh;
+    width: 50vh;
+}
+
+.carousel-item img {
+    position: absolute;
+    object-fit:cover;
+    top: 0;
+    left: 0;
+    max-height: 50vh;
+    width: 50vh;
+}
+
+#carouselCard{
+    background: #b5d1f3;
+}
+
+#containerList{
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------modal fiche perso------------------ */
+#modalValeurChamp{
+    font-weight: bold;
+    color: #3a51bb;
+}
+
+
+/* --------------footer------------------ */
+footer{
+    margin-top: 50px;
+    padding-top: 5px;
+
+}

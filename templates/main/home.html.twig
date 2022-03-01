@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Home | {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div>
+        <h2>Qu'est ce que Mon classeur JDR ?</h2>
+    </div>
+
+    <section>
+        <div class="mb-4">
+            <h4>Mon classeur JDR vous permet de créer vos propres fiches de personnages très simplement.</h4>
+            <p>
+                Comment ?
+                <ol>
+                    <li>Allez dans l'onglet "Mon profil" puis cliquez sur "Fiches de personnages".</li>
+                    <li>Créez une nouvelle fiche personnage avec son nom et une image optionnelle.</li>
+                    <li>Remplissez toutes vos informations de votre fiche personnages dans des champs distincts répartis dans sept sections pour une meilleure lisibilité</li>
+                    <li>Créez jusqu'à trois jauges de ressources (idéal pour les points de vie !)</li>
+                    <li>Modifiez l'ordre et les valeurs des champs créés à votre convenance.</li>
+                </ol>
+            </p>
+        </div>
+        <hr>
+        <div class="mt-4">
+            <h5>Exemple d'une fiche personnage personnalisée</h5>
+            <img src="{{ asset('img/Screen_fiche.png') }}" alt="exemple d'une fiche de personnage" title="exemple d'une fiche de personnage">
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2>Todo list</h2>
+    <ul>
+        <li>login
+            <ul>
+                <li>remember me</li>
+            </ul>
+        </li>
+        <li>espace perso
+            <ul>
+                <li>info compte user</li>
+                <li>liste fiches créées</li>
+                <li>détails fiche</li>
+                <li>modifier entité fiche pour inclure le nombre de champs dans chaque section pour n'afficher que les sections qui contiennent des champs. </li>
+                <li>barre ajustable pour les pv + autres ressources</li>
+            </ul>
+        </li>
+        <li>lien log out (user) OK</li>
+        <li>erreurs
+            <ul>
+                <li>page 404 , 403</li>
+                <li>gestion redirection</li>
+            </ul></li>
+    </ul>
+{% endblock %}
+
+{% block title %}
+    TODO | {{ parent() }}
+{% endblock %}
+

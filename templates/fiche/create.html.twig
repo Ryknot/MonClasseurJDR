@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card mb-2 col-6 cardFiche" id="formFiche">
+        <div class="col">
+            <div class="col card-content p-2 m-2 cardTitle">
+                <h2 class="text-center">Création fiche perso</h2>
+            </div>
+            <div class="col card-content p-2 m-2 cardTypeInfo">
+                {{ form_start(ficheForm) }}
+                <div class="">
+                    <div class="p-1 m-2 text-center cardChamp">
+                        {{ form_row(ficheForm.pseudo) }}
+                    </div>
+                    <div class="p-1 m-2 text-center cardChamp">
+                        {{ form_row(ficheForm.image) }}
+                    </div>
+                </div>
+                <div class="newFiche">
+                    <button type="submit" class="btn btn-lg button" name="boutonFiche">Valider</button>
+                </div>
+                {{ form_end(ficheForm) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+    {{ user.pseudo }} | Creation fiche | {{ parent() }}
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+

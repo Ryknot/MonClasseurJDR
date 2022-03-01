@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="cardFiche col-4 m-5">
+    <h2 class="h3 m-3 font-weight-normal cardTitle text-center p-1">Profil</h2>
+    {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
+        <div class="cardChamp m-3 p-4">
+            <p><span class="labelChamps">Pseudo </span> {{ user.pseudo }}</p>
+            <p><span class="labelChamps">Email </span> {{ user.email }}</p>
+        </div>
+
+        <div class="m-3">
+            <a href="#"><button class="btn btn-lg button mt-5">Mettre à jour</button></a>
+        </div>
+
+    {% else %}
+        <h3> Infos indisponibles</h3>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block title %}
+    profil | {{ parent() }}
+{% endblock %}
+

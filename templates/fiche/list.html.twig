@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div id="listeFiche" class="container-fluid col-12">
+        <div class="row">
+            <div id="containerList" class="col cardFiche m-5 p-5">
+                <h3 class="cardTypeInfo text-center p-1 mb-5">Fiches de personnages de <span class="pseudoFiche">{{ user.pseudo }}</span></h3>
+
+                {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
+                    <div class="listPerso">
+                        {% if fiches.count != 0 %}
+                            {% for fiche in fiches %}
+                                <div class="cardChamp p-2 m-1 col-4 text-center">
+                                    <a class="lienFiche" href="{{ path('fiche_detail', {'id': fiche.id}) }}">{{ fiche.pseudo }}</a>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>pas de fiche perso</p>
+                        {% endif %}
+                    </div>
+                    <div class="newFiche">
+                        <a href="{{ path('fiche_create' , {'id' : user.id}) }}"><button class="btn btn-lg button">Nouveau personnage</button></a>
+                    </div>
+                {% else %}
+                    <h3>Fiches de personnages: infos filtrés</h3>
+
+                {% endif %}
+            </div>
+            <div id="containerCarousel" class="col cardFiche m-5 p-5">
+                <div id="carouselCard" class="card border row justify-content-center">
+                    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if fiches.count != 0 %}
+                                {% set index = 0 %}
+                                {% for fiche in fiches %}
+                                    {% set index = index +1 %}
+                                    <div class="carousel-item {{ index == 1? "active" : "" }}">
+                                        {% if fiche.image != null %}
+                                            <img src="{{ asset('uploads/' ~ fiche.image) }}" class="d-block w-100" alt="photo personnage">
+                                        {% else %}
+                                            <img src="{{ asset('img/fiche.png') }}" class="d-block w-100" alt="...">
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
