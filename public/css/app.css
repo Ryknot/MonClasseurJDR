@@ -2,19 +2,15 @@
 /* --------------header------------------ */
 header,
 footer{
-    /*background: linear-gradient(#6c7175, #2D343D, #1f252d);*/
-    background: linear-gradient(#6c7175, #525250, #41403C);
+    background: linear-gradient(#727070, #494848, #494848);
     border-radius: 5px;
     padding-left: 5%;
     padding-bottom: 5px;
     padding-top: 1px;
     color: #d08856;
-    text-shadow: #AA210F 2px 1px;
+    text-shadow: #AA210F 2px 2px;
     font-weight: bold;
-    /*
-    color: #679436;
-    text-shadow: #ec9b50 1px 1px;
-    */
+    box-shadow: #525250 3px 3px;
 
     font-size: 1.5em;
 }
@@ -43,25 +39,41 @@ footer{
 /* --------------navbar------------------ */
 .nav-link{
     margin-right: 5%;
-    color: #679436;
-    text-shadow: #ec9b50 1px 1px;
+    color: #d08856;
+    text-shadow: #b04f42 2px 2px;
 }
 
 .nav-link:hover{
-    color: deepskyblue;
-    text-shadow: white 1px 1px;
+    color: #427AA1;
+    text-shadow: #17c2e0 2px 2px;
 }
 
 .sousMenu{
-    color: #679436;
     font-size: large;
-    text-shadow: none;
+    color: #d08856;
+    text-shadow: #AA210F 1px 1px;
+    font-weight: bold;
 }
 
+/* ---------- volet gauche ------------ */
+
+.voletG{
+    background: linear-gradient(#727070, #494848, #494848);
+    border-radius: 10px;
+    border: 2px rgba(16, 15, 15, 0.35) solid;
+    box-shadow: 3px 3px #343642;
+}
+#inputDe{
+    width: 100%;
+}
+
+
+
 /* --------------body------------------ */
+
 body{
     background: linear-gradient(#EFEFEF, #EDEFEE);
-    font-family: 'Shadows Into Light', cursive;
+    /*font-family: 'Shadows Into Light', cursive;*/
 }
 
 main{
@@ -82,16 +94,33 @@ select{
 
 .button,
 .button[value="modify"]{
-    color: #A4BD01;
-    text-shadow: #264653 2px 2px;
-    background: linear-gradient(#06668C, #427AA1);
+    color: #d08856;
+    text-shadow: #593918 1px 1px;
+    font-weight: bold;
+    background: linear-gradient(#8a8a8a, #494848);
     box-shadow: #593918 2px 2px;
     border-radius: 10px;
     margin-left: 10px;
 }
+.button:hover{
+    color: #f6ece5;
+    background: linear-gradient(#d08856, #9d6843);
+    box-shadow: #6b160b 1px 1px;
+    border: rgba(31, 31, 31, 0.7) 1px solid;
+}
+
+.titleVoletG{
+    font-weight: bold;
+}
 
 .lienFiche{
     color: black;
+}
+
+i{
+    font-size: 1.5em;
+    padding: 10px;
+    padding-left: 0;
 }
 
 .pseudoFiche{
@@ -100,9 +129,9 @@ select{
     text-shadow: #17c2e0 2px 2px;
 }
 
-#formAddChamps{
-    display: flex;
-    flex-direction: row;
+.voletG {
+    min-width: 240px;
+    max-width: 240px;
 }
 #choixType {
 }
@@ -117,23 +146,34 @@ select{
     text-shadow: #f1f2f3 1px 1px;
 
 }
-.button[value="update"]{
+.button[value="update"]:hover{
     background: linear-gradient(#9beec8,#3abb81, #226b4a);
     color: white;
     text-shadow: black 2px 1px;
     border: black 1px solid;
 }
-.button[value="valider"]{
+.button[value="valider"]:hover{
     background: linear-gradient(rgb(189, 208, 243),rgb(126, 165, 238), rgb(89, 117, 168));
     color: white;
     text-shadow: black 2px 1px;
     border: black 1px solid;
  }
 .button[value="retour"]{
-    background: linear-gradient(rgba(239, 179, 179, 0.61),rgba(238, 75, 75, 0.61), rgba(112, 36, 36, 0.61));
+    background: linear-gradient(rgba(213, 213, 213, 0.61), rgba(152, 150, 150, 0.61), rgba(82, 81, 81, 0.61));
     color: white;
     text-shadow: black 2px 1px;
     border: black 1px solid;
+}
+.button[value="retour"]:hover{
+    border: #f58116 1px solid;
+    text-shadow: rgba(98, 97, 97, 0.35) 2px 1px;
+}
+
+.button[value="delete"]:hover{
+    background: linear-gradient(rgba(239, 179, 179, 0.61),rgba(238, 75, 75, 0.61), rgba(112, 36, 36, 0.61));
+    color: white;
+    text-shadow: black 2px 1px;
+    border: rgba(112, 36, 36, 0.61) 1px solid;
 }
 
 .newFiche{
@@ -141,30 +181,32 @@ select{
 }
 
 .cardFiche{
-    background: linear-gradient(#dee1e5, #b5cee3);
+    background: linear-gradient(#d6d7d7, #c4c5c5);
     border: 4px rgba(16, 15, 15, 0.35) solid;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 5px 5px #343642;
 
 }
 .cardTitle{
-    background: linear-gradient(#6c7175, #525250, #41403C);
+    /*background: linear-gradient(#6c7175, #525250, #41403C);*/
+    background: linear-gradient(#ffffff, #bfcacc, #8c8c86);
+
     border-radius: 10px;
     border: 3px rgba(16, 15, 15, 0.35) solid;
     box-shadow: 4px 4px #343642;
-    color: #d08856;
-    text-shadow: #AA210F 2px 1px;
+    color: #7c3430;
+    text-shadow: #252733 2px 1px;
     font-weight: bold;
 }
 .cardTypeInfo{
-    background: linear-gradient(#EFEFEF, #EDEFEE, #EDEFEE, #8c8d8d);
+    background: linear-gradient(#f1eeee, #EDEFEE, #EDEFEE, #b7b0b0);
     border-radius: 10px;
-    border: 3px rgba(16, 15, 15, 0.35) solid;
+    border: 3px rgba(103, 0, 0, 0.54) solid;
     box-shadow: 4px 4px #343642;
 }
 .cardChamp{
-    background: linear-gradient(#eaedef, #F4EAC7);
-    border-radius: 20px;
+    background: linear-gradient(white, #eaedef, #eaedef, #9ca2af);
+    border-radius: 10px;
     border: 2px rgba(16, 15, 15, 0.35) solid;
     box-shadow: 3px 3px #343642;
 }
@@ -176,7 +218,7 @@ select{
 }
 .labelChamps{
     font-weight: bold;
-    color: #B0413E;
+    color: #343642;
     text-shadow: #e78f54 1px 1px;
     flex-wrap: nowrap;
 }
@@ -190,22 +232,34 @@ select{
     flex-direction: column;
 }
 
+.modifiable{
+    color: #296fa8;
+    font-size: large;
+    white-space: normal;
+}
 
 
 /* --------------message flash------------------ */
 .flash{
-    padding: 20px;
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: medium;
+    height: 40px;
     margin: 1rem 0;
-    border-radius: 5px;
-    width: 50%;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: max-content;
 }
 .flash-success{
-    background-color: #7eeeaf;
+    background-color: #cbf3cb;
+    border: 2px solid #3abb81;
+    color: #3abb81;
 }
 .flash-warning{
-    background-color: #f39190;
+    background-color: #e7abab;
+    border: 2px solid #b42c2c;
+    color: #b42c2c;
 }
 .flash-info{
     background-color: #5eb5e0;
@@ -241,10 +295,52 @@ select{
     color: #3a51bb;
 }
 
+.modifier{
+    color: #3a51bb;
+    font-weight: bold;
+}
+
+/* -------------- carteMJ ------------------ */
+
+.pnj, .PNJ{
+    background: linear-gradient(#8abdef, #5184b2, #2968a4);
+    border: 1px solid black;
+}
+.bestiaire{
+    background: linear-gradient(#d05050, #b23030, #8d0303);
+    border: 1px solid black;
+}
+.dead{
+    color: red;
+    font-weight: bold;
+}
+
+.pvMoinsCarteMJ, .pvPlusCarteMJ{
+    font-size: medium;
+}
+
+.deleteCarteMJ, .updateCarteMJ, .deleteNewCarteMJ, .updateNewCarteMJ{
+    font-size: medium;
+}
+
 
 /* --------------footer------------------ */
 footer{
     margin-top: 50px;
     padding-top: 5px;
+
+}
+
+
+
+/* ---- TEST --------- */
+.fondMetal{
+    background-image: url("../img/skin/bois/fond_bois.jpg");
+}
+.champPlaqueMetal{
+    padding: 2% 3% 1.5% 3%;
+    background-image: url("../img/skin/metal/plaque_fer.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 
 }

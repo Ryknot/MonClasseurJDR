@@ -1,11 +1,6 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            {#
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ path('main_todo') }}">Todo</a>
-            </li>
-            #}
         {% if not app.user %}
             <li class="nav-item">
                 <a class="nav-link active menuItem" aria-current="page" href="{{ path('app_login') }}" title="Login">{{ 'connection' | trans }}</a>
@@ -22,10 +17,10 @@
                     {{ 'profil' | trans }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item sousMenu" href="{{ path('fiche_list', {'id':app.user.id}) }}">Fiches de personnage</a></li>
+                    <li><a class="dropdown-item sousMenu" href="{{ path('fiche_list', {'id':app.user.id}) }}">Joueur - Fiches de personnage</a></li>
+                    <li><a class="dropdown-item sousMenu" href="{{ path('interfaceMJ', {'id':app.user.id}) }}">MJ - Gestion de la partie</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item sousMenu" href="{{ path('profil', {'id':app.user.id}) }}">{{ 'profil' | trans }}</a></li>
-
                 </ul>
             </li>
             <li class="nav-item">
@@ -33,6 +28,14 @@
             </li>
         {% endif %}
         </ul>
+
+        {#
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ path('main_todo') }}">Todo</a>
+        </li>
+        <a class="lienFiche" href="{{ path('fiche_test', {'id': 24}) }}">page test</a>
+        #}
+
     </div>
 </nav>
 

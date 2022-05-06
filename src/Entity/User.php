@@ -59,9 +59,15 @@ class User implements UserInterface
      */
     private $fichePersos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CarteMJ::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $cartesMJ;
+
     public function __construct()
     {
         $this->fichePersos = new ArrayCollection();
+        $this->cartesMJ = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,5 +207,35 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->pseudo;
+    }
+
+    /**
+     * @return Collection|CarteMJ[]
+     */
+    public function getCartesMJ(): Collection
+    {
+        return $this->cartesMJ;
+    }
+
+    public function addCartesMJ(CarteMJ $cartesMJ): self
+    {
+        if (!$this->cartesMJ->contains($cartesMJ)) {
+            $this->cartesMJ[] = $cartesMJ;
+            $cartesMJ->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartesMJ(CarteMJ $cartesMJ): self
+    {
+        if ($this->cartesMJ->removeElement($cartesMJ)) {
+            // set the owning side to null (unless already changed)
+            if ($cartesMJ->getUser() === $this) {
+                $cartesMJ->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

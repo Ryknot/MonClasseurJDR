@@ -34,10 +34,10 @@ $(document).ready(function()
         {
             //récupération des datas
             var id = $(this).data('champ');
-            console.log(id);
+
             //modal
            $.confirm({
-               title: 'Supprimer',
+               title: "<span class='dead'><i class='mdi mdi-alert-outline'> </i> Supprimer</span>",
                content: 'Voulez vous supprimer le champ ?',
                buttons: {
                    Confirmer: function () {
@@ -66,24 +66,25 @@ $(document).ready(function()
             var typeChamp = "";
             if (valeurTexte !== ""){
                 typeChamp = "texte";
-                var input = "<input type='text' id='newValeur'>";
                 var oldValeur = valeurTexte;
+                var input = "<input type='text' id='newValeur' value=''"+ oldValeur +">";
             }
             else if (valeurArea !== ""){
                 typeChamp = "area";
-                var input = "<textarea id='newValeur'></textarea>";
                 var oldValeur = valeurArea;
+                var input = "<textarea id='newValeur'>"+ oldValeur +"</textarea>";
             }
 
             //modal
             $.confirm({
-                title: "<h3>Modification du champ ?</h3>",
+                title: "<span class='modifier'><i class='mdi mdi-file-edit-outline'> </i> Modifier</span>",
                 content:
                     "<p>Ancienne valeur: " + oldValeur + "</p>" +
                     "<label>Nouvelle valeur: </label>" + input,
                 buttons: {
                     Confirmer: function () {
-                        var newValeur = $("#newValeur").val();
+                        var newValeur = $("#newValeur").val().replace(/\n/g, '¤');
+
                         if (newValeur === "" || newValeur == null || newValeur.length === 0){
                             newValeur = " texte vide !!";
                         }
@@ -233,7 +234,7 @@ $(document).ready(function()
         var color = "";
         if (valeurGlissante > (valeurMax/2))
             color = "success";
-        else if (valeurGlissante > (valeurMax/4) && valeurGlissante >= (valeurMax/2))
+        else if (valeurGlissante > (valeurMax/4) && valeurGlissante <= (valeurMax/2))
             color = "warning";
         else if (valeurGlissante <= (valeurMax/4))
             color = "danger";
@@ -270,14 +271,13 @@ $(document).ready(function()
     //suppression d'une fichePerso
     $("#btnDeleteFiche").click(function ()
     {
-        console.log("click btn");
         //récupération des datas
         var id = $(this).data('fiche');
 
         //modal
         $.confirm({
-            title: 'Supprimer',
-            content: 'Voulez vous supprimer supprimer cette fiche ?',
+            title: "<span class='dead'><i class='mdi mdi-alert-outline dead'> </i> Supprimer</span>",
+            content: 'Voulez vous supprimer cette fiche ?',
             buttons: {
                 Confirmer: function () {
                     window.location.href = "http://localhost/projet_perso/public/fiche/" + id + "/delete" ;
@@ -289,7 +289,96 @@ $(document).ready(function()
         });
     });
 
+//**************** debut : volet gauche ************
 
+    //lancement de dé classique
+    $(".btnDe").click(function ()
+    {
+        var de = $(this).val();
+
+        $.ajax({
+            type:'POST',
+            url: '/projet_perso/public/ajax/lancerDe.php',
+            data: {de: de},
+            success: function (response){
+                //changement de la valeur affichée + animation couleur
+                $("#scoreDe").text(response).css({background: 'green', color: 'white'}).delay(1000).queue(function (){
+                    $(this).css({
+                        background: 'none',
+                        color: 'black',
+                        transition: '2s',
+                    });
+                    $(this).dequeue();
+                });
+                $('#btnDe'+de).css({background: 'green', color: 'white'}).delay(1000).queue(function (){
+                    $(this).css({
+                        background: 'none',
+                        color: 'black',
+                        transition: '2s',
+                    });
+                    $(this).dequeue();
+                });
+            },
+            error: function (){
+                $("#scoreDe").css({background: 'red', color: 'white'}).delay(1000).queue(function (){
+                    $(this).css({
+                        background: 'none',
+                        color: 'black',
+                        transition: '2s',
+                    });
+                    $(this).dequeue();
+                });
+            }
+        });
+
+    });
+
+    //lancement de dé choisi
+    $("#btnDeInput").click(function ()
+    {
+        var de = $("#inputDe").val();
+
+        if (de.length === 0 || de < 1 || de > 1000){
+            //ajouter un effet rouge
+            $("#scoreDe").text(0).css({background: 'red', color: 'white'}).delay(1000).queue(function (){
+                $(this).css({
+                    background: 'none',
+                    color: 'black',
+                    transition: '2s',
+                });
+                $(this).dequeue();
+            });
+        }else{
+            $.ajax({
+                type:'POST',
+                url: '/projet_perso/public/ajax/lancerDe.php',
+                data: {de: de},
+                success: function (response){
+                    //changement de la valeur affichée + animation couleur
+                    $("#scoreDe").text(response).css({background: 'green', color: 'white'}).delay(1000).queue(function (){
+                        $(this).css({
+                            background: 'none',
+                            color: 'black',
+                            transition: '2s',
+                        });
+                        $(this).dequeue();
+                    });
+
+                },
+                error: function (){
+                    $("#scoreDe").text(0).css({background: 'red', color: 'white'}).delay(1000).queue(function (){
+                        $(this).css({
+                            background: 'none',
+                            color: 'black',
+                            transition: '2s',
+                        });
+                        $(this).dequeue();
+                    });
+                }
+            });
+        }
+
+    });
 
 
 

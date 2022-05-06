@@ -1,301 +1,230 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <div class="card mb-2 cardTitle text-center">
-        <h2> Modification fiche personnage: <span class="pseudoFiche">{{ fiche.pseudo }}</span></h2>
-    </div>
-
-    <div class="card mb-2 col cardFiche" id="formAddChamps">
-
-        {# champ #}
-        <div class="row m-3">
-            <div class="card-content p-2 m-2 cardTypeInfo">
-                <h2 class="text-center">Ajout champ:</h2>
-            </div>
-            <div class="card-content p-2 m-2 cardTypeInfo row">
-                {{ form_start(champForm) }}
-                <div class="row">
-                    <div class="col pt-3 m-2 text-center cardChamp">
-                        {{ form_row(champForm.typeInfo) }}
-                    </div>
-                    <div class="col pt-3 m-2 text-center cardChamp" id="typeChamp">
-                        {{ form_row(champForm.typeChamp) }}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col pt-3 m-2 text-center cardChamp">
-                        {{ form_row(champForm.label) }}
-                    </div>
-                    <div class="col pt-3 m-2 text-center cardChamp" id="champTexte">
-                        {{ form_row(champForm.valeurTexte) }}
-                    </div>
-                    <div class="col pt-3 m-2 text-center cardChamp" id="champArea">
-                        {{ form_row(champForm.valeurArea) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div id="btnFiche" class=" col p-2 m-2 cardChamp content-center">
-                        <button type="submit" class="btn btn-lg button" name="boutonFiche" value="valider">Valider</button></a>
-                        <button type="submit" class="btn btn-lg button" name="boutonFiche" value="update">Ajouter</button>
-                        <a href="{{ path('fiche_detail', {'id':fiche.id}) }}"><button type="button" class="btn btn-lg button " name="boutonFiche" value="retour">Retour</button></a>
-                    </div>
-                    {{ form_end(champForm) }}
-                </div>
-            </div>
+    <div class="row m-0">
+        {# DEBUT: volet gauche #}
+        <div class="col-2 ml-0 pl-1 voletG">
+            <div class="mt-4"></div>
+            {% include 'inc/_formFicheMod.html.twig' %}
+            {% include 'inc/_ficheUpdateMod.html.twig' %}
+            <div class="mb-4"></div>
         </div>
+        {# FIN: volet gauche #}
 
-        {# ressource #}
-        <div class="row m-3">
-            <div class="card-content p-2 m-2 cardTypeInfo">
-                <h2 class="text-center">Ajout ressource:</h2>
+
+        <div class="ml-1 text-center p-4 cardFiche col-sm-12 col-md">
+            <div class="mb-2 cardTitle text-center">
+                <h2> Modification fiche personnage: <span class="pseudoFiche">{{ fiche.pseudo }}</span></h2>
             </div>
-            <div class="card-content p-2 m-2 cardTypeInfo row">
-                {{ form_start(ressourceForm) }}
-                <div class="row">
-                    <div class="col pt-3 m-2 text-center cardChamp">
-                        {{ form_row(ressourceForm.label) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col pt-3 m-2 text-center cardChamp">
-                        {{ form_row(ressourceForm.rangeMax) }}
-                    </div>
-                </div>
-                 <div class="row">
-                    <div id="btnFiche" class=" col p-2 m-2 cardChamp content-center">
-                        <button type="submit" class="btn btn-lg button" name="boutonFiche" value="valider">Valider</button></a>
-                        <button type="submit" class="btn btn-lg button" name="boutonFiche" value="update">Ajouter</button>
-                        <a href="{{ path('fiche_detail', {'id':fiche.id}) }}"><button type="button" class="btn btn-lg button " name="boutonFiche" value="retour">Retour</button></a>
-                    </div>
-                    {{ form_end(ressourceForm) }}
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="card text-center p-4 cardFiche">
-        <div class="card mb-2 cardTitle">
-            <h2 class="text-center"> FICHE PERSONNAGE: <span class="pseudoFiche">{{ fiche.pseudo }}</span></h2>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-                <h3> Ressources:</h3>
-                <div class="row container">
-                    {% set count = 0 %}
-                    {% for ressource in ressources %}
-                        {% set count = count + 1 %}
-                        <div class="card mb-2 col-4 cardChamp">
-                            <span class="labelChamps">
-                                <span class="cliquableRessource" data-Ressource="{{ ressource.id }}">{{ ressource.label }}: </span>
-                                <span class="colorValue{{ count }}">
-                                    <span class="refreshValue{{ count }}">{{ ressource.valeurGlissante }}</span> / <span class="modifiableRangeMax" data-Page="update" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <h3> Ressources:</h3>
+                    <div class="row container">
+                        {% set count = 0 %}
+                        {% for ressource in ressources %}
+                            {% set count = count + 1 %}
+                            <div class="card mb-2 col-4 cardChamp">
+                                <span class="labelChamps">
+                                    <span class="cliquableRessource" data-Ressource="{{ ressource.id }}">{{ ressource.label }}: </span>
+                                    <span class="colorValue{{ count }}">
+                                        <span class="refreshValue{{ count }}">{{ ressource.valeurGlissante }}</span> / <span class="modifiableRangeMax" data-Page="update" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
+                                    </span>
                                 </span>
-                            </span>
-                        </div>
-                    {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <h3> Identité:</h3>
-            <div class="row container">
-                {% set count = 0 %}
-                {% for champ in champs %}
-                    {% set count = count + 1 %}
-                    {% if champ.typeInfo.label == 'identité'%}
-                            <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
-                                    </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                </div>
-                            </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <h3> Statistiques:</h3>
-            <div class="row container">
-                {% set count = 0 %}
-                {% for champ in champs %}
-                    {% set count = count + 1 %}
-                    {% if champ.typeInfo.label == 'statistiques'%}
-                        <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
-                                    </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                </div>
-                            </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <div class="card-content">
-                <h3> Compétences:</h3>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <h3> Identité:</h3>
                 <div class="row container">
                     {% set count = 0 %}
                     {% for champ in champs %}
                         {% set count = count + 1 %}
-                        {% if champ.typeInfo.label == 'compétences'%}
-                            <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
+                        {% if champ.typeInfo.label == 'identité'%}
+                                <div class="card mb-2 col-4  cardChamp ">
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                     </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                 </div>
-                            </div>
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <div class="card-content">
-                <h3> Inventaire:</h3>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <h3> Statistiques:</h3>
                 <div class="row container">
                     {% set count = 0 %}
                     {% for champ in champs %}
                         {% set count = count + 1 %}
-                        {% if champ.typeInfo.label == 'inventaires'%}
+                        {% if champ.typeInfo.label == 'statistiques'%}
                             <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                     </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                 </div>
-                            </div>
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <div class="card-content">
-                <h3> Equipement:</h3>
-                <div class="row container">
-                    {% set count = 0 %}
-                    {% for champ in champs %}
-                        {% set count = count + 1 %}
-                        {% if champ.typeInfo.label == 'équipements'%}
-                            <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <div class="card-content">
+                    <h3> Compétences:</h3>
+                    <div class="row container">
+                        {% set count = 0 %}
+                        {% for champ in champs %}
+                            {% set count = count + 1 %}
+                            {% if champ.typeInfo.label == 'compétences'%}
+                                <div class="card mb-2 col-4  cardChamp ">
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                     </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <div class="card-content">
-                <h3> Notes:</h3>
-                <div class="row container">
-                    {% set count = 0 %}
-                    {% for champ in champs %}
-                        {% set count = count + 1 %}
-                        {% if champ.typeInfo.label == 'notes'%}
-                            <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <div class="card-content">
+                    <h3> Equipement:</h3>
+                    <div class="row container">
+                        {% set count = 0 %}
+                        {% for champ in champs %}
+                            {% set count = count + 1 %}
+                            {% if champ.typeInfo.label == 'équipements'%}
+                                <div class="card mb-2 col-4  cardChamp ">
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                     </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
-            <div class="card-content">
-                <h3> Autre:</h3>
-                <div class="row container">
-                    {% set count = 0 %}
-                    {% for champ in champs %}
-                        {% set count = count + 1 %}
-                        {% if champ.typeInfo.label == 'autres'%}
-                            <div class="card mb-2 col-4  cardChamp ">
-                                <div class="champFiche">
-                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                    <div class="champZoneInfo col-10">
-                                        <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? champ.valeurArea : champ.valeurTexte }}</span>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <div class="card-content">
+                    <h3> Inventaire:</h3>
+                    <div class="row container">
+                        {% set count = 0 %}
+                        {% for champ in champs %}
+                            {% set count = count + 1 %}
+                            {% if champ.typeInfo.label == 'inventaires'%}
+                                <div class="card mb-2 col-4  cardChamp ">
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                     </div>
-                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class=" col p-2 m-2 cardChamp">
-            <a href="{{ path('fiche_updateInfo', {'id':fiche.id}) }}"><button type="button" class="btn btn-lg button text-nowrap" name="boutonFiche"> <span class="nowrap">Modifier le nom ou l'image</span></button></a>
-        </div>
-    </div>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <div class="card-content">
+                    <h3> Notes:</h3>
+                    <div class="row container">
+                        {% set count = 0 %}
+                        {% for champ in champs %}
+                            {% set count = count + 1 %}
+                            {% if champ.typeInfo.label == 'notes'%}
+                                <div class="card mb-2 col-4  cardChamp ">
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2 p-2 cardTypeInfo content-center">
+                <div class="card-content">
+                    <h3> Autre:</h3>
+                    <div class="row container">
+                        {% set count = 0 %}
+                        {% for champ in champs %}
+                            {% set count = count + 1 %}
+                            {% if champ.typeInfo.label == 'autres'%}
+                                <div class="card mb-2 col-4  cardChamp ">
+                                    <div class="champFiche">
+                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                        <div class="champZoneInfo col-10">
+                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                        </div>
+                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 
-    {# AIDE #}
-    <div class="card mt-4 p-4 cardFiche">
-        <div class="card mb-2 cardTitle">
-            <h2 class="text-center"> Aide : </h2>
         </div>
-        <div class="card mb-2 p-2 cardTypeInfo">
-            <div class=" col p-2 m-2 cardChamp">
-                <p class="labelChamps">Ajout d'un champ ou d'une ressource:</p>
-                <ul>
-                    <p>Choix du type de champ de saisie:</p>
-                    <li>Champ de texte : 50 caractères max</li>
-                    <li>Zone de texte : 255 caractères max</li>
-                </ul>
-                <ul>
-                    <p>Choix du bouton:</p>
-                    <li>Bouton "Valider" : enregistre le champ ou la ressource et retourne sur la fiche du personnage.</li>
-                    <li>Bouton "Ajouter" : enregistre le champ ou la ressource et reste sur la modification de la fiche.</li>
-                    <li>Bouton "Retour" : retourne sur la fiche du personnage.</li>
-                </ul>
-                <p class="labelChamps">Modification d'un champ:</p>
-                <ul>
-                    <li>Clique sur le nom du champ : permet de supprimer le champ sélectionné.</li>
-                    <li>Clique sur la valeur du champ : permet de modifier la valeur du champ sélectionné.</li>
-                </ul>
-                <p class="labelChamps">Modification d'une ressource:</p>
-                <ul>
-                    <li>Clique sur la valeur max : permet de modifier la valeur max de la ressource sélectionnée.</li>
-                </ul>
-                <p class="labelChamps">Modification de la fiche:</p>
-                <ul>
-                    <li>Clique sur le bouton "Modifier le nom ou l'image" : Redirige vers le formulaire de la création de la fiche.</li>
-                </ul>
+
+        {# AIDE #}
+        <div class="card mt-4 p-4 cardFiche">
+            <div class="card mb-2 cardTitle">
+                <h2 class="text-center"> Aide : </h2>
+            </div>
+            <div class="card mb-2 p-2 cardTypeInfo">
+                <div class=" col p-2 m-2 cardChamp">
+                    <p class="labelChamps">Ajout d'un champ ou d'une ressource:</p>
+                    <ul>
+                        <p>Choix du type de champ de saisie:</p>
+                        <li>Champ de texte : 50 caractères max</li>
+                        <li>Zone de texte : 255 caractères max</li>
+                    </ul>
+
+                    <p class="labelChamps">Modification d'un champ:</p>
+                    <ul>
+                        <li>Clique sur le nom du champ : permet de supprimer le champ sélectionné.</li>
+                        <li>Clique sur la valeur du champ : permet de modifier la valeur du champ sélectionné.</li>
+                    </ul>
+                    <p class="labelChamps">Modification d'une ressource:</p>
+                    <ul>
+                        <li>Clique sur la valeur max : permet de modifier la valeur max de la ressource sélectionnée.</li>
+                    </ul>
+                    <p class="labelChamps">Modification de la fiche:</p>
+                    <ul>
+                        <li>Clique sur le bouton "Modifier le nom ou l'image" : Redirige vers le formulaire de la création de la fiche.</li>
+                    </ul>
+                </div>
             </div>
         </div>
+        {# FIN AIDE #}
     </div>
-    {# FIN AIDE #}
-
 {% endblock %}
 
 {% block title %}

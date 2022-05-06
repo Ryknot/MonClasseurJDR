@@ -5,8 +5,16 @@
     <h2 class="h3 m-3 font-weight-normal cardTitle text-center p-1">Profil</h2>
     {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
         <div class="cardChamp m-3 p-4">
-            <p><span class="labelChamps">Pseudo </span> {{ user.pseudo }}</p>
-            <p><span class="labelChamps">Email </span> {{ user.email }}</p>
+            <dl class="row">
+                <div class="col">
+                    <dt>Pseudo</dt>
+                    <dd>{{ user.pseudo }}</dd>
+                </div>
+                <div class="col">
+                    <dt>Email</dt>
+                    <dd>{{ user.email }}</dd>
+                </div>
+            </dl>
         </div>
 
         <div class="m-3">

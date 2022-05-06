@@ -16,8 +16,13 @@
                         {{ form_row(ficheForm.image) }}
                     </div>
                 </div>
-                <div class="newFiche">
-                    <button type="submit" class="btn btn-lg button" name="boutonFiche">Valider</button>
+                <div class="row">
+                    <div class="col newFiche">
+                        <button type="submit" class="btn btn-sm button" name="boutonFiche">Valider</button>
+                    </div>
+                    <div class="col newFiche">
+                        <a href="{{ path('fiche_list', {'id':user.id}) }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
+                    </div>
                 </div>
                 {{ form_end(ficheForm) }}
             </div>

@@ -22,10 +22,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
-    <!-- jQuery Modal -->
+    {# jQuery Modal #}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    {# mdi icon #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" />
 
 
     <title>{% block title %} {{ 'websiteTitle' | trans }} {% endblock %}</title>
@@ -46,15 +47,14 @@
         {% include 'inc/_nav.html.twig' %}
     </header>
 
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="col-6 flash flash-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
     <main>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="col flash flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
     </main>
 

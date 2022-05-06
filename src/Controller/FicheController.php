@@ -416,6 +416,31 @@ class FicheController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/fichetest/{id}/", name="fiche_test")
+     */
+    public function ficheTest(int $id, FichePersoRepository $fichePersoRepository, TypeInfoRepository $infoRepository, ChampsRepository $champRepository, RessourceRepository $ressourceRepository, Request $request): Response
+    {
+        //récupération de l'instance de la fichePerso
+        $fiche = $fichePersoRepository->find($id);
 
+        //recupération liste types info
+        $listeInfo = $infoRepository->findAll();
+
+        //récupération des champs et ressources associés à la fiche de perso triés par ordre (sort)
+        $champs = $champRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+        $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+
+        //récupération valeur bouton
+        $boutonFiche = $request->get("boutonFiche");
+
+        return $this->render('fiche/ficheDetailSkinMed.html.twig', [
+            'fiche' => $fiche,
+            'listeInfo' => $listeInfo,
+            'champs' => $champs,
+            'ressources' => $ressources,
+            'boutonFiche' => $boutonFiche
+        ]);
+    }
 
 }

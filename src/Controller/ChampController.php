@@ -24,14 +24,16 @@ class ChampController extends AbstractController
                 $champ->setValeurTexte($newValeur);
             }
             else{
-                $champ->setValeurArea($newValeur);
+                //$champ->setValeurArea($newValeur);
+                //$champ->setValeurArea(preg_replace('(\$)', '/\n/g', $newValeur));
+                $champ->setValeurArea(str_replace('¤', PHP_EOL, $newValeur));
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
             $this->addFlash('success', 'Modification du champ réussie !');
         }catch(\Exception $e){
-            $this->addFlash('warning', 'Erreur modification du champ !');
+            $this->addFlash('warning', 'Erreur modification du champ : '.$e->getMessage());
         }
 
         //redirection vers la page de provenance: listeDetails ou update
