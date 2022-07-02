@@ -55,6 +55,14 @@ footer{
     font-weight: bold;
 }
 
+/* ---------- home ------------ */
+.homeBold{
+    font-weight: bold;
+}
+.homeUnderline{
+    text-decoration: underline;
+}
+
 /* ---------- volet gauche ------------ */
 
 .voletG{
@@ -62,11 +70,33 @@ footer{
     border-radius: 10px;
     border: 2px rgba(16, 15, 15, 0.35) solid;
     box-shadow: 3px 3px #343642;
+    min-width: 240px;
+    max-width: 240px;
+    min-height: 500px;
 }
-#inputDe{
-    width: 100%;
+#inputDe, #addCarteMJ{
+    min-width: 200px;
+    max-width: 200px;
+
+}
+#champ_form_label, #champ_form_valeurTexte, #champ_form_valeurArea, #ressource_form_label, #ressource_form_rangeMax{
+    min-width: 185px;
+    max-width: 185px;
 }
 
+.titleVoletG{
+    font-weight: bold;
+}
+
+form{
+    display: grid;
+    max-width: 100px;
+    box-sizing: border-box;
+}
+
+.voletG {
+
+}
 
 
 /* --------------body------------------ */
@@ -82,11 +112,6 @@ main{
     padding-right: 5%;
 }
 
-form{
-    display: grid;
-    max-width: 100px;
-    box-sizing: border-box;
-}
 input,
 select{
     margin-bottom: 1em;
@@ -109,12 +134,11 @@ select{
     border: rgba(31, 31, 31, 0.7) 1px solid;
 }
 
-.titleVoletG{
-    font-weight: bold;
-}
-
 .lienFiche{
     color: black;
+    text-decoration: none;
+    font-weight: bold;
+
 }
 
 i{
@@ -127,13 +151,6 @@ i{
     font-weight: bold;
     color: #427AA1;
     text-shadow: #17c2e0 2px 2px;
-}
-
-.voletG {
-    min-width: 240px;
-    max-width: 240px;
-}
-#choixType {
 }
 
 #btnFiche{
@@ -211,7 +228,7 @@ i{
     box-shadow: 3px 3px #343642;
 }
 
-/* card champ fiche detail*/
+/* -------------- card champ fiche detail------------------ */
 .champFiche{
     display: flex;
     justify-content: center;
@@ -234,8 +251,13 @@ i{
 
 .modifiable{
     color: #296fa8;
-    font-size: large;
+    text-shadow: #123149 1px 1px;
     white-space: normal;
+}
+
+#imagefiche{
+    border: #296fa8 solid 3px;
+    border-radius: 10px;
 }
 
 
@@ -251,19 +273,22 @@ i{
     padding-right: 10px;
     width: max-content;
 }
+/*
 .flash-success{
-    background-color: #cbf3cb;
-    border: 2px solid #3abb81;
-    color: #3abb81;
+    background-color: #adf8c5;
+    border: 2px solid #05f88b;
 }
 .flash-warning{
-    background-color: #e7abab;
-    border: 2px solid #b42c2c;
-    color: #b42c2c;
+    background-color: #fcb0b0;
+    border: 2px solid #e70404;
 }
-.flash-info{
-    background-color: #5eb5e0;
+.flash-info, .infoFiche{
+    background-color: #a7d9f8;
+    border: 2px solid #049af1;
+    border-radius: 10px;
 }
+*/
+
 
 /* --------------liste fiche perso------------------ */
 .carousel .carousel-item {
@@ -323,12 +348,56 @@ i{
     font-size: medium;
 }
 
+.champImageCarteMJ{
+    height: 155px;
+    display: flex;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+#noteCarteMj{
+    text-align: start;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/* --------------Message------------------ */
+.messageContent{
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #1e1e1e;
+    background: linear-gradient(white, #e3e3e3, #c5c5c5);
+    padding: 4px;
+}
+
+.typeBg{
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px #1e1e1e;
+    padding-left: 5px;
+}
+
+/* -------------- Admin liste user------------------ */
+.menuActionUser{
+    background: linear-gradient(#727070, #494848, #494848);
+    color: #d08856;
+    text-shadow: #AA210F 2px 2px;
+    margin: 0;
+}
+.menuAction{
+    font-size: small;
+    margin: 0;
+}
+.menuAction:hover{
+    border: #be620d 1px solid;
+    background: #f58116;
+    color: white;
+    text-shadow: rgba(98, 97, 97, 0.35) 2px 1px;
+}
 
 /* --------------footer------------------ */
 footer{
     margin-top: 50px;
     padding-top: 5px;
-
 }
 
 

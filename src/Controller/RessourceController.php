@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Repository\RessourceRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security(" (user.getActive() == true && user.getValidated() == true) || is_granted('ROLE_ADMIN') ")
+ */
 class RessourceController extends AbstractController
 {
     //*********  INFO *********
@@ -21,7 +25,7 @@ class RessourceController extends AbstractController
     public function UpdateRangeMaxRessource(int $id, int $newRangeMax, string $page, RessourceRepository $ressourceRepository): Response
     {
         $ressource = $ressourceRepository->find($id);
-        $id = $ressource->getFichePerso()->getId();
+        $idFiche = $ressource->getFichePerso()->getId();
         $valeurGlissante = $ressource->getValeurGlissante();
 
         try {
@@ -43,12 +47,12 @@ class RessourceController extends AbstractController
         //redirection vers la page de provenance: listeDetails ou update
         if ($page == "update"){
             return $this->redirectToRoute('fiche_update', [
-                'id' => $id
+                'id' => $idFiche
             ]);
         }
         else{
             return $this->redirectToRoute('fiche_detail', [
-                'id' => $id
+                'id' => $idFiche
             ]);
         }
     }
@@ -60,14 +64,17 @@ class RessourceController extends AbstractController
     public function deleteRessource(int $id, RessourceRepository $ressourceRepository): Response
     {
         $ressource = $ressourceRepository->find($id);
-        $id = $ressource->getFichePerso()->getId();
+        $idFiche = $ressource->getFichePerso()->getId();
+        $fiche = $ressource->getFichePerso();
 
         try {
             //maj sort de chaque ressource après celui supprimé
-            $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+            $ressources = $ressourceRepository->findBy(['fichePerso' => $idFiche],['sort' => 'ASC']);
             for ($i = ($ressource->getSort()); $i < (count($ressources)-1); $i++ ) {
                 $ressources[$i+1]->setSort($i);
             }
+
+            $fiche->setNbRessource(count($ressources)-1);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($ressource);
@@ -78,7 +85,7 @@ class RessourceController extends AbstractController
         }
 
         return $this->redirectToRoute('fiche_update', [
-            'id' => $id,
+            'id' => $idFiche,
         ]);
     }
 

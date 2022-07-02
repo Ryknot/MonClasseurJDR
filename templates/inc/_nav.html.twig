@@ -1,38 +1,101 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {% if not app.user %}
-            <li class="nav-item">
-                <a class="nav-link active menuItem" aria-current="page" href="{{ path('app_login') }}" title="Login">{{ 'connection' | trans }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}" title="Register">{{ 'registration' | trans }}</a>
-            </li>
-        {% else %}
-            <li class="nav-item">
+        {% if not app.user or app.user.validated == false or app.user.active == false %}
+            <li class="nav-item mr-1">
                 <a class="nav-link active" aria-current="page" href="{{ path('main_home') }}" title="Home">{{ 'home' | trans }}</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Profil">
-                    {{ 'profil' | trans }}
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item sousMenu" href="{{ path('fiche_list', {'id':app.user.id}) }}">Joueur - Fiches de personnage</a></li>
-                    <li><a class="dropdown-item sousMenu" href="{{ path('interfaceMJ', {'id':app.user.id}) }}">MJ - Gestion de la partie</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item sousMenu" href="{{ path('profil', {'id':app.user.id}) }}">{{ 'profil' | trans }}</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="Logout">{{ 'logout' | trans }}({{ app.user.pseudo }})</a>
+            {% if not app.user %}
+                <li class="nav-item mr-1">
+                    <a class="nav-link active menuItem" aria-current="page" href="{{ path('app_login') }}" title="Login">{{ 'connection' | trans }}</a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}" title="Register">{{ 'registration' | trans }}</a>
+                </li>
+            {% elseif app.user.active == false %}
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_register_activation', {'id':app.user.id}) }}" title="Activation"><span class="text-nowrap">Activer mon compte</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" href="{{ path('user_profil', {'id':app.user.id}) }}"><span class="text-nowrap">{{ 'profil' | trans }}</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('message_create', {'id':app.user.id}) }}" title="createMessage"><span class="text-nowrap">Contact</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="Logout"><span class="text-nowrap">{{ 'logout' | trans }} ({{ app.user.pseudo }})</span></a>
+                </li>
+            {% elseif app.user.validated == false %}
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_register_validation', {'id':app.user.id}) }}" title="Validation"><span class="text-nowrap">Validation du compte</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" href="{{ path('user_profil', {'id':app.user.id}) }}"><span class="text-nowrap">{{ 'profil' | trans }}</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('message_create', {'id':app.user.id}) }}" title="createMessage"><span class="text-nowrap">Contact</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="Logout"><span class="text-nowrap">{{ 'logout' | trans }} ({{ app.user.pseudo }})</span></a>
+                </li>
+            {% endif %}
+        {% else %}
+            {% if is_granted("ROLE_ADMIN")%}
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('admin_dashboard') }}" title="Dashboard">Dashboard</a>
+                </li>
+                {# pages admin dropdown
+                <li class="nav-item mr-1 dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Listes">
+                        Listes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item sousMenu" href="{{ path('admin_usersList') }}" title="UserList">Utilisateurs</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item sousMenu" href="{{ path('admin_message') }}" title="MessagesList">Messages</a></li>
+                        <li><a class="dropdown-item sousMenu" href="{{ path('admin_log') }}" title="Logs">Logs</a></li>
+                    </ul>
+                </li>
+                #}
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('admin_usersList') }}" title="UserList">Utilisateurs</a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('admin_message') }}" title="MessagesList">Messages</a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('admin_log') }}" title="Logs">Logs</a>
+                </li>
+
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('main_todo') }}">Todo</a>
+                </li>
+            {% else %}
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('main_home') }}" title="Home">{{ 'home' | trans }}</a>
+                </li>
+                <li class="nav-item mr-1 dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Profil">
+                        {{ 'profil' | trans }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item sousMenu" href="{{ path('fiche_list', {'id':app.user.id}) }}">Joueur - Fiches de personnage</a></li>
+                        <li><a class="dropdown-item sousMenu" href="{{ path('interfaceMJ', {'id':app.user.id}) }}">MJ - Gestion de la partie</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item sousMenu" href="{{ path('user_profil', {'id':app.user.id}) }}">{{ 'profil' | trans }}</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active" aria-current="page" href="{{ path('message_create', {'id':app.user.id}) }}" title="createMessage"><span class="text-nowrap">Contact</span></a>
+                </li>
+            {% endif %}
+            <li class="nav-item mr-1">
+                <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="Logout"><span class="text-nowrap">{{ 'logout' | trans }} ({{ app.user.pseudo }})</span></a>
             </li>
         {% endif %}
         </ul>
 
         {#
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ path('main_todo') }}">Todo</a>
-        </li>
         <a class="lienFiche" href="{{ path('fiche_test', {'id': 24}) }}">page test</a>
         #}
 

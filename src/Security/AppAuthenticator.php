@@ -19,6 +19,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use App\Service\LogService;
 
 class AppAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -30,13 +31,15 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $logService;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, LogService $logService)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->logService = $logService;
     }
 
     public function supports(Request $request)
@@ -94,6 +97,9 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
+        //log connexion
+        $this->logService->newLogConnect($request->get('email'));
 
         return new RedirectResponse($this->urlGenerator->generate('main_home'));
 

@@ -24,7 +24,7 @@
         "symfony/framework-bundle": "5.2.*",
         "symfony/http-client": "5.2.*",
         "symfony/intl": "5.2.*",
-        "symfony/mailer": "5.2.*",
+        "symfony/mailer": "^5.4",
         "symfony/mime": "5.2.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.2.*",
@@ -58,7 +58,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": false
+        }
     },
     "autoload": {
         "psr-4": {

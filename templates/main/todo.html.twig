@@ -3,28 +3,37 @@
 {% block body %}
 
     <h2>Todo list</h2>
-    <ul>
+    <ol>
+        <li>securité
+            <ul>
+                <li>check user pour chaque route controller</li>
+            </ul>
+        </li>
+        <li>validation compte
+            <ul>
+                <li>reCaptcha</li>
+            </ul>
+        </li>
+
+        <li>user
+            <ul>
+                <li>suppression user validated=false après 2 jours</li>
+                <li>user inactif après ??? temps (6mois ? 1 an ?)</li>
+            </ul>
+        </li>
+
+        <li>message
+            <ul>
+                <li>formulaire de contact avec reCaptcha</li>
+            </ul>
+        </li>
         <li>login
             <ul>
                 <li>remember me</li>
             </ul>
         </li>
-        <li>espace perso
-            <ul>
-                <li>info compte user</li>
-                <li>liste fiches créées</li>
-                <li>détails fiche</li>
-                <li>modifier entité fiche pour inclure le nombre de champs dans chaque section pour n'afficher que les sections qui contiennent des champs. </li>
-                <li>barre ajustable pour les pv + autres ressources</li>
-            </ul>
-        </li>
-        <li>lien log out (user) OK</li>
-        <li>erreurs
-            <ul>
-                <li>page 404 , 403</li>
-                <li>gestion redirection</li>
-            </ul></li>
-    </ul>
+
+    </ol>
 {% endblock %}
 
 {% block title %}

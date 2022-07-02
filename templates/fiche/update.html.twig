@@ -14,8 +14,49 @@
 
         <div class="ml-1 text-center p-4 cardFiche col-sm-12 col-md">
             <div class="mb-2 cardTitle text-center">
-                <h2> Modification fiche personnage: <span class="pseudoFiche">{{ fiche.pseudo }}</span></h2>
+                {% if fiche.image %}
+                    <table class="col-12">
+                        <tbody>
+                        <tr>
+                            <td class="col-3">
+                                <img id="imagefiche" src="/projet_perso/public/uploads/{{ fiche.image }}" alt="image fiche">
+                            </td>
+                            <td class="col">
+                                <h2>
+                                    Modification de la fiche personnage:<br/>
+                                    <span class="pseudoFiche">{{ fiche.pseudo }}</span>
+                                </h2>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h2>
+                        <i class="mdi mdi-account-box"></i>Modification de la fiche personnage:
+                        <span class="pseudoFiche">{{ fiche.pseudo }}</span>
+                    </h2>
+                {% endif %}
             </div>
+
+            {% if fiche.nbRessource == 0 and fiche.nbChamps1 == 0 and fiche.nbChamps2 == 0 and fiche.nbChamps3 == 0 and fiche.nbChamps4 == 0 and fiche.nbChamps5 == 0 and fiche.nbChamps6 == 0 and fiche.nbChamps7 == 0%}
+                <div class="col p-2 m-2 infoFiche text-start alert alert-info" role="alert">
+                    <span class="labelChamps">Ajoutez un champ ou une ressource en remplissant un des formulaires.</span>
+                    <ul>
+                        <li>Les champs seront répartis dans les sections suivant le type d'information choisi.</li>
+                        <li>Le type de champ saisie permet soit:
+                            <ul>
+                                <li>écrire un texte ou valeur simple</li>
+                                <li>écrire un texte ou valeur avec possibilité retour à la ligne.</li>
+                            </ul>
+                        </li>
+                        <li>Les ressources permettent de créer des jauges (points de vie, magie, munitions,...)</li>
+                        <li>Trois ressources au maximum.</li>
+                    </ul>
+                    <span class="labelChamps">Pour modifier un champ ou une ressource, cliquez sur sa valeur.</span><br/>
+                    <span class="labelChamps">Pour supprimer un champ ou une ressource, cliquez sur son nom.</span>
+                </div>
+            {% endif %}
+
             <div class="card mb-2 p-2 cardTypeInfo content-center">
                     <h3> Ressources:</h3>
                     <div class="row container">
@@ -200,21 +241,22 @@
             </div>
             <div class="card mb-2 p-2 cardTypeInfo">
                 <div class=" col p-2 m-2 cardChamp">
-                    <p class="labelChamps">Ajout d'un champ ou d'une ressource:</p>
+                    <p class="labelChamps">Ajout d'un champ:</p>
                     <ul>
                         <p>Choix du type de champ de saisie:</p>
-                        <li>Champ de texte : 50 caractères max</li>
-                        <li>Zone de texte : 255 caractères max</li>
+                        <li>Champ de texte : texte ou valeur simple.</li>
+                        <li>Zone de texte : texte ou valeur avec possibilité retour à la ligne.</li>
                     </ul>
 
                     <p class="labelChamps">Modification d'un champ:</p>
                     <ul>
-                        <li>Clique sur le nom du champ : permet de supprimer le champ sélectionné.</li>
                         <li>Clique sur la valeur du champ : permet de modifier la valeur du champ sélectionné.</li>
+                        <li>Clique sur le nom du champ : permet de supprimer le champ sélectionné.</li>
                     </ul>
                     <p class="labelChamps">Modification d'une ressource:</p>
                     <ul>
                         <li>Clique sur la valeur max : permet de modifier la valeur max de la ressource sélectionnée.</li>
+                        <li>Clique sur le nom de la ressource : permet de supprimer la ressource sélectionnée.</li>
                     </ul>
                     <p class="labelChamps">Modification de la fiche:</p>
                     <ul>

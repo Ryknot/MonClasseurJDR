@@ -249,7 +249,7 @@ $(document).ready(function()
 
             //modal
             $.confirm({
-                title: 'Supprimer',
+                title: "<span class='dead'><i class='mdi mdi-alert-outline dead'> </i> Supprimer</span>",
                 content: 'Voulez vous supprimer le champ ?',
                 buttons: {
                     Confirmer: function () {
@@ -277,7 +277,7 @@ $(document).ready(function()
         //modal
         $.confirm({
             title: "<span class='dead'><i class='mdi mdi-alert-outline dead'> </i> Supprimer</span>",
-            content: 'Voulez vous supprimer cette fiche ?',
+            content: 'Voulez vous supprimer <span class="dead">définitivement</span> cette fiche ?',
             buttons: {
                 Confirmer: function () {
                     window.location.href = "http://localhost/projet_perso/public/fiche/" + id + "/delete" ;

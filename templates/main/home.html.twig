@@ -7,31 +7,67 @@
 
 
 {% block body %}
+    {% if app.user and app.user.validated == false %}
+        <div class="col p-2 m-2 alert alert-danger" role="alert">Votre compte n'est pas validé. Veuillez saisir dans l'onglet "Validation du compte" votre code de validation reçu par mail (vérifiez vos spams).</div>
+    {% elseif app.user and app.user.active == false %}
+        <div class="col p-2 m-2 alert alert-danger" role="alert">Votre compte n'est pas actif, voir l'onglet "Activer mon compte".</div>
+    {% endif %}
+
     <div>
         <h2>Qu'est ce que Mon classeur JDR ?</h2>
     </div>
-
+    <br/>
     <section>
         <div class="mb-4">
-            <h4>Mon classeur JDR vous permet de créer vos propres fiches de personnages très simplement.</h4>
+            <h4 class="homeUnderline labelChamps">Mon classeur JDR vous permet :</h4>
             <p>
-                Comment ?
+                <ul>
+                    <li><span class="homeBold">En tant que joueur :</span> de créer et gérer vos propres fiches de personnages avec ses champs personnalisés.</li>
+                    <li><span class="homeBold">En tant que Maître du jeu :</span> de créer et afficher un deck de bestiaire ou de PNJ sur un plateau </li>
+                </ul>
+            </p>
+            <hr>
+
+            <h5 class="homeUnderline labelChamps">Comment créer ma fiche de personnage de joueur ?</h5>
+            <p>
                 <ol>
-                    <li>Allez dans l'onglet "Mon profil" puis cliquez sur "Fiches de personnages".</li>
-                    <li>Créez une nouvelle fiche personnage avec son nom et une image optionnelle.</li>
-                    <li>Remplissez toutes vos informations de votre fiche personnages dans des champs distincts répartis dans sept sections pour une meilleure lisibilité</li>
+                    <li>Allez dans l'onglet "Mon profil" puis cliquez sur "Joueur - Fiches de personnages".</li>
+                    <li>Créez une nouvelle fiche personnage avec son pseudo et une image optionnelle.</li>
+                    <li>Dans le volet gauche de la fiche de personnage, cliquez sur "Modifier la fiche".</li>
+                    <li>Ajoutez, supprimez, modifiez l'ordre et les valeurs des champs créés à votre convenance.</li>
                     <li>Créez jusqu'à trois jauges de ressources (idéal pour les points de vie !)</li>
-                    <li>Modifiez l'ordre et les valeurs des champs créés à votre convenance.</li>
+                    <li>Remplissez toutes vos informations qu'il vous plaira de votre fiche personnages dans des champs distincts répartis dans sept sections pour une meilleure lisibilité</li>
+                    <li>Il ne reste plus qu'à jouer !</li>
                 </ol>
             </p>
+
+            <hr>
+
+            <h5 class="homeUnderline labelChamps">Comment créer mon deck de maître du jeu ?</h5>
+            <p>
+                <ol>
+                    <li>Allez dans l'onglet "Mon profil" puis cliquez sur "MJ - Gestion de la partie".</li>
+                    <li>Dans le volet gauche du plateau, cliquez sur "Créer une nouvelle carte".</li>
+                    <li>Remplissez toutes les informations et voyez directement l'aperçu de votre nouvelle carte.</li>
+                    <li>Dans le volet gauche du plateau, choisissez votre nouvelle carte et cliquez sur "Ajouter sur le plateau".</li>
+                    <li>Gérez les jauges de vies, créez, ajoutez ou supprimez des cartes du plateau.</li>
+                    <li>Il ne reste plus qu'à jouer !</li>
+                </ol>
+            </p>
+
+            <hr>
+
+            <h5 class="homeUnderline labelChamps">Un message à faire passer ? Comment contacter un administrateur ?</h5>
+            <p>
+            <ol>
+                <li>Envie de nous encourager ? Des idées d'amélioration ? Besoin d'aide ? Une anomalie détectée ? Ou tout autre demande ?</li>
+                <li>Allez dans l'onglet "Contact".</li>
+                <li>Choisissez le type de message (satisfaction, évolution, aide, anomalie, autre).</li>
+                <li>Ecrivez votre message puis cliquez sur le bouton "Valider".</li>
+                <li>Un administrateur vous recontactera dès que possible.</li>
+            </ol>
+            </p>
         </div>
-        <hr>
-        {#
-        <div class="mt-4">
-            <h5>Exemple d'une fiche personnage personnalisée</h5>
-            <img src="{{ asset('img/Screen_fiche.png') }}" alt="exemple d'une fiche de personnage" title="exemple d'une fiche de personnage">
-        </div>
-        #}
     </section>
 
 {% endblock %}

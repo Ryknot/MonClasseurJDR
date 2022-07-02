@@ -3,10 +3,15 @@
 namespace App\Controller;
 
 use App\Repository\ChampsRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Security(" (user.getActive() == true && user.getValidated() == true) || is_granted('ROLE_ADMIN') ")
+ */
 class ChampController extends AbstractController
 {
     /**
@@ -55,19 +60,19 @@ class ChampController extends AbstractController
     public function deleteChamp(int $id, ChampsRepository $champsRepository): Response
     {
         $champ = $champsRepository->find($id);
-        $id = $champ->getFichePerso()->getId();
+        $idFiche = $champ->getFichePerso()->getId();
         $fiche = $champ->getFichePerso();
 
         try {
             //maj sort de chaque champ après celui supprimé
-            $champs = $champsRepository->findBy(['fichePerso' => $id, 'typeInfo' => $champ->getTypeInfo()],['sort' => 'ASC']);
+            $champs = $champsRepository->findBy(['fichePerso' => $idFiche, 'typeInfo' => $champ->getTypeInfo()],['sort' => 'ASC']);
             for ($i = ($champ->getSort()); $i < (count($champs)-1); $i++ ) {
                 $champs[$i+1]->setSort($i);
             }
 
             //gestion de l'ordre des champs
             $info = $champ->getTypeInfo()->getId();
-            $champsParInfo = $champsRepository->findBy(['fichePerso' => $id, 'typeInfo' => $info]);
+            $champsParInfo = $champsRepository->findBy(['fichePerso' => $idFiche, 'typeInfo' => $info]);
             $countChamps = count($champsParInfo);
 
             //mise a jour du nb de champs de ce type d'info
@@ -91,7 +96,7 @@ class ChampController extends AbstractController
         }
 
          return $this->redirectToRoute('fiche_update', [
-            'id' => $id
+            'id' => $idFiche
          ]);
     }
 
@@ -102,8 +107,8 @@ class ChampController extends AbstractController
     public function buttonPrevious(int $id, ChampsRepository $champsRepository)
     {
         $champ = $champsRepository->find($id);
-        $id = $champ->getFichePerso()->getId();
-        $champs = $champsRepository->findBy(['fichePerso' => $id, 'typeInfo' => $champ->getTypeInfo()],['sort' => 'ASC']);
+        $idFiche = $champ->getFichePerso()->getId();
+        $champs = $champsRepository->findBy(['fichePerso' => $idFiche, 'typeInfo' => $champ->getTypeInfo()],['sort' => 'ASC']);
         $positionList = $champ->getSort();
 
         //échange de position
@@ -131,8 +136,8 @@ class ChampController extends AbstractController
     public function buttonNext(int $id, ChampsRepository $champsRepository)
     {
         $champ = $champsRepository->find($id);
-        $id = $champ->getFichePerso()->getId();
-        $champs = $champsRepository->findBy(['fichePerso' => $id, 'typeInfo' => $champ->getTypeInfo()],['sort' => 'ASC']);
+        $idFiche = $champ->getFichePerso()->getId();
+        $champs = $champsRepository->findBy(['fichePerso' => $idFiche, 'typeInfo' => $champ->getTypeInfo()],['sort' => 'ASC']);
         $positionList = $champ->getSort();
 
         //échange de position
