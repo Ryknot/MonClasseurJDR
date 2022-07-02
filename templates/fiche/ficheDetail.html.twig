@@ -50,17 +50,28 @@
                             {% set count = 0 %}
                             {% for ressource in ressources %}
                                 {% set count = count + 1 %}
-                                <div class="card mb-2 col-4 cardChamp">
+                                <div class="card pb-2 mb-2 col-4 cardChamp">
                                     <span class="labelChamps">
                                         {{ ressource.label }}:
-                                        <span class="colorValue{{ count }}">
-                                            <span class="refreshValue{{ count }}">{{ ressource.valeurGlissante }}</span> / <span class="modifiableRangeMax" data-Page="liste" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
-                                        </span>
+                                            <input type="number" class="inputPV refreshValue{{ count }}" min="0" max="{{ ressource.rangeMax }}" value="{{ ressource.valeurGlissante }}" data-Count="{{ count }}" data-id="{{ ressource.id }}" data-Max="{{ ressource.rangeMax }}" style="max-width: 100px"> / <span class="modifiableRangeMax" data-Page="liste" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
                                     </span>
-                                    <input id="range{{ count }}" class="range" type="range" min="0" max="{{ ressource.rangeMax }}" value="{{ ressource.valeurGlissante }}" title="{{ ressource.valeurGlissante }}" data-id="{{ ressource.id }}" data-Max="{{ ressource.rangeMax }}" data-Count="{{ count }}">
+                                    <div class="progress">
+                                        {% set barSize = ressource.valeurGlissante * 100 / ressource.rangeMax %}
+                                        <div class="progress-bar progress-bar{{ count }}
+                                            {% if barSize > 50 %}
+                                                bg-success
+                                            {% elseif barSize <= 50 and barSize > 25 %}
+                                                bg-warning
+                                            {% elseif barSize <= 25 and barSize > 0 %}
+                                                bg-danger
+                                            {% elseif barSize <= 0 %}
+                                                {% set barSize = 100 %}
+                                                bg-secondary progress-bar-striped
+                                            {% endif %}
+                                            " role="progressbar" style="width:{{ barSize }}%" aria-valuenow="{{ ressource.valeurGlissante }}" aria-valuemin="0" aria-valuemax="{{ ressource.rangeMax }}"></div>
+                                    </div>
                                 </div>
                             {% endfor %}
-
                         </div>
                     </div>
                 {% endif %}
@@ -215,7 +226,7 @@
                 </ul>
                 <p class="labelChamps">Modification d'une ressource:</p>
                 <ul>
-                    <li>Faire glisser le marqueur : permet de modifier la valeur glissante de la ressource sélectionnée.</li>
+                    <li>Saisir une nouvelle valeur : modifie la longueur de la barre de la ressource sélectionnée.</li>
                     <li>Clique sur la valeur max : permet de modifier la valeur max de la ressource sélectionnée.</li>
                 </ul>
             </div>

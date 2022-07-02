@@ -137,51 +137,57 @@ $(document).ready(function()
 
 //*****************debut : ressource **************
 
-    //gestion couleur valeur range au chargement
-    for(let i = 1; i<=3; i++){
-        var valeurGlissante = $("#range"+i).val();
-        var valeurMax = $("#range"+i).data("max");
-        var color = formateCSSSuivantValeurMax(valeurGlissante, valeurMax);
-        $('.colorValue'+i).addClass("text-" + color);
-    }
+    //modification d'une valeur glissante d'une ressource (input)
+        $(".inputPV").change(function()
+            {
+                //récupération des datas
+                var count = parseInt($(this).data("count"));
+                var id = parseInt($(this).data("id"));
+                var valeurGlissante = parseInt($(this).val());
+                var valeurMax = parseInt($(this).data("max"));
 
-    //modification d'une valeur glissante d'une ressource
-    $(".range").change(function()
-        {
-            //récupération des datas
-            var count = parseInt($(this).data("count"));
-            var id = parseInt($(this).data("id"));
-            var valeurGlissante = parseInt($(this).val());
-            var valeurMax = parseInt($(this).data("max"));
-
-            //annulation des couleurs css
-            $('.colorValue'+count).removeClass(
-                "text-success \n\
-                text-warning \n\
-                text-danger"
-            ).addClass("text-info");
-
-            //update de la ressource en ajax
-            $.ajax({
-                type:'POST',
-                url: '/projet_perso/public/ajax/ressourceUpdateAjax.php',
-                data: {valeurGlissante: valeurGlissante, id: id},
-                success: function (){
-                    //changement de la valeur affichée
-                    $('.refreshValue'+count).text(valeurGlissante);
-
-                    //changement de la couleur d'affichage
-                    var color = formateCSSSuivantValeurMax(valeurGlissante, valeurMax);
-                    $('.colorValue'+count).removeClass("text-info").addClass("text-" + color);
-
-                    //changement valeur info bulle  ***********(en cours)
-                },
-                error: function (){
-                    console.log("ajax controller erreur");
+                //valeur et css progress-bar
+                var progressBarValue = valeurGlissante*100/valeurMax;
+                if(progressBarValue > 50)
+                {
+                    var cssBar = "bg-success";
                 }
-            });
-        }
-    );
+                else if(progressBarValue <= 50 && progressBarValue > 25)
+                {
+                    var cssBar = "bg-warning";
+                }
+                else if(progressBarValue <= 25 && progressBarValue > 0)
+                {
+                    var cssBar = "bg-danger";
+                }
+                else if(progressBarValue <= 0)
+                {
+                    progressBarValue = 100;
+                    var cssBar = "bg-secondary progress-bar-striped";
+                }
+
+                //update de la ressource en ajax
+                $.ajax({
+                    type:'POST',
+                    url: '/projet_perso/public/ajax/ressourceUpdateAjax.php',
+                    data: {valeurGlissante: valeurGlissante, id: id},
+                    success: function (){
+                        //changement de la progress-bar
+                        $('.progress-bar'+count)
+                            .removeAttr('aria-valuenow')
+                            .attr('aria-valuenow', valeurGlissante)
+                            .removeAttr('style')
+                            .attr('style', "width:"+progressBarValue+"%")
+                            .removeClass('bg-success').removeClass('bg-warning').removeClass('bg-danger').removeClass('bg-secondary progress-bar-striped')
+                            .addClass(cssBar)
+                        ;
+                    },
+                    error: function (){
+                        console.log("ajax controller erreur");
+                    }
+                });
+            }
+        );
 
     //modification de la rangeMax d'une ressource
     $(".modifiableRangeMax").click(function ()
@@ -192,18 +198,9 @@ $(document).ready(function()
             var valeurMax = parseInt($(this).data("rangemax"));
             var page = $(this).data('page');
 
-            console.log(valeurMax);
-
-            //annulation des couleurs css
-            $('.colorValue'+count).removeClass(
-                "text-success \n\
-                text-warning \n\
-                text-danger"
-            ).addClass("text-info");
-
             //modal
             $.confirm({
-                title: "<h3>Modification de la valeur max de la ressource ?</h3>",
+                title: "<span class='modifier'><i class='mdi mdi-file-edit-outline'> </i> Modifier</span>",
                 content:
                     "<p>Ancienne valeur: " + valeurMax + "</p>" +
                     "<label>Nouvelle valeur: </label>" +
@@ -224,22 +221,8 @@ $(document).ready(function()
                     },
                 },
             });
-            //url: updateRangeMax/{id}/{newRangeMax}
-
         }
     );
-
-    //gestion couleur valeur glissante
-    function formateCSSSuivantValeurMax(valeurGlissante, valeurMax){
-        var color = "";
-        if (valeurGlissante > (valeurMax/2))
-            color = "success";
-        else if (valeurGlissante > (valeurMax/4) && valeurGlissante <= (valeurMax/2))
-            color = "warning";
-        else if (valeurGlissante <= (valeurMax/4))
-            color = "danger";
-        return color;
-    }
 
     //suppression d'une ressource
     $(".cliquableRessource").click(function()
