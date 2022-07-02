@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Admin - Users | {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="text-center">
+        <h2 class="labelChamps">Liste des utilisateurs</h2>
+    </div>
+    <div class="row my-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Dernière connexion</th>
+                    <th scope="col">Fiches</th>
+                    <th scope="col">Cartes</th>
+                    <th scope="col">Validé</th>
+                    <th scope="col">Actif</th>
+                    <th scope="col">Admin</th>
+                    <th scope="col" class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.pseudo }}</th>
+                        <td><a href="{{ path('user_profil', {'id': user.id}) }}">{{ user.email }}</a></td>
+                        <td>{{ user.dateConnection | date("d/m/Y - H:i") }}</td>
+                        <td><a href="{{ path('fiche_list', {'id': user.id}) }}">{{ user.fichePersos | length }}</a></td>
+                        <td><a href="{{ path('interfaceMJ_listAllCartesMJ', {'id': user.id}) }}">{{ user.cartesMJ | length }}</a></td>
+
+                    {# BADGES #}
+                        <td>
+                            {% if user.validated %}
+                                <span class="badge bg-success validatedUser" data-user="{{ user.id }}" data-validated="{{ user.validated }}">OK</span>
+                            {% else %}
+                                <span class="badge bg-warning validatedUser" data-user="{{ user.id }}" data-validated="{{ user.validated }}">En attente</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.active %}
+                                <span class="badge bg-info activeUser" data-user="{{ user.id }}" data-active="{{ user.active }}">OK</span>
+                            {% else %}
+                                <span class="badge bg-danger activeUser" data-user="{{ user.id }}" data-active="{{ user.active }}">Inactif</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if "ROLE_ADMIN" in user.roles %}
+                                <span class="badge bg-primary">Admin</span>
+                            {% endif %}
+                        </td>
+                    {# FIN BADGES #}
+
+                    {# MENU ACTION #}
+                        <td class="dropdown text-end">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Action">
+                                ...
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 0">
+                                <p class="text-center menuActionUser">{{ user.email }}</p>
+                                <li>
+                                    <a class="dropdown-item menuAction" href="{{ path('admin_mailContactUser', {'id':user.id}) }}" title="#"><i class="mdi mdi-email-edit"></i> Mail contact user</a>
+                                </li>
+                                <li class="dropdown-item mailCodeValidation menuAction" data-user="{{ user.id }}">
+                                    <i class="mdi mdi-email-check"></i> Mail code activation
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="dropdown-item deleteUser menuAction" data-user="{{ user.id }}" data-email="{{ user.email }}">
+                                    <i class="mdi mdi-delete"></i> Supprimer
+                                </li>
+                            </ul>
+                        </td>
+                    {# FIN MENU ACTION #}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script defer src="{{ asset('script/Admin.js') }}"></script>
+{% endblock %}

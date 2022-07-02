@@ -17,15 +17,18 @@ class FicheFormType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class,[
+                'label' => 'Nom* : ',
                 'required' => true
             ])
             ->add('image', FileType::class,[
-                'label' => 'image (jpg)',
+                'label' => 'image .jpg (taille max: 150x150) : ',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxSize' => '100k'
+                        'maxSize' => '15k',
+                        'maxHeight' => '150',
+                        'maxWidth' => '150',
                     ])
                 ]
             ])

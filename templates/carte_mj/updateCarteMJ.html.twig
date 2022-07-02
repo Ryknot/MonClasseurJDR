@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Modification CarteMJ | {{ parent() }}
+{% endblock %}
+
+{% block script %}
+    <script defer src="{{ asset('script/interfaceMJ.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+<div class="card mb-2 cardTitle text-center">
+    <div class="card-content p-2 m-2 cardTypeInfo">
+        <h2> Modification de carte :</h2>
+    </div>
+</div>
+
+<div class="card mb-2 col cardFiche" id="formAddChamps">
+    <div class="container row m-3">
+
+        {# DEBUT formulaire carteMJ #}
+        <div class="card-content p-2 m-2 cardTypeInfo col-xl-4 col-lg-6 col-md-12">
+            {{ form_start(carteMJForm) }}
+                <div class="col pt-3 m-2 text-center cardChamp">
+                    {{ form_row(carteMJForm.type) }}
+                </div>
+                <div class="col pt-3 m-2 text-center cardChamp">
+                    {{ form_row(carteMJForm.nom) }}
+                </div>
+                <div class="col pt-3 m-2 text-center cardChamp">
+                    {{ form_row(carteMJForm.PV, { 'attr': {'value': carteMJ.pv} }) }}
+                </div>
+            {# EN attente gestion filtre dans interfaceMJ
+                <div class="col pt-3 m-2 text-center cardChamp">
+                    {{ form_row(carteMJForm.filtre) }}
+                </div>
+            #}
+                <div class="col pt-3 m-2 text-center cardChamp">
+                    {{ form_row(carteMJForm.note) }}
+                </div>
+                <div class="col pt-3 m-2 text-center cardChamp">
+                    {{ form_row(carteMJForm.image) }}
+                </div>
+
+            <div class="row">
+                <div id="btnFiche" class=" col p-2 m-2 cardChamp content-center">
+                    <button type="submit" class="btn btn-sm button" name="boutonFiche" value="update">Valider</button>
+                    <a href="{{ path('interfaceMJ', {'id':user.id}) }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
+                </div>
+            </div>
+            {{ form_end(carteMJForm) }}
+        </div>
+        {# FIN formulaire carteMJ #}
+
+        {# DEBUT apercu carteMJ #}
+        <div class="col">
+        <div id="apercuCard" class="card-content p-2 m-2 cardTypeInfo col-xl-4 col-lg-6 col-md-4 col-sm-6 {{ carteMJ.type }}">
+                <div class="col m-2 text-center cardChamp">
+                    <span id="nomCarteMj">{{ carteMJ.nom }}</span>
+                </div>
+                <div class="col m-2 text-center cardChamp champImageCarteMJ">
+                    <img id="imgCarteMJ" src='/projet_perso/public/uploads/{{ carteMJ.image }}' alt="image carte"/>
+                </div>
+                <div class="col m-2 text-center cardChamp">
+                    <span id="pvCarteMj">{{ carteMJ.pv }}/{{ carteMJ.pv }}</span>
+                </div>
+                <div id="noteCarteMj" class="col m-2 cardChamp">
+                    <span id="noteCarteMj">{{ carteMJ.note | nl2br }}</span>
+                </div>
+        </div>
+        </div>
+        {# FIN apercu carteMJ #}
+
+    </div>
+</div>
+
+{% endblock %}

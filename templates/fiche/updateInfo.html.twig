@@ -10,7 +10,7 @@
 
                 {{ form_start(ficheForm) }}
                 <div class="">
-                    <div class="p-1 m-2 text-center cardChamp">
+                    <div class="p-1 m-2 mb-4 text-center cardChamp">
                         {{ form_row(ficheForm.pseudo) }}
                     </div>
                     <div class="p-1 m-2 text-center cardChamp">
@@ -18,7 +18,8 @@
                     </div>
                 </div>
                 <div class="newFiche">
-                    <button type="submit" class="btn btn-lg button" name="boutonFiche">Valider</button>
+                    <button type="submit" class="btn btn-sm button" name="boutonFiche">Valider</button>
+                    <a href="{{ path('fiche_detail', {'id':fiche.id}) }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
                 </div>
                 {{ form_end(ficheForm) }}
             </div>

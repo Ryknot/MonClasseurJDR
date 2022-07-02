@@ -1,0 +1,17 @@
+<div id='CarteMJ{{ count }}' class='card-content p-2 mt-2 cardTypeInfo col-xl-3 col-lg-4 col-md-6 col-sm-6 onBoard CardCarteMJ {{ carte.type }}'>
+    <div class='col m-2 cardChamp'><i class='mdiCarte{{ count }}'><span class='nomCarteMj'>{{ carte.nom }}</span></i></div>
+    <div class='col m-2 text-center cardChamp champImageCarteMJ'><img src='/projet_perso/public/uploads/{{ carte.image }}' alt="image carte"/></div>
+    <div class='col pt-1 m-2 text-center cardChamp' style="height: 40px">
+        <span class='pvCarteMj'>
+            <input id="pvValueCarteMJ{{ count }}" class='pvCarteMj col-4' data-Count='{{ count }}' data-Pvmax='{{ carte.pv }}' type='number' min='0' max='{{ carte.pv }}' value='{{ carte.pv }}'/>
+            /{{ carte.pv }}
+        </span>
+    </div>
+    <div class='col m-2 cardChamp'><span class='noteCarteMj'>{{ carte.note | nl2br  }}</span></div>
+    <div class="m-4"></div>
+    <div class='col m-2 px-4 d-flex justify-content-between cardChamp'>
+        <i class='deleteCarteMJ mdi mdi-delete' data-Count='{{ count }}'></i>
+        <i class='updateCarteMJ mdi mdi-application-edit' data-Count='{{ count }}'></i>
+    </div>
+    <div class="infoCarte{{ count }}" data-Userid="{{ carte.user.id }}" data-Carteid="{{ carte.id }}" data-Page="onBoard" ></div>
+</div>

@@ -1,0 +1,34 @@
+<div class="mt-2 p-1 col cardChamp" id="formAddChamps">
+    <div class="card-content m-2 formulaireVolet">
+        {# champ #}
+        <p class="titleVoletG text-center">Ajout champ:</p>
+        {{ form_start(champForm) }}
+        {{ form_row(champForm.typeInfo) }}
+        <div id="typeChamp">
+            {{ form_row(champForm.typeChamp) }}
+        </div>
+        {{ form_row(champForm.label) }}
+        <div id="champTexte">
+            {{ form_row(champForm.valeurTexte) }}
+        </div>
+        <div id="champArea">
+            {{ form_row(champForm.valeurArea) }}
+        </div>
+        <div id="btnFiche" class="p-1 m-1">
+            <button type="submit" class="btn btn-sm button" name="boutonFiche" value="update">Ajouter</button>
+        </div>
+        {{ form_end(champForm) }}
+
+        <hr>
+
+        {# ressource #}
+        <p class="titleVoletG text-center">Ajout ressource:</p>
+        {{ form_start(ressourceForm) }}
+        {{ form_row(ressourceForm.label) }}
+        {{ form_row(ressourceForm.rangeMax) }}
+        <div id="btnFiche" class="p-1 m-1">
+            <button type="submit" class="btn btn-sm button" name="boutonFiche" value="update">Ajouter</button>
+        </div>
+        {{ form_end(ressourceForm) }}
+    </div>
+</div>

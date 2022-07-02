@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Admin - Messages | {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="text-center">
+        <h2 class="labelChamps">Liste des messages <span style="font-size: large">({{ messages | length }}/{{ MESSAGES_MAX_COUNT }})</span></h2>
+    </div>
+    <div class="row my-2">
+        <table class="table table-striped" data-toggle="table" data-pagination="true">
+            <thead>
+                <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">User</th>
+                    <th scope="col" class="text-center">Date</th>
+                    <th scope="col">Message</th>
+                    <th scope="col" class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+                    <tr>
+                        {% if message.type == "autre" %}
+                            <th scope="row" class="col bg-secondary text-white">{{ message.type }}</th>
+                        {% elseif message.type == "evolution"  %}
+                            <th scope="row " class="col bg-info text-white">{{ message.type }}</th>
+                        {% elseif message.type == "satisfaction"  %}
+                            <th scope="row " class="col bg-success text-white">{{ message.type }}</th>
+                        {% elseif message.type == "support"  %}
+                            <th scope="row " class="col bg-warning text-white">{{ message.type }}</th>
+                        {% elseif message.type == "anomalie"  %}
+                            <th scope="row " class="col bg-danger text-white">{{ message.type }}</th>
+                        {% else  %}
+                            <th scope="row ">{{ message.type }}</th>
+                        {% endif %}
+                        <td>{{ message.user }}</td>
+                        <td class="text-center">{{ message.date | date("d/m/Y - H:i") }}</td>
+                        <td>
+                            <div class="messageContent">
+                                {{ message.content | nl2br }}
+                            </div>
+                        </td>
+                        <td class="deleteMessage text-end" data-message="{{ message.id }}"><i class="mdi mdi-delete"></i></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script defer src="{{ asset('script/Admin.js') }}"></script>
+{% endblock %}

@@ -27,7 +27,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     {# mdi icon #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" />
-
+    {# bootstrap table (pagination) #}
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 
     <title>{% block title %} {{ 'websiteTitle' | trans }} {% endblock %}</title>
 </head>
@@ -50,7 +52,7 @@
     <main>
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="col flash flash-{{ label }}">
+                <div class="col alert alert-{{ label }}"  role="alert"> {# alert au lieu de flash, css bootstrap #}
                     {{ message }}
                 </div>
             {% endfor %}

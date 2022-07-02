@@ -1,0 +1,28 @@
+<div class="cardChamp mt-2 p-1 col">
+    <p class="titleVoletG text-center">Gestion des cartes bestiaire/PNJ:</p>
+    <div class="row">
+        <div class="col text-nowrap">
+            <a href="{{ path('interfaceMJ_createCarteMJ', {'id':user.id}) }}"><button id="newCarteMJ" class="button m-1">Créer une nouvelle carte</button></a>
+        </div>
+        <div class="col text-nowrap">
+            <a href="{{ path('interfaceMJ_listAllCartesMJ', {'id':user.id}) }}"><button id="newCarteMJ" class="button m-1">Voir la liste des cartes</button></a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            <p>Cartes disponibles: {{ cartesMJ | length }}</p>
+            <select id="addCarteMJ" class="text-nowrap">
+                {% set count = 0 %}
+                <option data-Count="{{ count }}">Choisissez une carte</option>
+                {% for carte in cartesMJ %}
+                    {% set count = count + 1 %}
+                    <option style="color: {{ carte.type == "bestiaire" ? "#b23030" : "#2968a4" }}" data-Count="{{ count }}" data-Img="{{ carte.image }}"data-Pv="{{ carte.pv }}" data-Note="{{ carte.note }}" data-Type="{{ carte.type }}" data-Userid="{{ carte.user.id }}" data-Carteid="{{ carte.id }}">{{ carte.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12 mb-1">
+            <button id="btnAddCarteMJ" class="btn btn-sm button text-nowrap" name="boutonFiche" value="update">Ajouter sur le plateau</button>
+        </div>
+    </div>
+</div>

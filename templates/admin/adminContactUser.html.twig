@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if is_granted("ROLE_ADMIN")%}
+        <div class="card mb-2 col-8 cardFiche" id="formContactUser" xmlns="http://www.w3.org/1999/html">
+            <div class="col">
+                <div class="col card-content p-2 m-2 cardTitle">
+                    <h2 class="text-center">Envoyer un mail au user.</h2>
+                </div>
+                <div class="col card-content p-2 m-2 cardTypeInfo">
+                    <form action="#" method="POST" name="contactUser">
+                        <div class="row">
+                            <div class="col">
+                                <label for="message">Message*:</label>
+                                <textarea id="message" rows='10', cols='60' name="message" required="required"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col newFiche">
+                                <button type="submit" class="btn btn-sm button" name="boutonFiche">Valider</button>
+                            </div>
+                            <div class="col newFiche">
+                                <a href="{{ path('admin_usersList') }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h3 class="text-nowrap"> Informations non disponibles </h3>
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

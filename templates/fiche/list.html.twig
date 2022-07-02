@@ -8,14 +8,30 @@
     <div id="listeFiche" class="container-fluid col-12">
         <div class="row">
             <div id="containerList" class="col-6 cardFiche m-5 p-5">
-                <h3 class="cardTitle text-center p-1 mb-5">Fiches de personnages de <span class="pseudoFiche">{{ user.pseudo }}</span></h3>
-
                 {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
+                    <h3 class="cardTitle text-center p-1 mb-5">Fiches de personnages de <span class="pseudoFiche">{{ user.pseudo }}</span></h3>
                     <div class="listPerso">
                         {% if fiches.count != 0 %}
                             {% for fiche in fiches %}
-                                <div class="cardChamp p-2 m-1 col-sm-12 col-md-8 text-center">
-                                    <a class="lienFiche" href="{{ path('fiche_detail', {'id': fiche.id}) }}">{{ fiche.pseudo }}</a>
+                                <div class="cardChamp p-2 m-1 col text-center">
+                                    <a class="lienFiche" href="{{ path('fiche_detail', {'id': fiche.id}) }}">
+                                    <table class="col-12">
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-4">
+                                                    {% if fiche.image %}
+                                                        <img id="imagefiche" src="/projet_perso/public/uploads/{{ fiche.image }}" alt="image fiche">
+                                                    {% else %}
+                                                        <img id="imagefiche" src="/projet_perso/public/uploads/icon_d20_mini.png" alt="image fiche">
+                                                    {% endif %}
+                                                </td>
+                                                <td class="col-8">
+                                                    {{ fiche.pseudo }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </a>
                                 </div>
                             {% endfor %}
                         {% else %}
@@ -26,35 +42,9 @@
                         <a href="{{ path('fiche_create' , {'id' : user.id}) }}"><button class="btn btn-md button"><i class="mdi mdi-account-multiple-plus"></i> Nouveau personnage</button></a>
                     </div>
                 {% else %}
-                    <h3>Fiches de personnages: infos filtrés</h3>
-
+                    <h3> Informations non disponibles </h3>
                 {% endif %}
             </div>
-
-            {# carousel
-            <div id="containerCarousel" class="col cardFiche m-5 p-5">
-                <div id="carouselCard" class="card border row justify-content-center">
-                    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            {% if fiches.count != 0 %}
-                                {% set index = 0 %}
-                                {% for fiche in fiches %}
-                                    {% set index = index +1 %}
-                                    <div class="carousel-item {{ index == 1? "active" : "" }}">
-                                        {% if fiche.image != null %}
-                                            <img src="{{ asset('uploads/' ~ fiche.image) }}" class="d-block w-100" alt="photo personnage">
-                                        {% else %}
-                                            <img src="{{ asset('img/fiche.png') }}" class="d-block w-100" alt="...">
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            #}
-
         </div>
     </div>
 

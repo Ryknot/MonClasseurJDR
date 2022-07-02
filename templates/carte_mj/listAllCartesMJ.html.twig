@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class=" row m-0">
+
+        {# DEBUT: volet gauche #}
+        <div class="col-2 ml-0 pl-1 voletG">
+            <div class="mt-4"></div>
+
+            {# DEBUT gestion carteMJ #}
+            <div class="cardChamp mt-2 p-1 col">
+                <p class="text-center">Gestion des cartes bestiaire/PNJ:</p>
+                <div>
+                    <a href="{{ path('interfaceMJ_createCarteMJ', {'id':user.id}) }}"><button id="newCarteMJ" class="btn btn-sm button" name="boutonFiche" value="update">nouvelle carte</button></a>
+                </div>
+                <hr>
+                <div>
+                    <a href="{{ path('interfaceMJ', {'id':user.id}) }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
+                </div>
+            </div>
+            {# FIN gestion carteMJ #}
+            <div class="mb-4"></div>
+        </div>
+        {# FIN: volet gauche #}
+
+        {# DEBUT board MJ #}
+        <div class="col ml-1">
+            <div class="card text-center p-2 cardFiche">
+                <div class="card mb-2 p-2 cardTitle content-center">
+                    <h2 class="text-center"> Liste des cartes du Maître du jeu : <span class="pseudoFiche">{{ user.pseudo }}</span></h2>
+                </div>
+                {% if ( cartesMJ | length ) <= 0 %}
+                    <div class="col p-2 m-2 alert alert-info text-start" role="alert">
+                        <h4>Pas de carte disponible, il est temps d'en créer une !</h4>
+                        <span class="labelChamps">Créer une nouvelle carte:</span>
+                        <ul>
+                            <li>Cliquez sur "Créer une nouvelle carte".</li>
+                            <li>Remplissez les champs de création de la carte.</li>
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="card mb-2 p-1 cardTypeInfo container">
+                    {# DEBUT plateau cartes #}
+                    <div id="insertCard" class="p-2 row">
+                        {% set count = 0 %}
+                        {% for carte in cartesMJ %}
+                            {% set count = count + 1 %}
+                            <div id='CarteMJ{{ count }}' class='card-content p-2 mt-2 cardTypeInfo col-xl-3 col-lg-4 col-md-6 col-sm-6 onBoard {{ carte.type }}'>
+                                <div class='col m-2 cardChamp'><i class='mdiCarte{{ count }}'><span class='nomCarteMj'>{{ carte.nom }}</span></i></div>
+                                <div class='col m-2 text-center cardChamp champImageCarteMJ'><img src='/projet_perso/public/uploads/{{ carte.image }}' alt="image carte"/></div>
+                                <div class='col m-2 text-center cardChamp'>
+                                    <span class='pvCarteMj'><span class='pvValue{{ count }}'>{{ carte.pv }}</span>/{{ carte.pv }}</span>
+                                </div>
+                                <div id="noteCarteMj" class='col m-2 cardChamp'><span class='noteCarteMj'>{{ carte.note | nl2br  }}</span></div>
+                                <div class="m-4"></div>
+                                <div id="utilitaire" class='col m-2 px-4 d-flex justify-content-between cardChamp'>
+                                    <i class='deleteCarteMJ mdi mdi-delete' data-Count='{{ count }}'></i>
+                                    <i class='updateCarteMJ mdi mdi-application-edit' data-Count='{{ count }}'></i>
+                                </div>
+                                <div class="infoCarte{{ count }}" data-Userid="{{ carte.user.id }}" data-Carteid="{{ carte.id }}" data-Page="listAll" ></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {# FIN plateau cartes #}
+                </div>
+            </div>
+        </div>
+    </div>
+    {# FIN fiche personnage #}
+
+    {# AIDE #}
+    <div class="card mt-4 p-4 cardFiche">
+        <div class="card mb-2 cardTitle">
+            <h2 class="text-center"> Aide :</h2>
+        </div>
+        <div class="card mb-2 p-2 cardTypeInfo content-center">
+            <div class=" col p-2 m-2 cardChamp">
+                <p class="labelChamps">Créer une nouvelle carte:</p>
+                <ul>
+                    <li>Clique sur le bouton "Créer une nouvelle carte" : redirige vers la page de création de carte.</li>
+                </ul>
+                <p class="labelChamps">Modifier une carte:</p>
+                <ul>
+                    <li>Modifier une carte : Clique sur l'icône <i class="mdi mdi-application-edit" style="font-size:medium"></i>de la carte à modifier du plateau. (!! Modifie tous les exemplaires de cette carte sur le plateau !!)</li>
+                </ul>
+                <p class="labelChamps">Supprimer DEFINITIVEMENT une carte:</p>
+                <ul>
+                    <li>Clique sur le bouton "Voir la liste des cartes" puis clique sur l'icône <i class="mdi mdi-delete" style="font-size:large"></i>. (!! Cette carte disparaîtra à tout jamais !!)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {# FIN AIDE #}
+
+{% endblock %}
+
+{% block title %}
+    {{ user.pseudo }} | {{ parent() }}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script defer src="{{ asset('script/interfaceMJ.js') }}"></script>
+{% endblock %}
+
+

@@ -17,8 +17,32 @@
         <div class="col ml-1">
             <div class="card text-center p-4 cardFiche">
                 <div class="card mb-2 p-2 cardTitle content-center">
-                    <h2 class="text-center"><i class="mdi mdi-account-box"></i> FICHE PERSONNAGE: <span class="pseudoFiche">{{ fiche.pseudo }}</span></h2>
+                    {% if fiche.image %}
+                        <table class="col-12">
+                            <tbody>
+                            <tr>
+                                <td class="col-3">
+                                    <img id="imagefiche" src="/projet_perso/public/uploads/{{ fiche.image }}" alt="image fiche">
+                                </td>
+                                <td class="col">
+                                    <h2>
+                                        Fiche personnage:<br/>
+                                        <span class="pseudoFiche">{{ fiche.pseudo }}</span>
+                                    </h2>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <h2>
+                            <i class="mdi mdi-account-box"></i>Fiche personnage:
+                            <span class="pseudoFiche">{{ fiche.pseudo }}</span>
+                        </h2>
+                    {% endif %}
                 </div>
+                {% if fiche.nbRessource == 0 and fiche.nbChamps1 == 0 and fiche.nbChamps2 == 0 and fiche.nbChamps3 == 0 and fiche.nbChamps4 == 0 and fiche.nbChamps5 == 0 and fiche.nbChamps6 == 0 and fiche.nbChamps7 == 0%}
+                    <div class="col p-2 m-2 alert alert-info" role="alert">Cliquez sur "Modifier la fiche" pour ajouter des informations à votre fiche personnage.</div>
+                {% endif %}
                 {% if fiche.nbRessource > 0 %}
                     <div class="card mb-2 p-2 cardTypeInfo content-center">
                         <h3><i class="mdi mdi-ray-vertex"></i> Ressources:</h3>
@@ -181,7 +205,7 @@
         </div>
         <div class="card mb-2 p-2 cardTypeInfo content-center">
             <div class=" col p-2 m-2 cardChamp">
-                <p class="labelChamps">Ajouter un champ ou une ressource:</p>
+                <p class="labelChamps">Ajouter ou supprimer un champ ou une ressource:</p>
                 <ul>
                     <li>Clique sur le bouton "Modifier la fiche" : redirige vers la page de modification de la fiche.</li>
                 </ul>

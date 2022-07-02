@@ -1,0 +1,11 @@
+<div class="cardChamp mt-2 p-1 col">
+    <div class="my-2">
+        <a href="{{ path('fiche_updateInfo', {'id':fiche.id}) }}"><button type="button" class="btn btn-sm button" name="boutonFiche"> <span class="nowrap">Modifier le nom ou l'image</span></button></a>
+    </div>
+    <div class="my-2">
+        <button type="button" id="btnDeleteFiche" data-Fiche="{{ fiche.id }}" class="btn btn-sm button" name="boutonFiche" value="delete"> <span class="nowrap">Supprimer la fiche</span></button>
+    </div>
+    <div class="my-2">
+        <a href="{{ path('fiche_detail', {'id':fiche.id}) }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
+    </div>
+</div>

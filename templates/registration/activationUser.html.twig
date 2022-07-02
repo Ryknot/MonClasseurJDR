@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Activation | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="col p-2 m-2 alert alert-info" role="alert">Un code d'activation à 6 chiffres vous a été envoyé par mail. Veuillez saisir votre code d'activation.</div>
+    <form method="post" action="{{ path('app_register_activation', {'id': user.id}) }}" name="formCodeActivation">
+        <div class="p-2 cardChamp">
+            <div class="m-2">
+                <label for="codeActivation">Code d'activation*</label>
+                <input type="text" id="codeActivation", name="codeActivation" minlength="6" maxlength="6" required="required">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-sm button text-nowrap">Activer mon compte</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

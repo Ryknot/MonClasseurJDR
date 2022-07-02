@@ -33,7 +33,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ["ROLE_NOTVALIDATED"];
 
     /**
      * @var string The hashed password
@@ -43,9 +43,9 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=30, unique=true)
-     * @Assert\Unique(message="this pseudo is already existing, choose an oser dude !")
-     * @Assert\Length(min=5, minMessage="pseudo must contains min 5 characters !", max=30, maxMessage="pseudo can contain max 30 characters !")
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=30, maxMessage="pseudo can contain max 30 characters !")
      */
     private $pseudo;
 
@@ -64,10 +64,36 @@ class User implements UserInterface
      */
     private $cartesMJ;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateConnection;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $validated;
+
+    /**
+     * @ORM\Column(type="string", length=6)
+     */
+    private $codeValidation;
+
+    /**
+     * @ORM\Column(type="string", length=6, nullable=true)
+     */
+    private $lastCodeValidation;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
     public function __construct()
     {
         $this->fichePersos = new ArrayCollection();
         $this->cartesMJ = new ArrayCollection();
+        $this->logs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,11 +128,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -238,4 +260,65 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getDateConnection(): ?\DateTimeInterface
+    {
+        return $this->dateConnection;
+    }
+
+    public function setDateConnection(\DateTimeInterface $dateConnection): self
+    {
+        $this->dateConnection = $dateConnection;
+
+        return $this;
+    }
+
+    public function getValidated(): ?bool
+    {
+        return $this->validated;
+    }
+
+    public function setValidated(bool $validated): self
+    {
+        $this->validated = $validated;
+
+        return $this;
+    }
+
+    public function getCodeValidation(): ?string
+    {
+        return $this->codeValidation;
+    }
+
+    public function setCodeValidation(string $codeValidation): self
+    {
+        $this->codeValidation = $codeValidation;
+
+        return $this;
+    }
+
+    public function getLastCodeValidation(): ?string
+    {
+        return $this->lastCodeValidation;
+    }
+
+    public function setLastCodeValidation(?string $lastCodeValidation): self
+    {
+        $this->lastCodeValidation = $lastCodeValidation;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
 }

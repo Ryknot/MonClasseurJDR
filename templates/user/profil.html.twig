@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="cardFiche col-4 m-5">
-    <h2 class="h3 m-3 font-weight-normal cardTitle text-center p-1">Profil</h2>
+<div class="cardFiche col m-5">
     {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
+        <h2 class="h3 m-3 font-weight-normal cardTitle text-center p-1">Profil</h2>
         <div class="cardChamp m-3 p-4">
             <dl class="row">
                 <div class="col">
@@ -14,15 +14,75 @@
                     <dt>Email</dt>
                     <dd>{{ user.email }}</dd>
                 </div>
+                <div class="col">
+                    <dt class="text-nowrap">Fiche personnage</dt>
+                    <dd>{{ user.fichePersos | length }}</dd>
+                </div>
+                <div class="col">
+                    <dt class="text-nowrap">Carte MJ</dt>
+                    <dd>{{ user.cartesMJ | length }}</dd>
+                </div>
+
+            {# BADGES #}
+                <div class="col">
+                    <dt class="text-nowrap">Compte actif</dt>
+                    {% if user.active == true %}
+                        <dd class="badge bg-info">OK</dd>
+                    {% else %}
+                        <dd class="badge bg-danger">Inactif</dd>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <dt class="text-nowrap">Compte validé</dt>
+                    {% if user.validated == true %}
+                        <dd class="badge bg-info">OK</dd>
+                    {% else %}
+                        <dd class="badge bg-warning">En attente</dd>
+                    {% endif %}
+                </div>
+            {# FIN BADGES #}
+
+            {# ADMIN #}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <div class="col">
+                        <dt class="text-nowrap">Envoi code Validation</dt>
+                        <dd>
+                            <a href="{{ path('admin_mailResendCodeValidation', {'id':user.id}) }}">
+                                <button type="button" class="btn btn-sm button text-nowrap" name="boutonFiche">Envoyer mail</button>
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+            {# FIN ADMIN #}
             </dl>
         </div>
 
-        <div class="m-3">
-            <a href="#"><button class="btn btn-lg button mt-5">Mettre à jour</button></a>
+        <div class="row">
+            {% if user.validated == false %}
+                <div class="col">
+                    <div class="m-3">
+                        <a href="{{ path('app_register_validation', {'id': user.id}) }}"><button class="btn btn-sm button mt-5">Valider mon compte</button></a>
+                    </div>
+                </div>
+            {% endif %}
+            {% if user.active == false %}
+                <div class="col">
+                    <div class="m-3">
+                        <a href="{{ path('app_register_activation', {'id': user.id}) }}"><button class="btn btn-sm button mt-5">Reactiver mon compte</button></a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="col">
+                <div class="m-3">
+                    <a href="{{ path('user_profilUpdate', {'id': user.id}) }}"><button class="btn btn-sm button mt-5">Modifier mon profil</button></a>
+                </div>
+            </div>
+
         </div>
 
+
     {% else %}
-        <h3> Infos indisponibles</h3>
+        <h3 class="text-nowrap"> Informations non disponibles </h3>
     {% endif %}
 </div>
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
+        <div class="card mb-2 col-8 cardFiche" id="formFiche">
+            <div class="col">
+                <div class="col card-content p-2 m-2 cardTitle">
+                    <h2 class="text-center">Envoyer un message aux administrateur.</h2>
+                </div>
+                <div class="col p-2 m-2 alert alert-info" role="alert">Choisissez le type de message et saisissez son contenu.</div>
+                <div class="col card-content p-2 m-2 cardTypeInfo">
+                    {{ form_start(messageForm) }}
+                    <div class="">
+                        <div class=" col-6 p-2 m-2 text-center cardChamp">
+                            {{ form_row(messageForm.type) }}
+                        </div>
+                        <div class="col p-2 m-2 text-center cardChamp">
+                            {{ form_row(messageForm.content) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col newFiche">
+                            <button type="submit" class="btn btn-sm button" name="boutonFiche">Valider</button>
+                        </div>
+                        <div class="col newFiche">
+                            <a href="{{ path('main_home') }}"><button type="button" class="btn btn-sm button " name="boutonFiche" value="retour">Retour</button></a>
+                        </div>
+                    </div>
+                    {{ form_end(messageForm) }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h3 class="text-nowrap"> Informations non disponibles </h3>
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

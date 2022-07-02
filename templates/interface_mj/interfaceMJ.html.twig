@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class=" row m-0">
+
+        {# DEBUT: volet gauche #}
+        <div class="col-2 ml-0 pl-1 voletG">
+            <div class="mt-4"></div>
+            {% include 'inc/_diceMod.html.twig.' %}
+            {% include 'inc/_cardMJMod.html.twig.' %}
+            <div class="mb-4"></div>
+        </div>
+        {# FIN: volet gauche #}
+
+        {# DEBUT board MJ #}
+        <div class="col ml-1">
+            <div class="card text-center p-2 cardFiche">
+                <div class="card mb-2 p-2 cardTitle content-center">
+                    <h2 class="text-center"> Plateau du Maître du jeu : <span class="pseudoFiche">{{ user.pseudo }}</span></h2>
+                </div>
+                {% if ( cartesMJ | length ) <= 0 %}
+                    <div class="col p-2 m-2 alert alert-info text-start" role="alert">
+                        <h4>Pas de carte disponible, il est temps d'en créer une !</h4>
+                        <span class="labelChamps">Créer une nouvelle carte:</span>
+                        <ul>
+                            <li>Cliquez sur "Créer une nouvelle carte".</li>
+                            <li>Remplissez les champs de création de la carte.</li>
+                        </ul>
+                        <span class="labelChamps">Ajouter une carte sur le plateau:</span>
+                        <ul>
+                            <li>Cliquez sur le volet déroulant "Choisissez une carte".</li>
+                            <li>Choississez parmi la liste des cartes que vous avez créées.</li>
+                            <li>Cliquez sur "Ajouter sur le plateau" pour afficher la carte en autant d'exemplaire que necéssaire.</li>
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="card mb-2 p-1 cardTypeInfo container">
+                    {# DEBUT plateau cartes #}
+                    <div id="insertCard" class="p-2 row">
+                        {% set count = 0 %}
+                        {% for carte in cartesMJ %}
+                            {% if carte.onBoard %}
+                                {% for i in 1..carte.qtyOnBoard  %}
+                                    {% set count = count + 1 %}
+                                    {% include 'inc/_modelCardMJ.html.twig' %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div id="countCarte" data-Carteonboard="{{ count }}"></div>
+                    {# FIN plateau cartes #}
+                </div>
+            </div>
+        </div>
+    </div>
+    {# FIN fiche personnage #}
+
+    {# AIDE #}
+    <div class="card mt-4 p-4 cardFiche">
+        <div class="card mb-2 cardTitle">
+            <h2 class="text-center"> Aide :</h2>
+        </div>
+        <div class="card mb-2 p-2 cardTypeInfo content-center">
+            <div class=" col p-2 m-2 cardChamp">
+                <p class="labelChamps">Liste des cartes créées:</p>
+                <ul>
+                    <li>Clique sur le bouton "Voir la liste des cartes".</li>
+                </ul>
+                <p class="labelChamps">Créer une nouvelle carte:</p>
+                <ul>
+                    <li>Clique sur le bouton "Créer une nouvelle carte" : redirige vers la page de création de carte.</li>
+                </ul>
+                <p class="labelChamps">Gestion des cartes sur le plateau:</p>
+                <ul>
+                    <li>Ajouter une carte : Clique sur le volet déroulant pour choisir une carte préalablement créée, puis clique sur "Ajouter sur le plateau" autant de fois que nécessaire.</li>
+                </ul>
+                <ul>
+                    <li>Modifier une carte : Clique sur l'icône <i class="mdi mdi-application-edit" style="font-size:medium"></i>  de la carte à modifier du plateau. (!! Modifie tous les exemplaires de cette carte !!)</li>
+                </ul>
+                <ul>
+                    <li>Enlever une carte : Clique sur l'icône <i class="mdi mdi-delete" style="font-size:large"></i> de la carte à enlever du plateau.</li>
+                </ul>
+                <p class="labelChamps">Supprimer définitivement une carte:</p>
+                <ul>
+                    <li>Clique sur le bouton "Voir la liste des cartes" puis clique sur l'icône <i class="mdi mdi-delete" style="font-size:large"></i>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {# FIN AIDE #}
+
+{% endblock %}
+
+{% block title %}
+    {{ user.pseudo }} | {{ parent() }}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script defer src="{{ asset('script/interfaceMJ.js') }}"></script>
+{% endblock %}
+
+

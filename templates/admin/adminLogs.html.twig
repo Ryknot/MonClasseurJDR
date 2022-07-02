@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Admin - Logs | {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="text-center">
+        <h2 class="labelChamps">Liste des logs <span style="font-size: large">({{ logs | length }}/{{ LOGS_MAX_COUNT }})</span></h2>
+    </div>
+    <div class="row my-2">
+        <table class="table table-striped" data-toggle="table" data-pagination="true">
+            <thead>
+                <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col" class="text-center">Date</th>
+                    <th scope="col">Message</th>
+                    <th scope="col" class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        {% if log.type == "connexion" %}
+                            <th scope="row" class="col bg-secondary text-white">{{ log.type }}</th>
+                        {% elseif log.type == "creation"  %}
+                            <th scope="row " class="col bg-info text-white">{{ log.type }}</th>
+                        {% elseif log.type == "validation"  %}
+                            <th scope="row " class="col bg-success text-white">{{ log.type }}</th>
+                        {% elseif log.type == "message"  %}
+                            <th scope="row " class="col bg-primary text-dark">{{ log.type }}</th>
+                        {% elseif log.type == "erreur"  %}
+                            <th scope="row " class="col bg-warning text-white">{{ log.type }}</th>
+                        {% elseif log.type == "menace"  %}
+                            <th scope="row " class="col bg-danger text-white">{{ log.type }}</th>
+                        {% elseif log.type == "suppression"  %}
+                            <th scope="row " class="col bg-dark text-white">{{ log.type }}</th>
+                        {% else %}
+                            <th scope="row ">{{ log.type }}</th>
+                        {% endif %}
+                        <td class="text-center">{{ log.date | date("d/m/Y - H:i") }}</td>
+                        <td>{{ log.message }}</td>
+                        <td class="deleteLog text-end" data-log="{{ log.id }}"><i class="mdi mdi-delete"></i></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script defer src="{{ asset('script/Admin.js') }}"></script>
+{% endblock %}

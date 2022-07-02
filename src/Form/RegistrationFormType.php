@@ -3,14 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -19,13 +17,29 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo')
-            ->add('email', EmailType::class)
+            ->add('pseudo',  TextType::class,[
+                'label' => 'Pseudo* (max 30 caractères)',
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'champ Pseudo obligatoire',
+                    ]),
+                    new Length([
+                        'max' => 30,
+                        'maxMessage' => 'Votre pseudo ne peut contenir que {{ limit }} caractères maximum',
+                    ]),
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email*',
+                'required' => true,
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'label' => 'Mot de passe',
+                'required' => true,
+                'label' => 'Mot de passe*',
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
@@ -41,7 +55,8 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('retape_password', PasswordType::class,[
                 'mapped' => false,
-                'label' => 'Retaper le mot de passe',
+                'label' => 'Retaper le mot de passe*',
+                'required' => true,
             ])
             /* todo: agree terms page
             ->add('agreeTerms', CheckboxType::class, [

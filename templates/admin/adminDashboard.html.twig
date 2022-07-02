@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Admin - Dashboard | {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="text-center">
+        <h2 class="labelChamps">Dashboard</h2>
+    </div>
+    <div class="row p-2 mt-2 cardFiche">
+        <div class="col m-1 cardChamp">
+            <div class="text-center"><span class="labelChamps">Users actifs</span></div>
+            <div class="text-center">{{ activeUsers | length }}</div>
+        </div>
+        <div class="col m-1 cardChamp">
+            <div class="text-center"><span class="labelChamps">Users en cours de validation</span></div>
+            <div class="text-center"> {{ notValidatedUsers | length }} </div>
+        </div>
+        <div class="col m-1 cardChamp">
+            <div class="text-center"><span class="labelChamps">Admins</span></div>
+            <div class="text-center"> {{ admins | length }} </div>
+        </div>
+        <div class="col m-1 cardChamp">
+            <div class="text-center"><span class="labelChamps">Fiches JOUEUR créées</span></div>
+            <div class="text-center">{{ nbTotFiches }}</div>
+        </div>
+        <div class="col m-1 cardChamp">
+            <div class="text-center"><span class="labelChamps">Cartes MJ créées</span></div>
+            <div class="text-center">{{ nbTotCartesMJ }}</div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-7 p-2">
+            <div class="card p-2 cardFiche">
+                <div class="cardChamp">
+                    <div class="text-center">
+                        <span class="labelChamps">Messages</span>
+                    </div>
+                    {% for message in lastMessages %}
+                        <div class="col p-2">
+                            <div class="row mb-2">
+                                <div class="col-4 text-start">
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if message.type == "autre" %}
+                                                <div class="typeBg col bg-secondary text-white">{{ message.type }}</div>
+                                            {% elseif message.type == "evolution"  %}
+                                                <div class="typeBg col bg-info text-white">{{ message.type }}</div>
+                                            {% elseif message.type == "satisfaction"  %}
+                                                <div class="typeBg col bg-success text-white">{{ message.type }}</div>
+                                            {% elseif message.type == "support"  %}
+                                                <div class="typeBg col bg-warning text-white">{{ message.type }}</div>
+                                            {% elseif message.type == "anomalie"  %}
+                                                <div class="typeBg col bg-danger text-white">{{ message.type }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    {{ message.user }}
+                                </div>
+                                <div class="col text-end">
+                                    {{ message.date | date("d/m/Y-H:i") }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="messageContent">
+                                        {{ message.content | nl2br }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-5 p-2">
+            <div class="card p-2 cardFiche">
+                <div class="cardChamp">
+                    <div class="text-center">
+                        <span class="labelChamps">Logs</span>
+                    </div>
+                    {% for log in lastLogs %}
+                        <div class="col p-2">
+                            <div class="row mb-2">
+                                <div class="col text-start">
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if log.type == "connexion" %}
+                                                <div class="typeBg col bg-secondary text-white">{{ log.type }}</div>
+                                            {% elseif log.type == "creation"  %}
+                                                <div class="typeBg col bg-info text-white">{{ log.type }}</div>
+                                            {% elseif log.type == "validation"  %}
+                                                <div class="typeBg col bg-success text-white">{{ log.type }}</div>
+                                            {% elseif log.type == "message"  %}
+                                                <div class="typeBg col bg-primary text-dark">{{ log.type }}</div>
+                                            {% elseif log.type == "erreur"  %}
+                                                <div class="typeBg col bg-warning text-white">{{ log.type }}</div>
+                                            {% elseif log.type == "menace"  %}
+                                                <div class="typeBg col bg-danger text-white">{{ log.type }}</div>
+                                            {% elseif log.type == "suppression"  %}
+                                                <div class="typeBg col bg-dark text-white">{{ log.type }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col text-end">
+                                    {{ log.date | date("d/m/Y-H:i") }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ log.message }}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
