@@ -143,15 +143,14 @@ class AdminController extends AbstractController
                     }
                     //suppression du fichier image
                     $image = $fiche->getImage();
-                    if ($image && $image != "icon_d20_mini.png")
+                    if ($image && $image != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $image))
                     {
                         //suppression du fichier de l'image
                         unlink($this->getParameter('images_directory') . '/' . $image);
-                        $fiche->setImage(null);
+                        $fiche->setImage("");
                     }
                     $entityManager->remove($fiche);
                 }
-
                 $this->addFlash('success', "Fiches JOUEUR supprimées avec succès.");
 
                 //MJ - suppression des cartes MJ et leur image
@@ -159,14 +158,14 @@ class AdminController extends AbstractController
                 foreach ($cartesMJ as $carte)
                 {
                     $image = $carte->getImage();
-                    if ($image && $image != "icon_d20_mini.png") {
+                    if ($image && $image != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $image)) {
                         //suppression du fichier de l'image
                         unlink($this->getParameter('images_directory') . '/' . $image);
-                        $carte->setImage(null);
+                        $carte->setImage("");
                     }
                     $user->removeCartesMJ($carte);
                 }
-                $this->addFlash('success', "User supprimé avec succès.");
+                $this->addFlash('success', "Cartes MJ supprimées avec succès.");
 
                 //message delete user
                 $messageService->newMessageDeleteUser($user->getEmail(), $this->getUser());
@@ -174,6 +173,7 @@ class AdminController extends AbstractController
                 $log = $logService->newLogDeleteUser($user->getEmail());
 
                 $entityManager->remove($user);
+                $this->addFlash('success', "User supprimé avec succès.");
             }
             catch (\Exception $e){
                 $this->addFlash('warning', "Erreur pendant la suppression du user.");

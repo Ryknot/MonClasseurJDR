@@ -66,8 +66,8 @@ class UserController extends AbstractController
                         'userPseudo' => $user->getPseudo(),
                         'codeValidation' => $user->getCodeValidation(),
                     ]);
-                    $mailerService->sendMailCodeActivation($user->getEmail(), $content);
-                    $log = $logService->newLogMailValidation($user->getEmail());
+                    $mailerService->sendMailCodeActivation($postEmail, $content);
+                    $log = $logService->newLogMailValidation($postEmail);
                     $entityManager->persist($log);
                     $entityManager->flush();
                     $this->addFlash('success', "Un code de validation à 6 chiffres vous a été envoyé par mail. ");
