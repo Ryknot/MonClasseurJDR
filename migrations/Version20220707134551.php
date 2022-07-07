@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220707133808 extends AbstractMigration
+final class Version20220707134551 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -19,7 +19,7 @@ final class Version20220707133808 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql("DELETE FROM `user` WHERE `user`.`email` = 'seg_jes@hotmail.com'");
+        $this->addSql("UPDATE `user` SET `roles` = '[\"ROLE_ADMIN\"]' WHERE `user`.`email` = 'seg_jes@hotmail.com'");
     }
 
     public function down(Schema $schema): void
