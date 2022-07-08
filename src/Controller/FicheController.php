@@ -226,7 +226,7 @@ class FicheController extends AbstractController
                 if ($image){
                     //suppression de l'ancienne image
                     $oldImage = $fiche->getImage();
-                    if ($oldImage && $oldImage != "icon_d20_mini.png") {
+                    if ($oldImage && $oldImage != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $oldImage)) {
                         try {
                             //suppression du fichier de l'ancienne photo
                             unlink($this->getParameter('images_directory') . '/' . $oldImage);
@@ -473,7 +473,7 @@ class FicheController extends AbstractController
 
             //suppression du fichier image
             $image = $fiche->getImage();
-            if ($image && $image != "icon_d20_mini.png") {
+            if ($image && $image != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $image)) {
                 //suppression du fichier de l'ancienne photo
                 unlink($this->getParameter('images_directory') . '/' . $image);
             }

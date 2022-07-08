@@ -205,7 +205,7 @@ class CarteMJController extends AbstractController
 
         try {
             $image = $carteMJ->getImage();
-            if($image && $image != "icon_d20_mini.png"){
+            if($image && $image != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $image)){
                 try {
                     //suppression du fichier de l'image'
                     unlink($this->getParameter('images_directory') . '/' . $image);
