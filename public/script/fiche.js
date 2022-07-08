@@ -41,7 +41,7 @@ $(document).ready(function()
                content: 'Voulez vous supprimer le champ ?',
                buttons: {
                    Confirmer: function () {
-                       window.location.href = "%kernel.project_dir%/public/champ/delete/" + id;
+                       window.location.href = "/public/champ/delete/" + id;
                    },
                    Annuler: function () {
                        console.log('annuler');
@@ -89,13 +89,13 @@ $(document).ready(function()
                             newValeur = " texte vide !!";
                         }
                         //appel controller
-                        window.location.href = "%kernel.project_dir%/public/champ/update/" + id + "/" + newValeur + "/" + page
+                        window.location.href = "/public/champ/update/" + id + "/" + newValeur + "/" + page
 
                         //update du champ en ajax (en cours)
                         /*
                         $.ajax({
                             type:'POST',
-                            url: '%kernel.project_dir%/public/ajax/champUpdateAjax.php',
+                            url: '/public/ajax/champUpdateAjax.php',
                             data: {newValeur: newValeur, id: id, typeChamp: typeChamp},
                             success: function (){
                                 //changement de la valeur affichée
@@ -120,14 +120,14 @@ $(document).ready(function()
     $(".buttonPrevious").click(function()
         {
             var champId = $(this).data('champ')
-            window.location.href = "%kernel.project_dir%/public/champ/previous/" + champId;
+            window.location.href = "/public/champ/previous/" + champId;
         }
     );
 
     $(".buttonNext").click(function()
         {
             var champId = $(this).data('champ')
-            window.location.href = "%kernel.project_dir%/public/champ/next/" + champId;
+            window.location.href = "/public/champ/next/" + champId;
         }
     );
 
@@ -169,7 +169,7 @@ $(document).ready(function()
                 //update de la ressource en ajax
                 $.ajax({
                     type:'POST',
-                    url: '%kernel.project_dir%/public/ajax/ressourceUpdateAjax.php',
+                    url: '/public/ajax/ressourceUpdateAjax.php',
                     data: {valeurGlissante: valeurGlissante, id: id},
                     success: function (){
                         //changement de la progress-bar
@@ -213,7 +213,7 @@ $(document).ready(function()
                             newRangeMax = valeurMax;
                         }
                         //appel controller
-                        window.location.href = "%kernel.project_dir%/public/ressource/updateRangeMax/" + id + "/" + newRangeMax + "/" + page
+                        window.location.href = "/public/ressource/updateRangeMax/" + id + "/" + newRangeMax + "/" + page
                     },
                     Annuler: function ()
                     {
@@ -236,7 +236,7 @@ $(document).ready(function()
                 content: 'Voulez vous supprimer le champ ?',
                 buttons: {
                     Confirmer: function () {
-                        window.location.href = "%kernel.project_dir%/public/ressource/delete/" + id;
+                        window.location.href = "/public/ressource/delete/" + id;
                     },
                     Annuler: function () {
                         console.log('annuler');
@@ -263,7 +263,7 @@ $(document).ready(function()
             content: 'Voulez vous supprimer <span class="dead">définitivement</span> cette fiche ?',
             buttons: {
                 Confirmer: function () {
-                    window.location.href = "%kernel.project_dir%/public/fiche/" + id + "/delete" ;
+                    window.location.href = "/public/fiche/" + id + "/delete" ;
                 },
                 Annuler: function () {
                     console.log('annuler');
@@ -281,7 +281,7 @@ $(document).ready(function()
 
         $.ajax({
             type:'POST',
-            url: '%kernel.project_dir%/public/ajax/lancerDe.php',
+            url: '/public/ajax/lancerDe.php',
             data: {de: de},
             success: function (response){
                 //changement de la valeur affichée + animation couleur
@@ -334,7 +334,7 @@ $(document).ready(function()
         }else{
             $.ajax({
                 type:'POST',
-                url: '%kernel.project_dir%/public/ajax/lancerDe.php',
+                url: '/public/ajax/lancerDe.php',
                 data: {de: de},
                 success: function (response){
                     //changement de la valeur affichée + animation couleur
