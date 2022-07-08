@@ -21,7 +21,7 @@ class ChampController extends AbstractController
     {
         //récupération du champ et de la fiche perso
         $champ = $champsRepository->find($id);
-        $id = $champ->getFichePerso()->getId();
+        $idFiche = $champ->getFichePerso()->getId();
 
         //modification de la valeur du champ
         try {
@@ -44,12 +44,12 @@ class ChampController extends AbstractController
         //redirection vers la page de provenance: listeDetails ou update
         if ($page == "update"){
             return $this->redirectToRoute('fiche_update', [
-                'id' => $id
+                'id' => $idFiche
             ]);
         }
         else{
             return $this->redirectToRoute('fiche_detail', [
-                'id' => $id
+                'id' => $idFiche
             ]);
         }
     }
@@ -126,7 +126,7 @@ class ChampController extends AbstractController
         }
 
         return $this->redirectToRoute('fiche_update', [
-            'id' => $id
+            'id' => $idFiche
         ]);
     }
 
@@ -155,7 +155,7 @@ class ChampController extends AbstractController
         }
 
         return $this->redirectToRoute('fiche_update', [
-            'id' => $id
+            'id' => $idFiche
         ]);
     }
 
