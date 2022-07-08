@@ -141,7 +141,7 @@ class FicheController extends AbstractController
                         $fichier = md5(uniqid()) . '_Fiche.' . $image->guessExtension();
 
                         //copie de la photo dans le dossier uploads
-                        $image->move($this->getParameter('images_directory')."/fiche/", $fichier);
+                        $image->move($this->getParameter('images_directory'), $fichier);
 
                         //envoie du nom de fichier dans la BDD
                         $fiche->setImage($fichier);
@@ -229,7 +229,7 @@ class FicheController extends AbstractController
                     if ($oldImage && $oldImage != "icon_d20_mini.png") {
                         try {
                             //suppression du fichier de l'ancienne photo
-                            unlink($this->getParameter('images_directory') . '/fiche/' . $oldImage);
+                            unlink($this->getParameter('images_directory') . '/' . $oldImage);
                         } catch(\Exception $e){
                             $this->addFlash('warning', 'Erreur suppression de l\'image ! ');
                             $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
