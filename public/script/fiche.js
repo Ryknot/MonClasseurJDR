@@ -168,9 +168,10 @@ $(document).ready(function()
 
                 //update de la ressource en ajax
                 $.ajax({
-                    type:'POST',
-                    url: '/ajax/ressourceUpdateAjax.php',
-                    data: {valeurGlissante: valeurGlissante, id: id},
+                    //type:'POST',
+                    //url: '/ajax/ressourceUpdateAjax.php',
+                    //data: {valeurGlissante: valeurGlissante, id: id},
+                    url: '/ressource/update/'+id+"/"+valeurGlissante',
                     success: function (){
                         //changement de la progress-bar
                         $('.progress-bar'+count)

@@ -13,11 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RessourceController extends AbstractController
 {
-    //*********  INFO *********
-
-    //modification de la valeur glissante en AJAX
-
-    //*************************
+    /**
+     * @Route("/ressource/update/{id}/{newValue}", name="ressource_updateValue")
+     */
+    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository)
+    {
+        $ressource = $ressourceRepository->find($id);
+        $ressource->setValeurGlissante($newValue);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+    }
 
     /**
      * @Route("/ressource/updateRangeMax/{id}/{newRangeMax}/{page}", name="ressource_updateRangeMax")
