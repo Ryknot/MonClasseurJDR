@@ -7,6 +7,13 @@
 
 
 {% block body %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="col alert alert-{{ label }}"  role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <h1>Sort de chaos Nv100 !!</h1>
 
     <p>
