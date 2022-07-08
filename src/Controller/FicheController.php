@@ -13,6 +13,7 @@ use App\Repository\FichePersoRepository;
 use App\Repository\RessourceRepository;
 use App\Repository\TypeInfoRepository;
 use App\Repository\UserRepository;
+use App\Service\LogService;
 use App\Service\SecurityService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -107,7 +108,7 @@ class FicheController extends AbstractController
      * @Route("/profil/{id}/fiche/create", name="fiche_create")
      *
      */
-    public function ficheCreate(int $id, UserRepository $userRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, Request $request): Response
+    public function ficheCreate(int $id, UserRepository $userRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, LogService $logService, Request $request): Response
     {
         //récupération de l'instance du user
         $user = $userRepository->find($id);
@@ -140,7 +141,7 @@ class FicheController extends AbstractController
                         $fichier = md5(uniqid()) . '_Fiche.' . $image->guessExtension();
 
                         //copie de la photo dans le dossier uploads
-                        $image->move($this->getParameter('images_directory'), $fichier);
+                        $image->move($this->getParameter('images_directory')."/fiche/", $fichier);
 
                         //envoie du nom de fichier dans la BDD
                         $fiche->setImage($fichier);
@@ -177,7 +178,10 @@ class FicheController extends AbstractController
                     ]);
                 }
                 catch(\Exception $e){
-                    $this->addFlash('warning', 'Erreur création de la fiche ! '.$e->getMessage());
+                    $this->addFlash('warning', 'Erreur création de la fiche !');
+                    $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+                    $entityManager->persist($log);
+                    $entityManager->flush();
                 }
             }
             return $this->render('fiche/create.html.twig', [
@@ -198,7 +202,7 @@ class FicheController extends AbstractController
     /**
      * @Route("/fiche/{id}/updateInfo", name="fiche_updateInfo")
      */
-    public function ficheUpdateInfo(int $id, FichePersoRepository $fichePersoRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, Request $request): Response
+    public function ficheUpdateInfo(int $id, FichePersoRepository $fichePersoRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, LogService $logService, Request $request): Response
     {
         //récupération de l'instance de la fichePerso
         $fiche = $fichePersoRepository->find($id);
@@ -225,9 +229,12 @@ class FicheController extends AbstractController
                     if ($oldImage && $oldImage != "icon_d20_mini.png") {
                         try {
                             //suppression du fichier de l'ancienne photo
-                            unlink($this->getParameter('images_directory') . '/' . $oldImage);
+                            unlink($this->getParameter('images_directory') . '/fiche/' . $oldImage);
                         } catch(\Exception $e){
-                            $this->addFlash('warning', 'Erreur suppression de l\'image ! ' . $e->getMessage());
+                            $this->addFlash('warning', 'Erreur suppression de l\'image ! ');
+                            $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+                            $entityManager->persist($log);
+                            $entityManager->flush();
                         }
                     }
 
@@ -256,7 +263,10 @@ class FicheController extends AbstractController
                 ]);
             }
             catch(\Exception $e){
-                $this->addFlash('warning', 'Erreur modification de la fiche ! '.$e->getMessage());
+                $this->addFlash('warning', 'Erreur modification de la fiche ! ');
+                $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+                $entityManager->persist($log);
+                $entityManager->flush();
             }
         }
 
@@ -264,13 +274,13 @@ class FicheController extends AbstractController
             'user' => $user,
             'fiche' => $fiche,
             'ficheForm' => $form->createView()
-        ]);;
+        ]);
     }
 
     /**
      * @Route("/fiche/{id}/update", name="fiche_update")
      */
-    public function ficheUpdate(int $id,FichePersoRepository $fichePersoRepository,TypeInfoRepository $infoRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, Request $request): Response
+    public function ficheUpdate(int $id,FichePersoRepository $fichePersoRepository,TypeInfoRepository $infoRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, LogService $logService, Request $request): Response
     {
         //récupération de l'instance de la fichePerso
         $fiche = $fichePersoRepository->find($id);
@@ -336,6 +346,9 @@ class FicheController extends AbstractController
 
             }catch(\Exception $e){
                 $this->addFlash('warning', 'Erreur modification de la fiche !');
+                $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+                $entityManager->persist($log);
+                $entityManager->flush();
             }
 
             $champs = $champsRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
@@ -437,7 +450,7 @@ class FicheController extends AbstractController
     /**
      * @Route("/fiche/{id}/delete", name="fiche_delete")
      */
-    public function ficheDelete(int $id,FichePersoRepository $fichePersoRepository, ChampsRepository $champsRepository, Request $request): Response
+    public function ficheDelete(int $id,FichePersoRepository $fichePersoRepository, LogService $logService): Response
     {
         $fiche = $fichePersoRepository->find($id);
         $id = $fiche->getUser()->getId();
@@ -469,7 +482,10 @@ class FicheController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Suppression de la fiche réussie !');
         }catch(\Exception $e){
-            $this->addFlash('warning', 'Erreur suppression de la fiche !'. $e->getMessage());
+            $this->addFlash('warning', 'Erreur suppression de la fiche !');
+            $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+            $entityManager->persist($log);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('fiche_list', [
