@@ -171,7 +171,7 @@ $(document).ready(function()
                     //type:'POST',
                     //url: '/ajax/ressourceUpdateAjax.php',
                     //data: {valeurGlissante: valeurGlissante, id: id},
-                    url: '/ressource/update/'+id+"/"+valeurGlissante',
+                    url: '/ressource/update/'+id+'/'+valeurGlissante,
                     success: function (){
                         //changement de la progress-bar
                         $('.progress-bar'+count)
