@@ -183,8 +183,8 @@ $(document).ready(function()
                             .addClass(cssBar)
                         ;
                     },
-                    error: function (){
-                        console.log("ajax controller erreur");
+                    error: function (response){
+                        console.log(response);
                     }
                 });
             }

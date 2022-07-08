@@ -16,12 +16,17 @@ class RessourceController extends AbstractController
     /**
      * @Route("/ressource/update/{id}/{newValue}", name="ressource_updateValue")
      */
-    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository)
+    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository): string
     {
-        $ressource = $ressourceRepository->find($id);
-        $ressource->setValeurGlissante($newValue);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+        try {
+            $ressource = $ressourceRepository->find($id);
+            $ressource->setValeurGlissante($newValue);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return "modification réussi";
+        }catch (\Exception $e){
+            return "erreur: ".$e->getMessage();
+        }
     }
 
     /**
