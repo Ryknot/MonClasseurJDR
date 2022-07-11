@@ -122,6 +122,12 @@ class CarteMJController extends AbstractController
     public function updateCarteMJ(int $carteId, CarteMJRepository $carteMJRepository, LogService $logService, Request $request): Response
     {
         $carteMJ = $carteMJRepository->find($carteId);
+        if($carteMJ == null)
+        {
+            return $this->redirectToRoute('interfaceMJ_listAllCartesMJ', [
+                'user' => $this->getUser(),
+            ]);
+        }
         $user = $carteMJ->getUser();
 
         $form = $this->createForm(CarteMJFormType::class, $carteMJ);

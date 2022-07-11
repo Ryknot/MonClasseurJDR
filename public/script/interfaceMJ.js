@@ -57,11 +57,11 @@ $(document).ready(function()
 
             //check pour éviter la duplication de la modal entre les cartes onBoard et celle de la page listAll
             if (page === "onBoard") {
-                //mise a jour de la quantité onBoard de la carteMJ
+                 //mise a jour de la quantité onBoard de la carteMJ
+                var urlController = '/CarteMJ/'+carteId+'/deleteOnBoard';
                 $.ajax({
-                    type: 'POST',
-                    url: '/projet_perso/public/ajax/deleteOnBoardCarteMJ.php',
-                    data: {carteId: carteId},
+                    type: 'GET',
+                    url: urlController,
                     success: function () {
                         //mettre un message success sur la vue.
                     },
@@ -217,7 +217,7 @@ $(document).ready(function()
                             content: 'Voulez vous modifier la carte ?',
                             buttons: {
                                 Confirmer: function () {
-                                    window.location.href = "http://localhost/projet_perso/public/CarteMJ/" + carteid + "/update";
+                                    window.location.href = "/CarteMJ/" + carteid + "/update";
                                 },
                                 Annuler: function () {
                                 },
@@ -282,7 +282,7 @@ $(document).ready(function()
                     content: 'Voulez vous supprimer <span class=\'dead\'>définitivement</span> la carte ?',
                     buttons: {
                         Confirmer: function () {
-                            window.location.href = "http://localhost/projet_perso/public/CarteMJ/"+carteid+"/delete";
+                            window.location.href = "/CarteMJ/"+carteid+"/delete";
                         },
                         Annuler: function () {
                         },
@@ -304,7 +304,7 @@ $(document).ready(function()
                     content: 'Voulez vous modifier la carte ?',
                     buttons: {
                         Confirmer: function () {
-                            window.location.href = "http://localhost/projet_perso/public/CarteMJ/" + carteid + "/update";
+                            window.location.href = "/CarteMJ/" + carteid + "/update";
                         },
                         Annuler: function () {
                         },
