@@ -150,7 +150,7 @@ class CarteMJController extends AbstractController
                     $oldImage = $carteMJ->getImage();
                     if ($oldImage != $image)
                     {
-                        if($oldImage && $oldImage != "icon_d20_mini.png"){
+                        if($oldImage && $oldImage != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $oldImage)){
                             try {
                                 //suppression du fichier de l'ancienne photo
                                 unlink($this->getParameter('images_directory') . '/' . $oldImage);

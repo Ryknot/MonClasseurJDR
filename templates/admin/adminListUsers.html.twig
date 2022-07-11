@@ -35,6 +35,25 @@
                         <td><a href="{{ path('interfaceMJ_listAllCartesMJ', {'id': user.id}) }}">{{ user.cartesMJ | length }}</a></td>
 
                     {# BADGES #}
+                    {% if "ROLE_ADMIN" in user.roles %}
+                        <td>
+                            {% if user.validated %}
+                                <span class="badge bg-success">OK</span>
+                            {% else %}
+                                <span class="badge bg-warning">En attente</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.active %}
+                                <span class="badge bg-info">OK</span>
+                            {% else %}
+                                <span class="badge bg-danger">Inactif</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                                <span class="badge bg-primary">Admin</span>
+                        </td>
+                    {% else %}
                         <td>
                             {% if user.validated %}
                                 <span class="badge bg-success validatedUser" data-user="{{ user.id }}" data-validated="{{ user.validated }}">OK</span>
@@ -49,11 +68,9 @@
                                 <span class="badge bg-danger activeUser" data-user="{{ user.id }}" data-active="{{ user.active }}">Inactif</span>
                             {% endif %}
                         </td>
-                        <td>
-                            {% if "ROLE_ADMIN" in user.roles %}
-                                <span class="badge bg-primary">Admin</span>
-                            {% endif %}
-                        </td>
+                        <td></td>
+                    {% endif %}
+
                     {# FIN BADGES #}
 
                     {# MENU ACTION #}
