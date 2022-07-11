@@ -69,12 +69,12 @@ $(document).ready(function()
             if (valeurTexte !== ""){
                 typeChamp = "texte";
                 var oldValeur = valeurTexte;
-                var input = "<input type='text' id='newValeur' value=''"+ oldValeur +">";
+                var input = "<input type='text' id='newValeur' placeholder='"+oldValeur+"'>";
             }
             else if (valeurArea !== ""){
                 typeChamp = "area";
                 var oldValeur = valeurArea;
-                var input = "<textarea id='newValeur' value=''>"+ oldValeur +"</textarea>";
+                var input = "<textarea id='newValeur' placeholder='"+oldValeur+"'></textarea>";
             }
 
             //modal

@@ -27,11 +27,9 @@ class ChampController extends AbstractController
         try {
             if($champ->getValeurArea() != null){
                 $champ->setValeurArea(str_replace('¤', PHP_EOL, $newValeur));
-                $champ->setValeurTexte(null);
             }
             else{
                 $champ->setValeurTexte($newValeur);
-                $champ->setValeurArea(null);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
