@@ -25,13 +25,13 @@ class ChampController extends AbstractController
 
         //modification de la valeur du champ
         try {
-            if($champ->getValeurTexte() != null){
-                $champ->setValeurTexte($newValeur);
+            if($champ->getValeurArea() != null){
+                $champ->setValeurArea(str_replace('¤', PHP_EOL, $newValeur));
+                $champ->setValeurTexte(null);
             }
             else{
-                //$champ->setValeurArea($newValeur);
-                //$champ->setValeurArea(preg_replace('(\$)', '/\n/g', $newValeur));
-                $champ->setValeurArea(str_replace('¤', PHP_EOL, $newValeur));
+                $champ->setValeurTexte($newValeur);
+                $champ->setValeurArea(null);
             }
 
             $entityManager = $this->getDoctrine()->getManager();

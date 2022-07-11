@@ -317,8 +317,10 @@ class FicheController extends AbstractController
                 //gestion champ vide
                 if ($form->get('typeChamp')->getData() == "text" && empty($form->get('valeurTexte')->getData())){
                     $champ->setValeurTexte("texte vide");
+                    $champ->setValeurArea(null);
                 }
                 else if ($form->get('typeChamp')->getData() == "textArea" && empty($form->get('valeurArea')->getData())){
+                    $champ->setValeurTexte(null);
                     $champ->setValeurArea("zone de texte vide");
                 }
 

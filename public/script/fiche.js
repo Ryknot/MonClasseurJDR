@@ -90,22 +90,6 @@ $(document).ready(function()
                         }
                         //appel controller
                         window.location.href = "/champ/update/" + id + "/" + newValeur + "/" + page
-
-                        //update du champ en ajax (en cours)
-                        /*
-                        $.ajax({
-                            type:'POST',
-                            url: '/ajax/champUpdateAjax.php',
-                            data: {newValeur: newValeur, id: id, typeChamp: typeChamp},
-                            success: function (){
-                                //changement de la valeur affichée
-                                $("#champ"+count).text(newValeur);
-                            },
-                            error: function (){
-                                console.log("ajax erreur");
-                            }
-                        });
-                         */
                     },
                     Annuler: function () {
 
@@ -170,9 +154,6 @@ $(document).ready(function()
 
                 //update de la ressource en ajax
                 $.ajax({
-                    //type:'POST',
-                    //url: '/ajax/ressourceUpdateAjax.php',
-                    //data: {valeurGlissante: valeurGlissante, id: id},
                     type:'GET',
                     url: urlController,
                     success: function (response){
