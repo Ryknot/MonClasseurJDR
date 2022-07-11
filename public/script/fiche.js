@@ -167,12 +167,7 @@ $(document).ready(function()
                 }
 
                 var urlController = '/public/ressource/update/' + id + '/' + valeurGlissante;
-                console.log(urlController);
-                console.log(window.location.href);
-                //test controller
-                window.location.href = urlController;
 
-                /*
                 //update de la ressource en ajax
                 $.ajax({
                     //type:'POST',
@@ -197,7 +192,7 @@ $(document).ready(function()
                         console.log(response);
                     }
                 });
-                */
+
             }
         );
 
