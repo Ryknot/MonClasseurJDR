@@ -74,7 +74,7 @@ $(document).ready(function()
             else if (valeurArea !== ""){
                 typeChamp = "area";
                 var oldValeur = valeurArea;
-                var input = "<textarea id='newValeur'>"+ oldValeur +"</textarea>";
+                var input = "<textarea id='newValeur' value=''>"+ oldValeur +"</textarea>";
             }
 
             //modal
@@ -88,7 +88,7 @@ $(document).ready(function()
                         var newValeur = $("#newValeur").val().replace(/\n/g, '¤');
 
                         if (newValeur === "" || newValeur == null || newValeur.length === 0){
-                            newValeur = " texte vide !!";
+                            newValeur = "texte vide !!";
                         }
                         //appel controller
                         window.location.href = "/public/champ/update/" + id + "/" + newValeur + "/" + page
