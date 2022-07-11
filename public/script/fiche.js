@@ -43,7 +43,7 @@ $(document).ready(function()
                content: 'Voulez vous supprimer le champ ?',
                buttons: {
                    Confirmer: function () {
-                       window.location.href = "/champ/delete/" + id;
+                       window.location.href = "/public/champ/delete/" + id;
                    },
                    Annuler: function () {
                        console.log('annuler');
@@ -91,7 +91,7 @@ $(document).ready(function()
                             newValeur = " texte vide !!";
                         }
                         //appel controller
-                        window.location.href = "/champ/update/" + id + "/" + newValeur + "/" + page
+                        window.location.href = "/public/champ/update/" + id + "/" + newValeur + "/" + page
                     },
                     Annuler: function () {
 
