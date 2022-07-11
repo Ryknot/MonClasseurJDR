@@ -238,5 +238,51 @@ class CarteMJController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/CarteMJ/{carteId}/addOnBoard", name="interfaceMJ_addOnBoard")
+     */
+    public function addOnBoardCarteMJ( int $carteId, CarteMJRepository $carteMJRepository, EntityManagerInterface $entityManager): Response
+    {
+        $carteMJ = $carteMJRepository->find($carteId);
+        $user = $carteMJ->getUser();
 
+        if($carteMJ->getQtyOnBoard() == 0)
+        {
+            $carteMJ->setOnBoard(true);
+            $carteMJ->setQtyOnBoard(1);
+        }else
+        {
+            $qty = $carteMJ->getQtyOnBoard() + 1;
+            $carteMJ->setQtyOnBoard($qty);
+        }
+        $entityManager->flush();
+
+        return $this->redirectToRoute('interfaceMJ', [
+            'user'=>$user,
+        ]);
+    }
+
+    /**
+     * @Route("/CarteMJ/{carteId}/deleteOnBoard", name="interfaceMJ_deleteOnBoard")
+     */
+    public function deleteOnBoardCarteMJ( int $carteId, CarteMJRepository $carteMJRepository, EntityManagerInterface $entityManager): Response
+    {
+        $carteMJ = $carteMJRepository->find($carteId);
+        $user = $carteMJ->getUser();
+
+        if($carteMJ->getQtyOnBoard() == 1)
+        {
+            $carteMJ->setOnBoard(false);
+            $carteMJ->setQtyOnBoard(0);
+        }else
+        {
+            $qty = $carteMJ->getQtyOnBoard() - 1;
+            $carteMJ->setQtyOnBoard($qty);
+        }
+        $entityManager->flush();
+
+        return $this->redirectToRoute('interfaceMJ', [
+            'user'=>$user,
+        ]);
+    }
 }

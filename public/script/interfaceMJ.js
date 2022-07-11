@@ -155,11 +155,12 @@ $(document).ready(function()
 
                 $("#insertCard").append(carte);
 
+
                 //mise a jour de la quantité onBoard de la carteMJ
+                var urlController = '/CarteMJ/'+carteId+'/addOnBoard';
                 $.ajax({
-                    type: 'POST',
-                    url: '/projet_perso/public/ajax/addOnBoardCarteMJ.php',
-                    data: {carteId: carteId},
+                    type: 'GET',
+                    url: urlController,
                     success: function () {
                         //mettre un message success sur la vue.
                     },
@@ -191,10 +192,10 @@ $(document).ready(function()
                         var carteid = $(".infoCarte" + countcarte).data('carteid');
 
                         //mise a jour de la quantité onBoard de la carteMJ
+                        var urlController = '/CarteMJ/'+carteId+'/deleteOnBoard';
                         $.ajax({
-                            type: 'POST',
-                            url: '/projet_perso/public/ajax/deleteOnBoardCarteMJ.php',
-                            data: {carteId: carteid},
+                            type: 'GET',
+                            url: urlController,
                             success: function () {
                             },
                             error: function () {
