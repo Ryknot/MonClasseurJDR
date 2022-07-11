@@ -166,13 +166,22 @@ $(document).ready(function()
                     var cssBar = "bg-secondary progress-bar-striped";
                 }
 
+                var urlController = '/public/ressource/update/' + id + '/' + valeurGlissante;
+                console.log(urlController);
+                console.log(window.location.href);
+                //test controller
+                window.location.href = urlController;
+
+                /*
                 //update de la ressource en ajax
                 $.ajax({
                     //type:'POST',
                     //url: '/ajax/ressourceUpdateAjax.php',
                     //data: {valeurGlissante: valeurGlissante, id: id},
-                    url: '/ressource/update/'+id+'/'+valeurGlissante,
-                    success: function (){
+                    type:'GET',
+                    url: urlController,
+                    success: function (response){
+                        console.log(response);
                         //changement de la progress-bar
                         $('.progress-bar'+count)
                             .removeAttr('aria-valuenow')
@@ -184,9 +193,11 @@ $(document).ready(function()
                         ;
                     },
                     error: function (response){
+                        console.log("erreur");
                         console.log(response);
                     }
                 });
+                */
             }
         );
 
