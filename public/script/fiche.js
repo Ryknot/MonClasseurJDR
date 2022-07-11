@@ -153,13 +153,11 @@ $(document).ready(function()
                 }
 
                 var urlController = '/ressource/update/' + id + '/' + valeurGlissante;
-
                 //update de la ressource en ajax
                 $.ajax({
                     type:'GET',
                     url: urlController,
-                    success: function (response){
-                        console.log(response);
+                    success: function (){
                         //changement de la progress-bar
                         $('.progress-bar'+count)
                             .removeAttr('aria-valuenow')
@@ -170,8 +168,8 @@ $(document).ready(function()
                             .addClass(cssBar)
                         ;
                     },
-                    error: function (response){
-                        console.log(response);
+                    error: function (){
+
                     }
                 });
 

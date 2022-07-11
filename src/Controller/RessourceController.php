@@ -19,9 +19,9 @@ class RessourceController extends AbstractController
      */
     public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository, LogService $logService):response
     {
+        $ressource = $ressourceRepository->find($id);
+        $idFiche = $ressource->getFichePerso()->getId();
         try {
-            $ressource = $ressourceRepository->find($id);
-            $idFiche = $ressource->getFichePerso()->getId();
             if ($ressource != null)
             {
                 $ressource->setValeurGlissante($newValue);
