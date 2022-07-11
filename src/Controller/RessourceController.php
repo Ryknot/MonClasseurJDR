@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\RessourceRepository;
+use App\Service\LogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,29 +17,22 @@ class RessourceController extends AbstractController
     /**
      * @Route("/ressource/update/{id}/{newValue}", name="ressource_updateValue")
      */
-    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository): Response
+    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository, LogService $logService)
     {
         $ressource = $ressourceRepository->find($id);
-        $idFiche = $ressource->getFichePerso()->getId();
         try {
             if ($ressource != null)
             {
                 $ressource->setValeurGlissante($newValue);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
-                //return "modification réussi";
-
-                return $this->redirectToRoute('fiche_detail', [
-                    'id' => $idFiche
-                ]);
             }
-
         }catch (\Exception $e){
-            dd($e->getMessage());
+            $this->addFlash('warning', 'Erreur de mise à jour de la ressource !');
+            $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+            $entityManager->persist($log);
+            $entityManager->flush();
         }
-        return $this->redirectToRoute('fiche_detail', [
-            'id' => $idFiche
-        ]);
     }
 
     /**
