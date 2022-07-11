@@ -20,10 +20,9 @@
                                             <tr>
                                                 <td class="col-4">
                                                     {% if fiche.image %}
-                                                        {{ directory }}
-                                                        <img id="imagefiche" src="/uploads/{{ fiche.image }}" alt="image fiche">
+                                                        <img id="imagefiche" src="/app/public/uploads/{{ fiche.image }}" alt="image fiche">
                                                     {% else %}
-                                                        <img id="imagefiche" src="/uploads/icon_d20_mini.png" alt="image fiche">
+                                                        <img id="imagefiche" src="/app/public/uploads/icon_d20_mini.png" alt="image fiche">
                                                     {% endif %}
                                                 </td>
                                                 <td class="col-8">
