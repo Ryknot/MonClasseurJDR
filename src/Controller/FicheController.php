@@ -43,10 +43,12 @@ class FicheController extends AbstractController
         //récupération de l'instance du user pour contrôle sécurité
         if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")){
             $fiches = $user->getFichePersos();
+            $directory = $this->getParameter('images_directory');
 
             return $this->render('fiche/list.html.twig', [
                 'user'=>$user,
-                'fiches'=>$fiches
+                'fiches'=>$fiches,
+                'directory'=>$directory
             ]);
         }
         else{
