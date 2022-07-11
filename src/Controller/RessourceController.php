@@ -17,26 +17,26 @@ class RessourceController extends AbstractController
     /**
      * @Route("/ressource/update/{id}/{newValue}", name="ressource_updateValue")
      */
-    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository, LogService $logService):string
+    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository, LogService $logService):response
     {
         try {
             $ressource = $ressourceRepository->find($id);
+            $idFiche = $ressource->getFichePerso()->getId();
             if ($ressource != null)
             {
                 $ressource->setValeurGlissante($newValue);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
-                return "Modification de la ressource réussi";
             }
-            return "Pas de ressource à modifier";
         }catch (\Exception $e){
             $this->addFlash('warning', 'Erreur de mise à jour de la ressource !');
             $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
             $entityManager->persist($log);
             $entityManager->flush();
-
-            return "Erreur modification de la ressource";
         }
+        return $this->redirectToRoute('fiche_update', [
+            'id' => $idFiche
+        ]);
     }
 
     /**
