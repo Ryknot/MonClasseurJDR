@@ -158,7 +158,8 @@ $(document).ready(function()
                 $.ajax({
                     type:'GET',
                     url: urlController,
-                    success: function (){
+                    success: function (response){
+                        console.log(response);
                         //changement de la progress-bar
                         $('.progress-bar'+count)
                             .removeAttr('aria-valuenow')
@@ -169,7 +170,8 @@ $(document).ready(function()
                             .addClass(cssBar)
                         ;
                     },
-                    error: function (){
+                    error: function (response){
+                        console.log(response);
                     }
                 });
 

@@ -17,28 +17,32 @@ class RessourceController extends AbstractController
     /**
      * @Route("/ressource/update/{id}/{newValue}", name="ressource_updateValue")
      */
-    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository, LogService $logService)
+    public function UpdateValueRessource(int $id, int $newValue, RessourceRepository $ressourceRepository, LogService $logService):string
     {
-        $ressource = $ressourceRepository->find($id);
         try {
+            $ressource = $ressourceRepository->find($id);
             if ($ressource != null)
             {
                 $ressource->setValeurGlissante($newValue);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
+                return "Modification de la ressource réussi";
             }
+            return "Pas de ressource à modifier";
         }catch (\Exception $e){
             $this->addFlash('warning', 'Erreur de mise à jour de la ressource !');
             $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
             $entityManager->persist($log);
             $entityManager->flush();
+
+            return "Erreur modification de la ressource";
         }
     }
 
     /**
      * @Route("/ressource/updateRangeMax/{id}/{newRangeMax}/{page}", name="ressource_updateRangeMax")
      */
-    public function UpdateRangeMaxRessource(int $id, int $newRangeMax, string $page, RessourceRepository $ressourceRepository): Response
+    public function UpdateRangeMaxRessource(int $id, int $newRangeMax, string $page, RessourceRepository $ressourceRepository, LogService $logService): Response
     {
         $ressource = $ressourceRepository->find($id);
         $idFiche = $ressource->getFichePerso()->getId();
@@ -58,6 +62,9 @@ class RessourceController extends AbstractController
             $this->addFlash('success', 'Modification de la ressource réussie !');
         }catch(\Exception $e){
             $this->addFlash('warning', 'Erreur modification de la ressource !');
+            $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+            $entityManager->persist($log);
+            $entityManager->flush();
         }
 
         //redirection vers la page de provenance: listeDetails ou update
@@ -77,7 +84,7 @@ class RessourceController extends AbstractController
     /**
      * @Route("/ressource/delete/{id}", name="ressource_delete")
      */
-    public function deleteRessource(int $id, RessourceRepository $ressourceRepository): Response
+    public function deleteRessource(int $id, RessourceRepository $ressourceRepository, LogService $logService): Response
     {
         $ressource = $ressourceRepository->find($id);
         $idFiche = $ressource->getFichePerso()->getId();
@@ -98,6 +105,9 @@ class RessourceController extends AbstractController
             $this->addFlash('success', 'Suppression de la ressource réussie !');
         }catch(\Exception $e){
             $this->addFlash('warning', 'Erreur suppression de la ressource !');
+            $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
+            $entityManager->persist($log);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('fiche_update', [
