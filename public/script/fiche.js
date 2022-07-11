@@ -43,7 +43,7 @@ $(document).ready(function()
                content: 'Voulez vous supprimer le champ ?',
                buttons: {
                    Confirmer: function () {
-                       window.location.href = "/public/champ/delete/" + id;
+                       window.location.href = "/champ/delete/" + id;
                    },
                    Annuler: function () {
                        console.log('annuler');
@@ -91,7 +91,7 @@ $(document).ready(function()
                             newValeur = "texte vide !!";
                         }
                         //appel controller
-                        window.location.href = "/public/champ/update/" + id + "/" + newValeur + "/" + page
+                        window.location.href = "/champ/update/" + id + "/" + newValeur + "/" + page
                     },
                     Annuler: function () {
 
@@ -152,7 +152,7 @@ $(document).ready(function()
                     var cssBar = "bg-secondary progress-bar-striped";
                 }
 
-                var urlController = '/public/ressource/update/' + id + '/' + valeurGlissante;
+                var urlController = '/ressource/update/' + id + '/' + valeurGlissante;
 
                 //update de la ressource en ajax
                 $.ajax({
