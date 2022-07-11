@@ -16,10 +16,12 @@ $(document).ready(function()
             {
                 $("#champTexte").show();
                 $("#champArea").hide();
+                $("#champ_form_valeurArea").val(null);
             } else
             {
                 $("#champArea").show();
                 $("#champTexte").hide();
+                $("#champ_form_valeurTexte").val(null);
             }
         }
     );

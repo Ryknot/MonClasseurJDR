@@ -318,10 +318,17 @@ class FicheController extends AbstractController
                 if ($form->get('typeChamp')->getData() == "text" && empty($form->get('valeurTexte')->getData())){
                     $champ->setValeurTexte("texte vide");
                     $champ->setValeurArea(null);
+                    dump($champ->getValeurTexte());
+                    dump($champ->getValeurArea());
                 }
                 else if ($form->get('typeChamp')->getData() == "textArea" && empty($form->get('valeurArea')->getData())){
-                    $champ->setValeurTexte(null);
                     $champ->setValeurArea("zone de texte vide");
+                    if(!empty($form->get('valeurTexte')->getData()))
+                    {
+                        $champ->setValeurTexte(null);
+                    }
+                    dump($champ->getValeurArea());
+                    dump($champ->getValeurTexte());
                 }
 
                 //gestion de l'ordre des champs
