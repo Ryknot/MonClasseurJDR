@@ -20,7 +20,7 @@
                                             <tr>
                                                 <td class="col-4">
                                                     {% if fiche.image %}
-                                                        {{ "$this->getParameter('images_directory') = " directory }}
+                                                        {{ directory }}
                                                         <img id="imagefiche" src="/uploads/{{ fiche.image }}" alt="image fiche">
                                                     {% else %}
                                                         <img id="imagefiche" src="/uploads/icon_d20_mini.png" alt="image fiche">
