@@ -48,7 +48,7 @@
                             {% set count = count + 1 %}
                             <div id='CarteMJ{{ count }}' class='card-content p-2 mt-2 cardTypeInfo col-xl-3 col-lg-4 col-md-6 col-sm-6 onBoard {{ carte.type }}'>
                                 <div class='col m-2 cardChamp'><i class='mdiCarte{{ count }}'><span class='nomCarteMj'>{{ carte.nom }}</span></i></div>
-                                <div class='col m-2 text-center cardChamp champImageCarteMJ'><img src='/uploads/{{ carte.image }}' alt="image carte"/></div>
+                                <div class='col m-2 text-center cardChamp champImageCarteMJ'><img src="{{ asset('uploads/'~carte.image) }}" alt="image carte"/></div>
                                 <div class='col m-2 text-center cardChamp'>
                                     <span class='pvCarteMj'><span class='pvValue{{ count }}'>{{ carte.pv }}</span>/{{ carte.pv }}</span>
                                 </div>

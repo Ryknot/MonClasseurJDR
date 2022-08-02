@@ -138,7 +138,7 @@ $(document).ready(function()
                 var carte =
                     "<div id='CarteMJ" + count + "' class='card-content p-2 mt-2 cardTypeInfo col-xl-3 col-lg-4 col-md-6 col-sm-6 onBoard CardCarteMJ " + type + "'>" +
                         "<div class='col m-2 cardChamp'><i class='mdiCarte" + count + "'><span class='nomCarteMj'>" + nom + "</span></i></div>" +
-                        "<div class='col m-2 text-center cardChamp champImageCarteMJ'><img src='/uploads/" + image + "'></div>" +
+                        "<div class='col m-2 text-center cardChamp champImageCarteMJ'><img src=\"{{ asset('uploads/'" + image + ")}}\"></div>" +
                         "<div class='col py-1 m-2 text-center cardChamp' style='height: 40px'>" +
                             "<span className='pvCarteMj'>"+
                                 "<input id='pvValueCarteMJ" + count + "' class='pvCarteMj col-4' data-Count='" + count + "' data-Pvmax='" + pv + "' type='number' min='0' max='" + pv + "' value='" + pv + "'>" +
