@@ -66,7 +66,7 @@ class CarteMJController extends AbstractController
                     $fichier = md5(uniqid()) . '_CarteMJ.' . $image->guessExtension();
 
                     //copie de la photo dans le dossier uploads
-                    $image->move($this->getParameter('images_directory'), $fichier);
+                    $image->move($this->getParameter('images_directory')."/", $fichier);
 
                     //envoie du nom de fichier dans la BDD
                     $carteMJ->setImage($fichier);
@@ -166,7 +166,7 @@ class CarteMJController extends AbstractController
                         $fichier = md5(uniqid()) . '_CarteMJ.' . $image->guessExtension();
 
                         //copie de la photo dans le dossier uploads
-                        $image->move($this->getParameter('images_directory'), $fichier);
+                        $image->move($this->getParameter('images_directory')."/", $fichier);
 
                         //envoie du nom de fichier dans la BDD
                         $carteMJ->setImage($fichier);
