@@ -50,10 +50,6 @@ class AdminController extends AbstractController
         //10 derniers logs
         $lastLogs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
-        //----------------- test ---------------------
-        $lien = $this->getParameter('images_directory');
-        //---------------------------------------------
-
         return $this->render('admin/adminDashboard.html.twig', [
             'activeUsers' => $activeUsers,
             'admins' => $admins,
@@ -62,7 +58,6 @@ class AdminController extends AbstractController
             'nbTotCartesMJ' => $nbTotCartesMJ,
             'lastLogs' => $lastLogs,
             'lastMessages' => $lastMessages,
-            'lien' => $lien
         ]);
     }
 
