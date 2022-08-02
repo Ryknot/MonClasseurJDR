@@ -457,6 +457,13 @@ class FicheController extends AbstractController
         $fiche = $fichePersoRepository->find($id);
         $id = $fiche->getUser()->getId();
 
+        if($fiche == null)
+        {
+            $this->addFlash('error', 'Fiche inexistante !');
+            return $this->redirectToRoute('fiche_list', [
+                'id' => $id
+            ]);
+        }
         try {
             $entityManager = $this->getDoctrine()->getManager();
 
