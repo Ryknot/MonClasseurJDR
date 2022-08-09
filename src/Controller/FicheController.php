@@ -143,7 +143,11 @@ class FicheController extends AbstractController
                         $fichier = md5(uniqid()) . '_Fiche.' . $image->guessExtension();
 
                         //copie de la photo dans le dossier uploads
-                        $image->move($this->getParameter('images_directory')."/", $fichier);
+                        $upload = $image->move($this->getParameter('images_directory'), $fichier);
+                        if($upload->status == 'error'){
+                            $this->addFlash('warning', 'Erreur upload de l\'image !');
+                        }
+
 
                         //envoie du nom de fichier dans la BDD
                         $fiche->setImage($fichier);
@@ -244,7 +248,10 @@ class FicheController extends AbstractController
                     $fichier = md5(uniqid()) . '_Fiche.' . $image->guessExtension();
 
                     //copie de la photo dans le dossier uploads
-                    $image->move($this->getParameter('images_directory')."/", $fichier);
+                    $upload = $image->move($this->getParameter('images_directory'), $fichier);
+                    if($upload->status == 'error'){
+                        $this->addFlash('warning', 'Erreur upload de l\'image !');
+                    }
 
                     //envoie du nom de fichier dans la BDD
                     $fiche->setImage($fichier);

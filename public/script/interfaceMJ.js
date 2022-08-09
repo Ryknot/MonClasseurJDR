@@ -66,7 +66,6 @@ $(document).ready(function()
                         //mettre un message success sur la vue.
                     },
                     error: function () {
-                        console.log("ajax erreur");
                         //mettre un message error sur la vue.
                     }
                 });
@@ -165,7 +164,6 @@ $(document).ready(function()
                         //mettre un message success sur la vue.
                     },
                     error: function () {
-                        console.log("ajax erreur");
                         //mettre un message error sur la vue.
                     }
                 });
