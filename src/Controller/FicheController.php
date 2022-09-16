@@ -37,26 +37,26 @@ class FicheController extends AbstractController
     /**
      * @Route("/profil/{id}/fiche/list", name="fiche_list")
      */
-    public function listFiche(int $id, UserRepository $userRepository){
+    public function listFiche(int $id, UserRepository $userRepository)
+    {
 
         $user = $userRepository->find($id);
         //récupération de l'instance du user pour contrôle sécurité
-        if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")){
+        if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")) {
             $fiches = $user->getFichePersos();
             $directory = $this->getParameter('images_directory');
 
             return $this->render('fiche/list.html.twig', [
-                'user'=>$user,
-                'fiches'=>$fiches,
-                'directory'=>$directory
+                'user' => $user,
+                'fiches' => $fiches,
+                'directory' => $directory
             ]);
-        }
-        else{
+        } else {
             //identification mauvais user + logMenace + alert + checkMenace + redirection
             $realUser = $this->securityService->findRealUser();
 
-            return $this->redirectToRoute('fiche_list',[
-            'id' => $realUser->getId(),
+            return $this->redirectToRoute('fiche_list', [
+                'id' => $realUser->getId(),
             ]);
         }
     }
@@ -69,21 +69,21 @@ class FicheController extends AbstractController
     {
         //récupération de l'instance de la fichePerso
         $fiche = $fichePersoRepository->find($id);
-        if(!$fiche){
-            $this->addFlash('warning', "Cette fiche n'existe pas" );
+        if (!$fiche) {
+            $this->addFlash('warning', "Cette fiche n'existe pas");
             return $this->redirectToRoute('main_home');
         }
 
         //récupération de l'instance du user pour contrôle sécurité
         $user = $fiche->getUser();
-        if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")){
+        if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")) {
 
             //recupération liste types info
             $listeInfo = $infoRepository->findAll();
 
             //récupération des champs et ressources associés à la fiche de perso triés par ordre (sort)
-            $champs = $champRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
-            $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+            $champs = $champRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
+            $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
             //récupération valeur bouton
             $boutonFiche = $request->get("boutonFiche");
@@ -95,12 +95,11 @@ class FicheController extends AbstractController
                 'ressources' => $ressources,
                 'boutonFiche' => $boutonFiche
             ]);
-        }
-        else{
+        } else {
             //identification mauvais user + logMenace + alert + checkMenace + redirection
             $realUser = $this->securityService->findRealUser();
 
-            return $this->redirectToRoute('fiche_list',[
+            return $this->redirectToRoute('fiche_list', [
                 'id' => $realUser->getId(),
             ]);
         }
@@ -116,8 +115,7 @@ class FicheController extends AbstractController
         $user = $userRepository->find($id);
 
         //check si admin ou bon user
-        if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN"))
-        {
+        if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")) {
             $fiche = new FichePerso();
             $form = $this->createForm(FicheFormType::class, $fiche);
             $form->remove('user');
@@ -135,25 +133,18 @@ class FicheController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
-                try{
+                try {
                     //gestion image
                     $image = $form->get('image')->getData();
-                    if ($image){
+                    if ($image) {
                         //genere un nouveau nom de fichier
                         $fichier = md5(uniqid()) . '_Fiche.' . $image->guessExtension();
 
                         //copie de la photo dans le dossier uploads
-                        $upload = $image->move($this->getParameter('images_directory'), $fichier);
-                        if($upload->status == 'error'){
-                            $this->addFlash('warning', 'Erreur upload de l\'image !');
-                        }
-
+                        $image->move($this->getParameter('images_directory'), $fichier);
 
                         //envoie du nom de fichier dans la BDD
                         $fiche->setImage($fichier);
-                    }
-                    else{
-                        $fiche->setImage("icon_d20_mini.png");
                     }
 
                     //initialisation du nb de champs à 0 pour chaque type d'info
@@ -172,19 +163,26 @@ class FicheController extends AbstractController
                     $entityManager->flush();
                     $this->addFlash('success', 'Création de la fiche réussie !');
 
-                    $champs = $champsRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
-                    $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+                    $champs = $champsRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
+                    $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
 
-                    return $this->render('fiche/ficheDetail.html.twig',[
+                    return $this->render('fiche/ficheDetail.html.twig', [
                         'user' => $user,
                         'fiche' => $fiche,
                         'champs' => $champs,
                         'ressources' => $ressources,
                     ]);
-                }
-                catch(\Exception $e){
+                } catch (\Exception $e) {
                     $this->addFlash('warning', 'Erreur création de la fiche !');
+
+                    //suppression du fichier image
+                    $image = $fiche->getImage();
+                    if ($image && $image != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $image)) {
+                        //suppression du fichier de l'ancienne photo
+                        unlink($this->getParameter('images_directory') . '/' . $image);
+                    }
+
                     $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
                     $entityManager->persist($log);
                     $entityManager->flush();
@@ -194,12 +192,11 @@ class FicheController extends AbstractController
                 'user' => $user,
                 'ficheForm' => $form->createView()
             ]);
-        }
-        else{
+        } else {
             //identification mauvais user + logMenace + alert + checkMenace + redirection
             $realUser = $this->securityService->findRealUser();
 
-            return $this->redirectToRoute('fiche_create',[
+            return $this->redirectToRoute('fiche_create', [
                 'id' => $realUser->getId(),
             ]);
         }
@@ -216,7 +213,7 @@ class FicheController extends AbstractController
         $user = $fiche->getUser();
 
         //gestion erreur
-        if (!$fiche){
+        if (!$fiche) {
             throw $this->createNotFoundException('Pas de fiche trouvé');
         }
 
@@ -226,17 +223,17 @@ class FicheController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            try{
+            try {
                 //gestion image
                 $image = $form->get('image')->getData();
-                if ($image){
+                if ($image) {
                     //suppression de l'ancienne image
                     $oldImage = $fiche->getImage();
                     if ($oldImage && $oldImage != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $oldImage)) {
                         try {
                             //suppression du fichier de l'ancienne photo
                             unlink($this->getParameter('images_directory') . '/' . $oldImage);
-                        } catch(\Exception $e){
+                        } catch (\Exception $e) {
                             $this->addFlash('warning', 'Erreur suppression de l\'image ! ');
                             $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
                             $entityManager->persist($log);
@@ -248,10 +245,7 @@ class FicheController extends AbstractController
                     $fichier = md5(uniqid()) . '_Fiche.' . $image->guessExtension();
 
                     //copie de la photo dans le dossier uploads
-                    $upload = $image->move($this->getParameter('images_directory'), $fichier);
-                    if($upload->status == 'error'){
-                        $this->addFlash('warning', 'Erreur upload de l\'image !');
-                    }
+                    $image->move($this->getParameter('images_directory'), $fichier);
 
                     //envoie du nom de fichier dans la BDD
                     $fiche->setImage($fichier);
@@ -261,18 +255,25 @@ class FicheController extends AbstractController
                 $entityManager->flush();
                 $this->addFlash('success', 'modification de la fiche réussie !');
 
-                $champs = $champsRepository->findBy(['fichePerso' => $fiche->getId()],['sort' => 'ASC']);
-                $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+                $champs = $champsRepository->findBy(['fichePerso' => $fiche->getId()], ['sort' => 'ASC']);
+                $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
-                return $this->render('fiche/ficheDetail.html.twig',[
+                return $this->render('fiche/ficheDetail.html.twig', [
                     'user' => $user,
                     'fiche' => $fiche,
                     'champs' => $champs,
                     'ressources' => $ressources,
                 ]);
-            }
-            catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash('warning', 'Erreur modification de la fiche ! ');
+
+                //suppression du fichier image
+                $image = $fiche->getImage();
+                if ($image && $image != "icon_d20_mini.png" && file_exists($this->getParameter('images_directory') . '/' . $image)) {
+                    //suppression du fichier de l'ancienne photo
+                    unlink($this->getParameter('images_directory') . '/' . $image);
+                }
+
                 $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
                 $entityManager->persist($log);
                 $entityManager->flush();
@@ -289,7 +290,7 @@ class FicheController extends AbstractController
     /**
      * @Route("/fiche/{id}/update", name="fiche_update")
      */
-    public function ficheUpdate(int $id,FichePersoRepository $fichePersoRepository,TypeInfoRepository $infoRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, LogService $logService, Request $request): Response
+    public function ficheUpdate(int $id, FichePersoRepository $fichePersoRepository, TypeInfoRepository $infoRepository, ChampsRepository $champsRepository, RessourceRepository $ressourceRepository, LogService $logService, Request $request): Response
     {
         //récupération de l'instance de la fichePerso
         $fiche = $fichePersoRepository->find($id);
@@ -321,13 +322,12 @@ class FicheController extends AbstractController
 
         //formulaire champ
         if ($form->isSubmitted() && $form->isValid()) {
-            try{
+            try {
 
                 //gestion champ vide
-                if ($form->get('typeChamp')->getData() == "text" && empty($form->get('valeurTexte')->getData())){
+                if ($form->get('typeChamp')->getData() == "text" && empty($form->get('valeurTexte')->getData())) {
                     $champ->setValeurTexte("texte vide");
-                }
-                else if ($form->get('typeChamp')->getData() == "textArea" && empty($form->get('valeurArea')->getData())){
+                } else if ($form->get('typeChamp')->getData() == "textArea" && empty($form->get('valeurArea')->getData())) {
                     $champ->setValeurArea("zone de texte vide");
                 }
 
@@ -338,32 +338,45 @@ class FicheController extends AbstractController
                 $champ->setSort($countChamps);
 
                 //mise a jour du nb de champs de ce type d'info
-                $erreurNbChamps=false;
-                switch ($info){
-                    case 1 : $fiche->setNbChamps1($countChamps+1);break;
-                    case 2 : $fiche->setNbChamps2($countChamps+1);break;
-                    case 3 : $fiche->setNbChamps3($countChamps+1);break;
-                    case 4 : $fiche->setNbChamps4($countChamps+1);break;
-                    case 5 : $fiche->setNbChamps5($countChamps+1);break;
-                    case 6 : $fiche->setNbChamps6($countChamps+1);break;
-                    case 7 : $fiche->setNbChamps7($countChamps+1);break;
+                $erreurNbChamps = false;
+                switch ($info) {
+                    case 1:
+                        $fiche->setNbChamps1($countChamps + 1);
+                        break;
+                    case 2:
+                        $fiche->setNbChamps2($countChamps + 1);
+                        break;
+                    case 3:
+                        $fiche->setNbChamps3($countChamps + 1);
+                        break;
+                    case 4:
+                        $fiche->setNbChamps4($countChamps + 1);
+                        break;
+                    case 5:
+                        $fiche->setNbChamps5($countChamps + 1);
+                        break;
+                    case 6:
+                        $fiche->setNbChamps6($countChamps + 1);
+                        break;
+                    case 7:
+                        $fiche->setNbChamps7($countChamps + 1);
+                        break;
                 }
 
                 $entityManager->persist($champ);
                 $entityManager->flush();
                 $this->addFlash('success', 'Modification de la fiche réussie !');
-
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash('warning', 'Erreur modification de la fiche !');
                 $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
                 $entityManager->persist($log);
                 $entityManager->flush();
             }
 
-            $champs = $champsRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
-            $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+            $champs = $champsRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
+            $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
-            if ($boutonFiche == 'update'){
+            if ($boutonFiche == 'update') {
                 return $this->render('fiche/update.html.twig', [
                     'fiche' => $fiche,
                     'listeInfo' => $listeInfo,
@@ -373,8 +386,7 @@ class FicheController extends AbstractController
                     'champForm' => $form->createView(),
                     'ressourceForm' => $formRessource->createView(),
                 ]);
-            }
-            else{
+            } else {
                 return $this->render('fiche/ficheDetail.html.twig', [
                     'fiche' => $fiche,
                     'listeInfo' => $listeInfo,
@@ -385,19 +397,18 @@ class FicheController extends AbstractController
                     'ressourceForm' => $formRessource->createView(),
                 ]);
             }
-
         }
 
 
         //formulaire ressource
         if ($formRessource->isSubmitted() && $formRessource->isValid()) {
-            try{
+            try {
                 //gestion de l'ordre des ressources
                 $listRessources = $ressourceRepository->findBy(['fichePerso' => $id]);
                 $countRessources = count($listRessources);
-                if ($countRessources < 3){
+                if ($countRessources < 3) {
                     $ressource->setSort($countRessources);
-                    $fiche->setNbRessource($countRessources+1);
+                    $fiche->setNbRessource($countRessources + 1);
 
                     $valeurMax = $formRessource->get('rangeMax')->getData();
                     $ressource->setValeurGlissante($valeurMax);
@@ -405,18 +416,17 @@ class FicheController extends AbstractController
                     $entityManager->persist($ressource);
                     $entityManager->flush();
                     $this->addFlash('success', 'Modification de la fiche réussie !');
-                }
-                else{
+                } else {
                     $this->addFlash('warning', 'Erreur: 3 ressources max!');
                 }
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash('warning', 'Erreur modification de la fiche !');
             }
 
-            $champs = $champsRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
-            $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+            $champs = $champsRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
+            $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
-            if ($boutonFiche == 'update'){
+            if ($boutonFiche == 'update') {
                 return $this->render('fiche/update.html.twig', [
                     'fiche' => $fiche,
                     'listeInfo' => $listeInfo,
@@ -426,8 +436,7 @@ class FicheController extends AbstractController
                     'champForm' => $form->createView(),
                     'ressourceForm' => $formRessource->createView(),
                 ]);
-            }
-            else{
+            } else {
                 return $this->render('fiche/ficheDetail.html.twig', [
                     'fiche' => $fiche,
                     'listeInfo' => $listeInfo,
@@ -438,11 +447,10 @@ class FicheController extends AbstractController
                     'ressourceForm' => $formRessource->createView(),
                 ]);
             }
-
         }
 
-        $champs = $champsRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
-        $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+        $champs = $champsRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
+        $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
         return $this->render('fiche/update.html.twig', [
             'fiche' => $fiche,
@@ -453,19 +461,17 @@ class FicheController extends AbstractController
             'champForm' => $form->createView(),
             'ressourceForm' => $formRessource->createView(),
         ]);
-
     }
 
     /**
      * @Route("/fiche/{id}/delete", name="fiche_delete")
      */
-    public function ficheDelete(int $id,FichePersoRepository $fichePersoRepository, LogService $logService): Response
+    public function ficheDelete(int $id, FichePersoRepository $fichePersoRepository, LogService $logService): Response
     {
         $fiche = $fichePersoRepository->find($id);
         $id = $fiche->getUser()->getId();
 
-        if($fiche == null)
-        {
+        if ($fiche == null) {
             $this->addFlash('error', 'Fiche inexistante !');
             return $this->redirectToRoute('fiche_list', [
                 'id' => $id
@@ -478,12 +484,12 @@ class FicheController extends AbstractController
             $ressources = $fiche->getRessources();
 
             //suppression des champs
-            foreach ($champs as $champ){
+            foreach ($champs as $champ) {
                 $fiche->removeChamp($champ);
             }
 
             //suppression des ressources
-            foreach ($ressources as $ressource){
+            foreach ($ressources as $ressource) {
                 $fiche->removeRessource($ressource);
             }
 
@@ -497,7 +503,7 @@ class FicheController extends AbstractController
             $entityManager->remove($fiche);
             $entityManager->flush();
             $this->addFlash('success', 'Suppression de la fiche réussie !');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->addFlash('warning', 'Erreur suppression de la fiche !');
             $log = $logService->newLogError($e->getMessage() . "|| " . $e->getFile() . "||" . $e->getLine());
             $entityManager->persist($log);
@@ -521,8 +527,8 @@ class FicheController extends AbstractController
         $listeInfo = $infoRepository->findAll();
 
         //récupération des champs et ressources associés à la fiche de perso triés par ordre (sort)
-        $champs = $champRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
-        $ressources = $ressourceRepository->findBy(['fichePerso' => $id],['sort' => 'ASC']);
+        $champs = $champRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
+        $ressources = $ressourceRepository->findBy(['fichePerso' => $id], ['sort' => 'ASC']);
 
         //récupération valeur bouton
         $boutonFiche = $request->get("boutonFiche");
@@ -535,5 +541,4 @@ class FicheController extends AbstractController
             'boutonFiche' => $boutonFiche
         ]);
     }
-
 }

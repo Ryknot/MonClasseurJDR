@@ -19,11 +19,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="col-4">
-                                                    {% if fiche.image %}
-                                                        <img id="imagefiche" src="{{ asset('uploads/' ~ fiche.image) }}" alt="image fiche">
-                                                    {% else %}
-                                                        <img id="imagefiche" src="{{ asset('img/icon_d20_mini.png') }}" alt="image fiche">
-                                                    {% endif %}
+                                                        <img class="miniature" id="imagefiche" src="{{ asset('uploads/' ~ fiche.image) }}" alt="image fiche">
                                                 </td>
                                                 <td class="col-8">
                                                     {{ fiche.pseudo }}

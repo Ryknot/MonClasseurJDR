@@ -5,11 +5,12 @@
 {% block body %}
     <div class="cardFiche col-4 m-5 p-5">
         <h1 class="cardTypeInfo text-center p-1 mb-2">Inscription</h1>
-
-        {{ form_start(registrationForm) }}
-        {{ form_widget(registrationForm) }}
-        {#  form_widget(registrationForm.agreeTerms) #}
-        <button type="submit" class="btn btn-lg button text-nowrap">S'inscrire</button>
-        {{ form_end(registrationForm) }}
+        <div class="cardTypeInfo p-1 mb-2"> 
+            {{ form_start(registrationForm) }}
+            {{ form_widget(registrationForm) }}
+            {#  form_widget(registrationForm.agreeTerms) #}
+            <button type="submit" class="btn btn-lg button text-nowrap">S'inscrire</button>
+            {{ form_end(registrationForm) }}
+        </div>
     </div>
 {% endblock %}

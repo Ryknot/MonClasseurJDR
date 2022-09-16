@@ -51,7 +51,7 @@ class CarteMJ
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private $image = 'icon_d20_mini.png';
 
     /**
      * @ORM\Column(type="boolean", nullable=true)

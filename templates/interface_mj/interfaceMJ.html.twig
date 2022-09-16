@@ -16,7 +16,7 @@
         {# DEBUT board MJ #}
         <div class="col ml-1">
             <div class="card text-center p-2 cardFiche">
-                <div class="card mb-2 p-2 cardTitle content-center">
+                <div class="card mb-2 p-2 cardTitleAide content-center">
                     <h2 class="text-center"> Plateau du Maître du jeu : <span class="pseudoFiche">{{ user.pseudo }}</span></h2>
                 </div>
                 {% if ( cartesMJ | length ) <= 0 %}
@@ -57,11 +57,11 @@
     {# FIN fiche personnage #}
 
     {# AIDE #}
-    <div class="card mt-4 p-4 cardFiche">
-        <div class="card mb-2 cardTitle">
+    <div class="card mt-4 p-4 cardFicheAide">
+        <div class="card mb-2 cardTitleAide">
             <h2 class="text-center"> Aide :</h2>
         </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
+        <div class="card mb-2 p-2 cardChampAide content-center">
             <div class=" col p-2 m-2 cardChamp">
                 <p class="labelChamps">Liste des cartes créées:</p>
                 <ul>

@@ -11,10 +11,8 @@
 
 
 {% block body %}
-<div class="card mb-2 cardTitle text-center">
-    <div class="card-content p-2 m-2 cardTypeInfo">
-        <h2> Creation de carte :</h2>
-    </div>
+<div class="card-content py-2 my-2 cardTitleAide text-center">
+    <h2> Creation de carte :</h2>
 </div>
 
 <div class="card mb-2 col cardFiche" id="formAddChamps">
@@ -61,7 +59,7 @@
                     <span id="nomCarteMj">nom</span>
                 </div>
                 <div class="col m-2 text-center cardChamp champImageCarteMJ">
-                    <img id="imgCarteMJ" src="{{ asset('img/icon_d20_mini.png') }}">
+                    <img class="miniature" id="imgCarteMJ" src="{{ asset('img/icon_d20_mini.png') }}">
                 </div>
                 <div class="col m-2 text-center cardChamp">
                     <span id="pvCarteMj">1/1</span>

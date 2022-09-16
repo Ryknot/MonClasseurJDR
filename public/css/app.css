@@ -1,8 +1,9 @@
 
 /* --------------header------------------ */
 header,
-footer{
-    background: linear-gradient(#727070, #494848, #494848);
+footer {
+    /* background: linear-gradient(#727070, #494848, #494848); */
+    background: linear-gradient(#2c2c2c, #252525, #000000);
     border-radius: 5px;
     padding-left: 5%;
     padding-bottom: 5px;
@@ -15,40 +16,37 @@ footer{
     font-size: 1.5em;
 }
 
-#containerTitle{
-
-}
-
-#icone{
+#icone {
     max-width: 100px;
     align-self: flex-start;
 }
 
 
-#slogan{
+#slogan {
     font-size: 0.7em;
     margin-top: 0;
     padding-left: 10%;
 }
-#titleSite{
+
+#titleSite {
     margin-bottom: 0;
     justify-items: center;
 }
 
 
 /* --------------navbar------------------ */
-.nav-link{
+.nav-link {
     margin-right: 5%;
     color: #d08856;
-    text-shadow: #b04f42 2px 2px;
+    text-shadow: #b04f42 1px 1px;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     color: #427AA1;
-    text-shadow: #17c2e0 2px 2px;
+    text-shadow: #17c2e0 1px 1px;
 }
 
-.sousMenu{
+.sousMenu {
     font-size: large;
     color: #d08856;
     text-shadow: #AA210F 1px 1px;
@@ -56,16 +54,18 @@ footer{
 }
 
 /* ---------- home ------------ */
-.homeBold{
+.homeBold {
     font-weight: bold;
 }
-.homeUnderline{
+
+.homeUnderline {
     text-decoration: underline;
 }
 
 /* ---------- volet gauche ------------ */
 
-.voletG{
+.voletG {
+    /* background: linear-gradient(#ceb29d, #c4a894, #977d6b); */
     background: linear-gradient(#727070, #494848, #494848);
     border-radius: 10px;
     border: 2px rgba(16, 15, 15, 0.35) solid;
@@ -74,51 +74,58 @@ footer{
     max-width: 240px;
     min-height: 500px;
 }
-#inputDe, #addCarteMJ{
+
+#inputDe,
+#addCarteMJ {
     min-width: 200px;
     max-width: 200px;
 
 }
-#champ_form_label, #champ_form_valeurTexte, #champ_form_valeurArea, #ressource_form_label, #ressource_form_rangeMax{
+
+#champ_form_label,
+#champ_form_valeurTexte,
+#champ_form_valeurArea,
+#ressource_form_label,
+#ressource_form_rangeMax {
     min-width: 185px;
     max-width: 185px;
 }
 
-.titleVoletG{
+.titleVoletG {
     font-weight: bold;
 }
 
-form{
+form {
     display: grid;
     max-width: 100px;
     box-sizing: border-box;
 }
 
-.voletG {
-
-}
-
-
 /* --------------body------------------ */
-
-body{
-    background: linear-gradient(#EFEFEF, #EDEFEE);
-    /*font-family: 'Shadows Into Light', cursive;*/
+body
+{
+    font-family: 'Aref Ruqaa Ink', serif;
+    background: linear-gradient(#ebebeb, #cecece);
 }
 
-main{
+main {
     margin-top: 5%;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 input,
-select{
+select {
     margin-bottom: 1em;
 }
 
+img.miniature
+{
+    max-height: 150px;
+}
+
 .button,
-.button[value="modify"]{
+.button[value="modify"] {
     color: #d08856;
     text-shadow: #593918 1px 1px;
     font-weight: bold;
@@ -127,87 +134,91 @@ select{
     border-radius: 10px;
     margin-left: 10px;
 }
-.button:hover{
+
+.button:hover {
     color: #f6ece5;
     background: linear-gradient(#d08856, #9d6843);
     box-shadow: #6b160b 1px 1px;
     border: rgba(31, 31, 31, 0.7) 1px solid;
 }
 
-.lienFiche{
+.lienFiche {
     color: black;
     text-decoration: none;
     font-weight: bold;
-
 }
 
-i{
+i {
     font-size: 1.5em;
     padding: 10px;
     padding-left: 0;
 }
 
-.pseudoFiche{
+.pseudoFiche {
     font-weight: bold;
     color: #427AA1;
     text-shadow: #17c2e0 2px 2px;
 }
 
-#btnFiche{
+#btnFiche {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
 }
-.boutonFiche{
+
+.boutonFiche {
     color: white;
     text-shadow: #f1f2f3 1px 1px;
 
 }
-.button[value="update"]:hover{
-    background: linear-gradient(#9beec8,#3abb81, #226b4a);
+
+.button[value="update"]:hover {
+    background: linear-gradient(#9beec8, #3abb81, #226b4a);
     color: white;
     text-shadow: black 2px 1px;
     border: black 1px solid;
 }
-.button[value="valider"]:hover{
-    background: linear-gradient(rgb(189, 208, 243),rgb(126, 165, 238), rgb(89, 117, 168));
+
+.button[value="valider"]:hover {
+    background: linear-gradient(rgb(189, 208, 243), rgb(126, 165, 238), rgb(89, 117, 168));
     color: white;
     text-shadow: black 2px 1px;
     border: black 1px solid;
- }
-.button[value="retour"]{
+}
+
+.button[value="retour"] {
     background: linear-gradient(rgba(213, 213, 213, 0.61), rgba(152, 150, 150, 0.61), rgba(82, 81, 81, 0.61));
     color: white;
     text-shadow: black 2px 1px;
     border: black 1px solid;
 }
-.button[value="retour"]:hover{
+
+.button[value="retour"]:hover {
     border: #f58116 1px solid;
     text-shadow: rgba(98, 97, 97, 0.35) 2px 1px;
 }
 
-.button[value="delete"]:hover{
-    background: linear-gradient(rgba(239, 179, 179, 0.61),rgba(238, 75, 75, 0.61), rgba(112, 36, 36, 0.61));
+.button[value="delete"]:hover {
+    background: linear-gradient(rgba(239, 179, 179, 0.61), rgba(238, 75, 75, 0.61), rgba(112, 36, 36, 0.61));
     color: white;
     text-shadow: black 2px 1px;
     border: rgba(112, 36, 36, 0.61) 1px solid;
 }
 
-.newFiche{
+.newFiche {
     margin-top: 50px;
 }
 
-.cardFiche{
-    background: linear-gradient(#d6d7d7, #c4c5c5);
+.cardFiche {
+    background: linear-gradient(#727070, #494848, #494848);
     border: 4px rgba(16, 15, 15, 0.35) solid;
     border-radius: 10px;
     box-shadow: 5px 5px #343642;
-
 }
-.cardTitle{
+
+.cardTitle {
     /*background: linear-gradient(#6c7175, #525250, #41403C);*/
     background: linear-gradient(#ffffff, #bfcacc, #8c8c86);
-
     border-radius: 10px;
     border: 3px rgba(16, 15, 15, 0.35) solid;
     box-shadow: 4px 4px #343642;
@@ -215,54 +226,119 @@ i{
     text-shadow: #252733 2px 1px;
     font-weight: bold;
 }
-.cardTypeInfo{
+
+.cardTypeInfo {
     background: linear-gradient(#f1eeee, #EDEFEE, #EDEFEE, #b7b0b0);
     border-radius: 10px;
-    border: 3px rgba(103, 0, 0, 0.54) solid;
+    border: 3px #a35710 solid;
     box-shadow: 4px 4px #343642;
 }
-.cardChamp{
-    background: linear-gradient(white, #eaedef, #eaedef, #9ca2af);
+
+.cardChamp {
+    /* background: linear-gradient(white, #eaedef, #eaedef, #9ca2af); */
+    background-color: white;
     border-radius: 10px;
     border: 2px rgba(16, 15, 15, 0.35) solid;
-    box-shadow: 3px 3px #343642;
+    box-shadow: 1px 1px #343642;
+}
+.cardChamp:hover {
+    border: 2px #17c2e0 solid;
+    box-shadow: 1px 1px #427AA1;
 }
 
+.cardFicheAide
+{
+    background: linear-gradient(#ceb29d, #c4a894, #977d6b);
+    border-radius: 5px;
+    color: #d08856;
+    text-shadow: #AA210F 2px 2px;
+    font-weight: bold;
+    box-shadow: #525250 3px 3px;
+}
+
+.cardTitleAide
+{
+    background: linear-gradient(#727070, #494848, #494848);
+    border-radius: 5px;
+    color: #d08856;
+    text-shadow: #AA210F 2px 2px;
+    font-weight: bold;
+    box-shadow: #525250 3px 3px;
+}
+
+.cardChampAide {
+    background: linear-gradient(#727070, #494848, #494848);
+    border: 4px rgba(16, 15, 15, 0.35) solid;
+    border-radius: 10px;
+    box-shadow: 5px 5px #343642;
+    color: black;
+    text-shadow: none;
+}
 /* -------------- card champ fiche detail------------------ */
-.champFiche{
+.champFiche {
     display: flex;
     justify-content: center;
 }
-.labelChamps{
+
+.labelChamps {
     font-weight: bold;
     color: #343642;
     text-shadow: #e78f54 1px 1px;
     flex-wrap: nowrap;
 }
-.buttonPrevious{
+
+label{
+    font-weight: bold;
+    color: #343642;
+    text-shadow: #e78f54 1px 1px;
+    flex-wrap: nowrap;
+}
+
+.buttonPrevious {
     align-self: flex-start;
     justify-content: flex-start;
     font-weight: bold;
 }
-.champZoneInfo{
+.buttonPrevious:hover {
+    color: #b33503;
+    text-shadow: #0f0f0f 1px 1px;
+}
+
+.buttonNext {
+    align-self: flex-start;
+    justify-content: flex-start;
+    font-weight: bold;
+}
+.buttonNext:hover {
+    color: #b33503;
+    text-shadow: #0f0f0f 1px 1px;
+}
+
+.champZoneInfo {
     display: flex;
     flex-direction: column;
 }
 
-.modifiable{
+.modifiable {
     color: #296fa8;
     text-shadow: #123149 1px 1px;
     white-space: normal;
 }
 
-#imagefiche{
+#imagefiche {
     border: #296fa8 solid 3px;
     border-radius: 10px;
 }
 
+.titreTypeInfo
+{
+    /* color:#964b00; */
+    font-weight: bold;
+}
+
 
 /* --------------message flash------------------ */
-.flash{
+.flash {
     font-weight: bold;
     font-size: medium;
     height: 40px;
@@ -273,6 +349,7 @@ i{
     padding-right: 10px;
     width: max-content;
 }
+
 /*
 .flash-success{
     background-color: #adf8c5;
@@ -298,71 +375,78 @@ i{
 
 .carousel-item img {
     position: absolute;
-    object-fit:cover;
+    object-fit: cover;
     top: 0;
     left: 0;
     max-height: 50vh;
     width: 50vh;
 }
 
-#carouselCard{
+#carouselCard {
     background: #b5d1f3;
 }
 
-#containerList{
+#containerList {
     display: flex;
     flex-direction: column;
 }
 
 /* --------------modal fiche perso------------------ */
-#modalValeurChamp{
+#modalValeurChamp {
     font-weight: bold;
     color: #3a51bb;
 }
 
-.modifier{
+.modifier {
     color: #3a51bb;
     font-weight: bold;
 }
 
 /* -------------- carteMJ ------------------ */
 
-.pnj, .PNJ{
+.pnj,
+.PNJ {
     background: linear-gradient(#8abdef, #5184b2, #2968a4);
     border: 1px solid black;
 }
-.bestiaire{
+
+.bestiaire {
     background: linear-gradient(#d05050, #b23030, #8d0303);
     border: 1px solid black;
 }
-.dead{
+
+.dead {
     color: red;
     font-weight: bold;
 }
 
-.pvMoinsCarteMJ, .pvPlusCarteMJ{
+.pvMoinsCarteMJ,
+.pvPlusCarteMJ {
     font-size: medium;
 }
 
-.deleteCarteMJ, .updateCarteMJ, .deleteNewCarteMJ, .updateNewCarteMJ{
+.deleteCarteMJ,
+.updateCarteMJ,
+.deleteNewCarteMJ,
+.updateNewCarteMJ {
     font-size: medium;
 }
 
-.champImageCarteMJ{
+.champImageCarteMJ {
     height: 155px;
     display: flex;
     justify-content: center;
     padding-top: 2px;
 }
 
-#noteCarteMj{
+#noteCarteMj {
     text-align: start;
     padding-left: 2px;
     padding-right: 2px;
 }
 
 /* --------------Message------------------ */
-.messageContent{
+.messageContent {
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: 2px 2px 2px #1e1e1e;
@@ -370,24 +454,26 @@ i{
     padding: 4px;
 }
 
-.typeBg{
+.typeBg {
     border-radius: 3px;
     box-shadow: 2px 2px 2px #1e1e1e;
     padding-left: 5px;
 }
 
 /* -------------- Admin liste user------------------ */
-.menuActionUser{
+.menuActionUser {
     background: linear-gradient(#727070, #494848, #494848);
     color: #d08856;
     text-shadow: #AA210F 2px 2px;
     margin: 0;
 }
-.menuAction{
+
+.menuAction {
     font-size: small;
     margin: 0;
 }
-.menuAction:hover{
+
+.menuAction:hover {
     border: #be620d 1px solid;
     background: #f58116;
     color: white;
@@ -395,7 +481,7 @@ i{
 }
 
 /* --------------footer------------------ */
-footer{
+footer {
     margin-top: 50px;
     padding-top: 5px;
 }
@@ -403,10 +489,11 @@ footer{
 
 
 /* ---- TEST --------- */
-.fondMetal{
+.fondMetal {
     background-image: url("../img/skin/bois/fond_bois.jpg");
 }
-.champPlaqueMetal{
+
+.champPlaqueMetal {
     padding: 2% 3% 1.5% 3%;
     background-image: url("../img/skin/metal/plaque_fer.jpg");
     background-size: cover;

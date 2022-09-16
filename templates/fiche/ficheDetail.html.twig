@@ -22,7 +22,7 @@
                             <tbody>
                             <tr>
                                 <td class="col-3">
-                                    <img id="imagefiche" src="{{ asset('uploads/'~ fiche.image) }}" alt="image fiche">
+                                    <img class="miniature" id="imagefiche" src="{{ asset('uploads/'~ fiche.image) }}" alt="image fiche">
                                 </td>
                                 <td class="col">
                                     <h2>
@@ -45,7 +45,7 @@
                 {% endif %}
                 {% if fiche.nbRessource > 0 %}
                     <div class="card mb-2 p-2 cardTypeInfo content-center">
-                        <h3><i class="mdi mdi-ray-vertex"></i> Ressources:</h3>
+                        <h3><i class="mdi mdi-ray-vertex"></i> <span class="titreTypeInfo">Ressources:</span></h3>
                         <div class="row container">
                             {% set count = 0 %}
                             {% for ressource in ressources %}
@@ -76,131 +76,131 @@
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps1 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <h3><i class="mdi mdi-account"></i> Identité:</h3>
-                        <div class="row container">
+                        <dl class="row">
                             {% set count = 0 %}
                             {% for champ in champs %}
                                 {% set count = count + 1 %}
                                 {% if champ.typeInfo.label == 'identité'%}
-                                        <div class="card mb-2 col-4 cardChamp">
-                                            <span class="labelChamps">{{ champ.label }}:</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
+                                    </div>
                                 {% endif %}
                             {% endfor %}
-                        </div>
+                        </dl>
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps2 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <h3><i class="mdi mdi-graphql"></i> Statistiques:</h3>
-                        <div class="card-body row">
+                        <dl class="row">
                             {% set count = 0 %}
                             {% for champ in champs %}
                                 {% set count = count + 1 %}
                                 {% if champ.typeInfo.label == 'statistiques'%}
-                                    <div class="card mb-2 col-4 cardChamp">
-                                        <span class="labelChamps">{{ champ.label }}:</span>
-                                        <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
                                     </div>
                                 {% endif %}
                             {% endfor %}
-                        </div>
+                        </dl>
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps3 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <div class="card-body row">
                             <h3><i class="mdi mdi-arm-flex"></i> Compétences:</h3>
-                            <div class="row container">
-                                {% set count = 0 %}
-                                {% for champ in champs %}
-                                    {% set count = count + 1 %}
-                                    {% if champ.typeInfo.label == 'compétences'%}
-                                        <div class="card mb-2 col-4 cardChamp">
-                                            <span class="labelChamps">{{ champ.label }}:</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                            <dl class="row">
+                            {% set count = 0 %}
+                            {% for champ in champs %}
+                                {% set count = count + 1 %}
+                                {% if champ.typeInfo.label == 'compétences' %}
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </dl>
                         </div>
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps4 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <div class="card-body row">
                             <h3><i class="mdi mdi-axe-battle"></i> Equipements:</h3>
-                            <div class="row container">
-                                {% set count = 0 %}
-                                {% for champ in champs %}
-                                    {% set count = count + 1 %}
-                                    {% if champ.typeInfo.label == 'équipements'%}
-                                        <div class="card mb-2 col-4 cardChamp">
-                                            <span class="labelChamps">{{ champ.label }}:</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                            {% endif %}
-                                {% endfor %}
-                            </div>
+                            <dl class="row">
+                            {% set count = 0 %}
+                            {% for champ in champs %}
+                                {% set count = count + 1 %}
+                                {% if champ.typeInfo.label == 'équipements' %}
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </dl>
                         </div>
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps5 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <div class="card-body row">
                             <h3><i class="mdi mdi-bag-personal"></i> Inventaire:</h3>
-                            <div class="row container">
-                                {% set count = 0 %}
-                                {% for champ in champs %}
-                                    {% set count = count + 1 %}
-                                    {% if champ.typeInfo.label == 'inventaires'%}
-                                        <div class="card mb-2 col-4 cardChamp">
-                                            <span class="labelChamps">{{ champ.label }}:</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                            <dl class="row">
+                            {% set count = 0 %}
+                            {% for champ in champs %}
+                                {% set count = count + 1 %}
+                                {% if champ.typeInfo.label == 'inventaires' %}
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </dl>
                         </div>
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps6 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <div class="card-body row">
                             <h3><i class="mdi mdi-note"></i> Notes:</h3>
-                            <div class="row container">
-                                {% set count = 0 %}
-                                {% for champ in champs %}
-                                    {% set count = count + 1 %}
-                                    {% if champ.typeInfo.label == 'notes'%}
-                                        <div class="card mb-2 col-4 cardChamp">
-                                            <span class="labelChamps">{{ champ.label }}:</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                            <dl class="row">
+                            {% set count = 0 %}
+                            {% for champ in champs %}
+                                {% set count = count + 1 %}
+                                {% if champ.typeInfo.label == 'notes' %}
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </dl>
                         </div>
                     </div>
                 {% endif %}
                 {% if fiche.nbChamps7 > 0 %}
-                    <div class="card mb-2 p-2 cardTypeInfo content-center">
+                    <div class="card mb-2 p-2 px-4 cardTypeInfo content-center">
                         <div class="card-body row">
                             <h3><i class="mdi mdi-sticker-plus"></i> Autre:</h3>
-                            <div class="row container">
-                                {% set count = 0 %}
-                                {% for champ in champs %}
-                                    {% set count = count + 1 %}
-                                    {% if champ.typeInfo.label == 'autres'%}
-                                        <div class="card mb-2 col-4 cardChamp">
-                                            <span class="labelChamps">{{ champ.label }}:</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                            <dl class="row">
+                            {% set count = 0 %}
+                            {% for champ in champs %}
+                                {% set count = count + 1 %}
+                                {% if champ.typeInfo.label == 'autres' %}
+                                    <div class="col my-1 cardChamp text-wrap">
+                                        <dt><span class="labelChamps">{{ champ.label }}:</span></dt>
+                                        <dd><span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="liste" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span></dd>           
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </dl>
                         </div>
                     </div>
                 {% endif %}
@@ -210,11 +210,11 @@
     {# FIN fiche personnage #}
 
     {# AIDE #}
-    <div class="card mt-4 p-4 cardFiche">
-        <div class="card mb-2 cardTitle">
+    <div class="card mt-4 p-4 cardFicheAide">
+        <div class="card mb-2 cardTitleAide">
             <h2 class="text-center"> Aide : </h2>
         </div>
-        <div class="card mb-2 p-2 cardTypeInfo content-center">
+        <div class="card mb-2 p-2 cardChampAide content-center">
             <div class=" col p-2 m-2 cardChamp">
                 <p class="labelChamps">Ajouter ou supprimer un champ ou une ressource:</p>
                 <ul>

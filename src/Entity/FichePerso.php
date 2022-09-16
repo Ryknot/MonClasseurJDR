@@ -36,7 +36,7 @@ class FichePerso
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private $image = 'icon_d20_mini.png';
 
     /**
      * @ORM\Column(type="integer")

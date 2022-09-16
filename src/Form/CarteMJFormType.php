@@ -44,14 +44,15 @@ class CarteMJFormType extends AbstractType
                 'attr' => ['style' => 'height: 200px']
             ])
             ->add('image', FileType::class,[
-                'label' => 'image .jpg (taille max: 150x150) : ',
+                'label' => 'image (taille affichage: 150x150) : ',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxSize' => '15k',
-                        'maxHeight' => '150',
-                        'maxWidth' => '150',
+                        'maxSize' => '1000k',
+                        'maxSizeMessage' => 'Taille du fichier ({{ size }} {{ suffix }}). Le maximum authorisé est {{ limit }} {{ suffix }}.',
+                        /* 'maxHeight' => '150',
+                        'maxWidth' => '150', */
                     ])
                 ]
             ])
