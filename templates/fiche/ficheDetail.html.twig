@@ -50,9 +50,9 @@
                             {% set count = 0 %}
                             {% for ressource in ressources %}
                                 {% set count = count + 1 %}
-                                    <div class="col my-1 col-sm-12 col-lg-4 cardChamp text-nowrap">
+                                    <div class="col my-1 cardChamp text-nowrap">
                                         <dt>
-                                            <span class="labelChamps">
+                                            <span class="labelChamps text-nowrap">
                                                 {{ ressource.label }}:
                                                 <input type="number" class="inputPV refreshValue{{ count }}" min="0" max="{{ ressource.rangeMax }}" value="{{ ressource.valeurGlissante }}" data-Count="{{ count }}" data-id="{{ ressource.id }}" data-Max="{{ ressource.rangeMax }}" style="max-width: 100px"> / <span class="modifiableRangeMax" data-Page="liste" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
                                             </span>

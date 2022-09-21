@@ -57,23 +57,25 @@
                 </div>
             {% endif %}
 
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
-                    <h3> Ressources:</h3>
-                    <div class="row container">
-                        {% set count = 0 %}
-                        {% for ressource in ressources %}
-                            {% set count = count + 1 %}
-                            <div class="card mb-2 col-4 cardChamp">
-                                <span class="labelChamps">
-                                    <span class="cliquableRessource" data-Ressource="{{ ressource.id }}">{{ ressource.label }}: </span>
-                                    <span class="colorValue{{ count }}">
-                                        <span class="refreshValue{{ count }}">{{ ressource.valeurGlissante }}</span> / <span class="modifiableRangeMax" data-Page="update" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
+                <h3> Ressources:</h3>
+                <dl class="row">
+                    {% set count = 0 %}
+                    {% for ressource in ressources %}
+                        {% set count = count + 1 %}
+                            <div class="col my-1 cardChamp text-nowrap">
+                                <dt>
+                                    <span class="labelChamps">
+                                        <span class="cliquableRessource" data-Ressource="{{ ressource.id }}">{{ ressource.label }}: </span>
+                                        <span class="colorValue{{ count }}">
+                                            <span class="refreshValue{{ count }}">{{ ressource.valeurGlissante }}</span> / <span class="modifiableRangeMax" data-Page="update" data-RangeMax="{{ ressource.rangeMax }}" data-id="{{ ressource.id }}">{{ ressource.rangeMax }}</span>
+                                        </span>
                                     </span>
-                                </span>
+                                </dt>
                             </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                    {% endfor %}
+                </dl>
+            </div>
             <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
                 <h3> Identité:</h3>
                 <dl class="row">
