@@ -74,172 +74,161 @@
                         {% endfor %}
                     </div>
                 </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
                 <h3> Identité:</h3>
-                <div class="row container">
+                <dl class="row">
                     {% set count = 0 %}
                     {% for champ in champs %}
                         {% set count = count + 1 %}
                         {% if champ.typeInfo.label == 'identité'%}
-                                <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
                         {% endif %}
                     {% endfor %}
-                </div>
+                </dl>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
                 <h3> Statistiques:</h3>
-                <div class="row container">
+                <dl class="row">
                     {% set count = 0 %}
                     {% for champ in champs %}
                         {% set count = count + 1 %}
                         {% if champ.typeInfo.label == 'statistiques'%}
-                            <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
                         {% endif %}
                     {% endfor %}
-                </div>
+                </dl>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
-                <div class="card-content">
-                    <h3> Compétences:</h3>
-                    <div class="row container">
-                        {% set count = 0 %}
-                        {% for champ in champs %}
-                            {% set count = count + 1 %}
-                            {% if champ.typeInfo.label == 'compétences'%}
-                                <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
+                <h3> Compétences:</h3>
+                <dl class="row">
+                    {% set count = 0 %}
+                    {% for champ in champs %}
+                        {% set count = count + 1 %}
+                        {% if champ.typeInfo.label == 'compétences'%}
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </dl>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
-                <div class="card-content">
-                    <h3> Equipement:</h3>
-                    <div class="row container">
-                        {% set count = 0 %}
-                        {% for champ in champs %}
-                            {% set count = count + 1 %}
-                            {% if champ.typeInfo.label == 'équipements'%}
-                                <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
+                <h3> Equipement:</h3>
+                <dl class="row">
+                    {% set count = 0 %}
+                    {% for champ in champs %}
+                        {% set count = count + 1 %}
+                        {% if champ.typeInfo.label == 'équipements'%}
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </dl>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
-                <div class="card-content">
-                    <h3> Inventaire:</h3>
-                    <div class="row container">
-                        {% set count = 0 %}
-                        {% for champ in champs %}
-                            {% set count = count + 1 %}
-                            {% if champ.typeInfo.label == 'inventaires'%}
-                                <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
+                <h3> Inventaire:</h3>
+                <dl class="row">
+                    {% set count = 0 %}
+                    {% for champ in champs %}
+                        {% set count = count + 1 %}
+                        {% if champ.typeInfo.label == 'inventaire'%}
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </dl>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
-                <div class="card-content">
-                    <h3> Notes:</h3>
-                    <div class="row container">
-                        {% set count = 0 %}
-                        {% for champ in champs %}
-                            {% set count = count + 1 %}
-                            {% if champ.typeInfo.label == 'notes'%}
-                                <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
+                <h3> Notes:</h3>
+                <dl class="row">
+                    {% set count = 0 %}
+                    {% for champ in champs %}
+                        {% set count = count + 1 %}
+                        {% if champ.typeInfo.label == 'notes'%}
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </dl>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo content-center">
-                <div class="card-content">
-                    <h3> Autre:</h3>
-                    <div class="row container">
-                        {% set count = 0 %}
-                        {% for champ in champs %}
-                            {% set count = count + 1 %}
-                            {% if champ.typeInfo.label == 'autres'%}
-                                <div class="card mb-2 col-4  cardChamp ">
-                                    <div class="champFiche">
-                                        <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
-                                        <div class="champZoneInfo col-10">
-                                            <span class="labelChamps cliquableChamp" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
-                                            <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
-                                        </div>
-                                        <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+            <div class="card mb-2 py-2 px-4 cardTypeInfo content-center">
+                <h3> Autre:</h3>
+                <dl class="row">
+                    {% set count = 0 %}
+                    {% for champ in champs %}
+                        {% set count = count + 1 %}
+                        {% if champ.typeInfo.label == 'autres'%}
+                            <div class="col my-1 cardChamp text-wrap">
+                                <dt class="text-nowrap">
+                                    <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
+                                    <span class="labelChamps cliquableChamp mx-3" data-Champ="{{ champ.id }}"> {{ champ.label }}</span>
+                                    <span class="buttonNext" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{champ.sort == (champs|length)-1?'display:none' }}"> > </span>
+                                </dt>
+                                <dd>
+                                    <span class="modifiable" id="champ{{ count }}" data-Count="{{ count }}" data-Page="update" data-Champ="{{ champ.id }}" data-ValeurTexte="{{ champ.valeurTexte }}" data-ValeurArea="{{ champ.valeurArea }}">{{ champ.valeurArea != null ? (champ.valeurArea  | nl2br ) : champ.valeurTexte }}</span>
+                                </dd>           
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </dl>
             </div>
-
         </div>
 
         {# AIDE #}
-        <div class="card mt-4 p-4 cardFiche">
-            <div class="card mb-2 cardTitle">
+        <div class="card mt-4 p-4 cardFicheAide">
+            <div class="card mb-2 cardTitleAide">
                 <h2 class="text-center"> Aide : </h2>
             </div>
-            <div class="card mb-2 p-2 cardTypeInfo">
+            <div class="card mb-2 p-2 cardChampAide content-center">
                 <div class=" col p-2 m-2 cardChamp">
                     <p class="labelChamps">Ajout d'un champ:</p>
                     <ul>

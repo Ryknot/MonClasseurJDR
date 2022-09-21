@@ -7,28 +7,28 @@
 {% block body %}
     <div id="listeFiche" class="container-fluid col-12">
         <div class="row">
-            <div id="containerList" class="col-6 cardFiche m-5 p-5">
+            <div id="containerList" class="cardFiche m-5 p-5 col-lg-8">
                 {% if app.user.id == user.id or is_granted("ROLE_ADMIN")%}
                     <h3 class="cardTitle text-center p-1 mb-5">Fiches de personnages de <span class="pseudoFiche">{{ user.pseudo }}</span></h3>
                     <div class="listPerso">
                         {% if fiches.count != 0 %}
                             {% for fiche in fiches %}
-                                <div class="cardChamp p-2 m-1 col text-center">
-                                    <a class="lienFiche" href="{{ path('fiche_detail', {'id': fiche.id}) }}">
-                                    <table class="col-12">
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-4">
-                                                        <img class="miniature" id="imagefiche" src="{{ asset('uploads/' ~ fiche.image) }}" alt="image fiche">
-                                                </td>
-                                                <td class="col-8">
+                                <a class="lienFiche" href="{{ path('fiche_detail', {'id': fiche.id}) }}">
+                                    <div class="cardChamp py-2 px-4 m-1">
+                                        <dl class="row">
+                                            <div class="col">
+                                                <dt>
+                                                    <img class="miniature" id="imagefiche" src="{{ asset('uploads/' ~ fiche.image) }}" alt="image fiche">
+                                                </dt>
+                                            </div>
+                                            <div class="col align-self-center">
+                                                <dt>
                                                     {{ fiche.pseudo }}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    </a>
-                                </div>
+                                                </dt>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </a>
                             {% endfor %}
                         {% else %}
                             <p>pas de fiche perso</p>
