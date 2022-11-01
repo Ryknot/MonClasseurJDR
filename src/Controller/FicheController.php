@@ -88,6 +88,7 @@ class FicheController extends AbstractController
             //récupération valeur bouton
             $boutonFiche = $request->get("boutonFiche");
 
+
             return $this->render('fiche/ficheDetail.html.twig', [
                 'fiche' => $fiche,
                 'listeInfo' => $listeInfo,
@@ -96,7 +97,7 @@ class FicheController extends AbstractController
                 'boutonFiche' => $boutonFiche
             ]);
         } else {
-            //identification mauvais user + logMenace + alert + checkMenace + redirection
+            //identification mauvais user + redirection
             $realUser = $this->securityService->findRealUser();
 
             return $this->redirectToRoute('fiche_list', [

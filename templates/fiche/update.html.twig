@@ -166,7 +166,7 @@
                     {% set count = 0 %}
                     {% for champ in champs %}
                         {% set count = count + 1 %}
-                        {% if champ.typeInfo.label == 'inventaire'%}
+                        {% if champ.typeInfo.label == 'inventaires'%}
                             <div class="col my-1 cardChamp text-wrap">
                                 <dt class="text-nowrap">
                                     <span class="buttonPrevious" data-Champ="{{ champ.id }}" data-sort="{{ champ.sort }}" style="{{ champ.sort==0?'display:none' }}"> < </span>
