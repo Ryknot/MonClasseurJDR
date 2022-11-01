@@ -15,6 +15,7 @@ use App\Repository\TypeInfoRepository;
 use App\Repository\UserRepository;
 use App\Service\LogService;
 use App\Service\SecurityService;
+use App\Service\GlobalService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,19 +38,20 @@ class FicheController extends AbstractController
     /**
      * @Route("/profil/{id}/fiche/list", name="fiche_list")
      */
-    public function listFiche(int $id, UserRepository $userRepository)
+    public function listFiche(int $id, UserRepository $userRepository, GlobalService $globalService)
     {
 
         $user = $userRepository->find($id);
         //récupération de l'instance du user pour contrôle sécurité
         if ($this->getUser() == $user || $this->isGranted("ROLE_ADMIN")) {
             $fiches = $user->getFichePersos();
-            $directory = $this->getParameter('images_directory');
+
+            //TODO: gestion stockage image
+            $globalService->checkFileExistImageFiche($user);
 
             return $this->render('fiche/list.html.twig', [
                 'user' => $user,
                 'fiches' => $fiches,
-                'directory' => $directory
             ]);
         } else {
             //identification mauvais user + logMenace + alert + checkMenace + redirection
