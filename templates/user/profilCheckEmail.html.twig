@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="cardFiche col m-5"  style="min-width: 100px">
+        <h2 class="h3 m-3 font-weight-normal cardTitle text-center p-1">Contrôle email</h2>
+        <div class="cardChamp m-3 p-4" style="min-width: 70px">
+            <div class="col p-2 m-2 infoFiche text-start alert alert-info" role="alert">
+                Saisissez votre email.
+            </div>
+            <form action="#" method="POST" name="profilCheckEmail">
+                <dl>
+                    <dt>
+                        <label for="email">Email*</label>
+                    </dt>
+                    <dd>
+                        <input type="text" id="email" name="email" placeholder="email" required="required">
+                    </dd>
+                </dl>
+                <input type="hidden" id="postEmail" name="postEmail" value="postEmail" required="required" readonly="readonly">
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-sm button text-nowrap" value="update">Valider</button>
+                    </div>
+                </div>
+            </form>
+         </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    profil Update | {{ parent() }}
+{% endblock %}
+

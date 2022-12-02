@@ -12,6 +12,9 @@
                 <li class="nav-item mr-1">
                     <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}" title="Register">{{ 'registration' | trans }}</a>
                 </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link active text-nowrap" aria-current="page" href="{{ path('user_checkEmail') }}" title="ForgotPassword">Mot de passe oublié</a>
+                </li>
             {% elseif app.user.active == false %}
                 <li class="nav-item mr-1">
                     <a class="nav-link active" aria-current="page" href="{{ path('app_register_activation', {'id':app.user.id}) }}" title="Activation"><span class="text-nowrap">Activer mon compte</span></a>

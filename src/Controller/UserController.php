@@ -12,13 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
- */
 class UserController extends AbstractController
 {
     /**
      * @Route("/profil/{id}", name="user_profil")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
      */
     public function profil(int $id, UserRepository $userRepository): Response
     {
@@ -31,6 +29,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/profil/{id}/update", name="user_profilUpdate")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
      */
     public function profilUpdate(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager, LogService $logService, MailerService $mailerService): Response
     {
@@ -207,9 +206,22 @@ class UserController extends AbstractController
                     );
                     $entityManager->flush();
                     $this->addFlash('success', "Votre mot de passe a été modifié avec succès. ");
-                    return $this->render('user/profil.html.twig', [
-                        'user' => $user,
-                    ]);
+
+                    $appUser = $_POST['postUser'];
+
+                    if($appUser == $user)
+                    {
+                        return $this->render('user/profil.html.twig', [
+                            'user' => $user,
+                        ]);
+                    }
+                    else
+                    {
+                        return $this->redirectToRoute('app_login', [
+                            
+                        ]);
+                    }
+                    
 
                 }catch (\Exception $e) {
                     $this->addFlash('warning', "Erreur traitement du code validation. ");
